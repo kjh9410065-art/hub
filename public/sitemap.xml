@@ -16,4 +16,9 @@
   <url><loc>https://hub.carpick.workers.dev/tools/url</loc></url>
   <url><loc>https://hub.carpick.workers.dev/tools/uuid</loc></url>
   <url><loc>https://hub.carpick.workers.dev/tools/markdown</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/regex</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/word</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/color</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/timestamp</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/qr</loc></url>
 </urlset>

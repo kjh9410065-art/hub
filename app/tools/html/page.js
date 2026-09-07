@@ -1,0 +1,7 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+
+// HTML의 불필요한 공백과 줄바꿈을 줄여 전송·저장용 문자열을 만듭니다.
+export default function HtmlPage(){const [input,setInput]=useState("");const [mode,setMode]=useState("min");const output=mode==="min"?input.replace(/<!--(?!\[if)[\s\S]*?-->/g,"").replace(/\s{2,}/g," ").replace(/>\s+</g,"><").trim():input.replace(/></g,">\n<").replace(/\n\s+/g,"\n").trim();return <main className="page toolPage"><header className="header"><Link className="logo" href="/">HUB</Link><nav><Link href="/tools">도구 모음</Link><Link href="/">서비스 찾기</Link></nav></header><section className="guideHero"><div className="eyebrow">HTML FORMATTER</div><h1>HTML 정리기<br/><span>압축하거나 펼치기</span></h1><p>HTML의 불필요한 공백을 줄이거나 태그별 줄바꿈을 적용합니다.</p></section><section className="section"><div className="toolPanel"><div className="toolActions"><button className={mode==="min"?"active":""} onClick={()=>setMode("min")}>압축</button><button className={mode==="pretty"?"active":""} onClick={()=>setMode("pretty")}>정리</button></div><textarea value={input} onChange={e=>setInput(e.target.value)} placeholder="<div>   <h1>Hello</h1>   <p>World</p> </div>"/><div className="toolActions"><button onClick={()=>navigator.clipboard.writeText(output)}>결과 복사</button><button onClick={()=>setInput("")}>초기화</button></div><div className="toolResult"><small>결과</small><pre>{output||"여기에 결과가 표시됩니다."}</pre></div><p className="toolNote">HTML 문법을 검증하는 도구가 아니므로 변환 후 결과를 확인하세요.</p></div></section></main>}

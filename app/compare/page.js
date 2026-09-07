@@ -1,17 +1,45 @@
-// 서비스 비교 페이지: 검색 유입 사용자가 대표 서비스를 한 화면에서 비교하도록 합니다.
+/* HUB 1.2 비교 화면: 추천 페이지에서 고른 서비스를 최대 4개까지 PC·모바일 각각 최적화해 비교합니다. */
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { serviceMap } from "../lib/services";
 
-export const metadata = { title: "AI 서비스 비교 | HUB", description: "대표 AI API와 생성형 미디어 서비스를 목적과 주요 활용 분야 기준으로 비교합니다." };
-
-const services = [
-  ["OpenAI API", "AI 모델", "텍스트·이미지·음성·멀티모달", "챗봇·콘텐츠·범용 AI 앱"],
-  ["Google Gemini API", "AI 모델", "텍스트·이미지·멀티모달", "Google 생태계·멀티모달 앱"],
-  ["Claude API", "AI 모델", "텍스트·코딩·분석", "문서·분석·코딩"],
-  ["Groq", "AI 추론 API", "빠른 LLM 추론", "빠른 AI 앱·챗봇"],
-  ["Replicate", "AI 모델 실행", "이미지·영상·오픈 모델", "생성형 미디어·모델 실험"],
-  ["fal", "생성형 미디어 API", "이미지·영상·음성", "생성형 미디어 앱"],
-  ["ElevenLabs", "AI 음성", "TTS·더빙·음성", "음성 콘텐츠"],
-  ["Firecrawl", "웹 데이터 API", "검색·크롤링·데이터", "웹 데이터 수집"],
+const fallback=["openai","gemini","claude","groq"];
+const rows=[
+  ["category","분류"],["price","비용 부담"],["free","무료 시작"],["difficulty","개발 난이도"],["api","API"],["image","이미지"],["video","영상"],["voice","음성"],["search","검색"],["bestFor","추천 용도"],["strengths","강점"],["caveat","주의할 점"]
 ];
 
-export default function Compare() { return <main className="page comparePage"><header className="header"><Link className="logo" href="/">HUB</Link><nav><Link href="/guides">가이드</Link><Link href="/">추천받기</Link></nav></header><section className="guideHero"><div className="eyebrow">SERVICE COMPARE</div><h1>이름만 보지 말고,<br /><span>용도로 비교하세요.</span></h1><p>가격과 기능은 계속 변할 수 있으므로 최신 공식 정보를 확인하면서 선택하세요.</p></section><section className="section"><div className="compareTable"><div className="compareHead"><b>서비스</b><b>분류</b><b>주요 기능</b><b>추천 용도</b></div>{services.map(([name,category,features,best]) => <div className="compareRow" key={name}><strong>{name}</strong><span>{category}</span><span>{features}</span><span>{best}</span></div>)}</div><Link className="primaryLink" href="/">내 목적에 맞는 서비스 찾기 →</Link></section></main>; }
+export default function Compare(){
+  const [selected,setSelected]=useState([]);
+  useEffect(()=>{
+    try{
+      const raw=JSON.parse(localStorage.getItem("hub-compare")||"[]");
+      setSelected(raw.filter(id=>serviceMap[id]).slice(0,4));
+    }catch{setSelected([])}
+  },[]);
+
+  const list=selected.length?selected:fallback;
+  const remove=(id)=>{
+    const next=selected.filter(x=>x!==id);
+    setSelected(next); localStorage.setItem("hub-compare",JSON.stringify(next));
+  };
+  const clear=()=>{setSelected([]);localStorage.removeItem("hub-compare")};
+  const value=(s,key)=>{
+    if(["image","video","voice","search"].includes(key)) return s.features[key]?"지원":"—";
+    if(key==="free") return s.free?"가능":"없음";
+    if(key==="api") return s.api?"제공":"확인 필요";
+    if(key==="strengths") return s.strengths.join(" · ");
+    return s[key] ?? "—";
+  };
+  return <main className="page comparePage compareModern">
+    <header className="header"><Link className="logo" href="/">HUB</Link><nav><Link href="/guides">가이드</Link><Link href="/recommend">추천받기</Link></nav></header>
+    <section className="guideHero compareHero"><div className="eyebrow">SERVICE COMPARE · HUB 1.2</div><h1>선택지를 한눈에,<br/><span>내게 맞는 쪽을 비교하세요.</span></h1><p>최대 4개 서비스를 비용·기능·난이도 기준으로 비교합니다.</p></section>
+    <section className="section compareSection">
+      <div className="compareToolbar"><div><b>{selected.length||4}개 서비스</b><span>{selected.length?"추천에서 선택한 서비스":"기본 비교 목록"}</span></div><div className="toolbarActions"><Link href="/recommend">서비스 더 고르기</Link>{selected.length>0&&<button onClick={clear}>전체 해제</button>}</div></div>
+      <div className="compareDesktop"><div className="compareMatrixHead"><div className="matrixLabel">비교 항목</div>{list.map(id=><div className="matrixService" key={id}><span>{serviceMap[id].icon}</span><strong>{serviceMap[id].name}</strong>{selected.includes(id)&&<button onClick={()=>remove(id)} aria-label={`${serviceMap[id].name} 제거`}>×</button>}</div>)}</div>{rows.map(([key,label])=><div className="compareMatrixRow" key={key}><div className="matrixLabel">{label}</div>{list.map(id=><div key={id} className={key==="bestFor"?"matrixStrong":""}>{value(serviceMap[id],key)}</div>)}</div>)}</div>
+      <div className="compareMobile">{list.map((id,index)=>{const s=serviceMap[id];return <article className={`mobileCompareCard ${index===0?"featured":""}`} key={id}><header><div className="mobileServiceIcon">{s.icon}</div><div><strong>{s.name}</strong><small>{s.category}</small></div>{selected.includes(id)&&<button onClick={()=>remove(id)}>×</button>}</header><div className="mobileScore"><span>{index===0?"비교 기준 추천":"비교 대상"}</span><b>{s.price}</b></div><dl>{rows.slice(2,11).map(([key,label])=><div key={key}><dt>{label}</dt><dd>{value(s,key)}</dd></div>)}</dl><a href={s.url} target="_blank" rel="noreferrer">공식 사이트 ↗</a></article>})}</div>
+      <Link className="primaryLink compareBottomLink" href="/recommend">내 조건으로 다시 추천받기 →</Link>
+    </section>
+  </main>;
+}

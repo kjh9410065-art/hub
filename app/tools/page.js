@@ -19,6 +19,17 @@ const tools = [
  {href:"/tools/percent",icon:"%",title:"퍼센트 계산기",desc:"할인·인상·증감 금액을 빠르게 계산합니다."},
  {href:"/tools/bytes",icon:"💾",title:"데이터 용량 변환기",desc:"Bytes부터 TB까지 데이터 단위를 변환합니다."},
  {href:"/tools/base",icon:"01",title:"진법 변환기",desc:"2·8·10·16진수 값을 서로 변환합니다."},
+ {href:"/tools/slug",icon:"🔤",title:"URL 슬러그 생성기",desc:"제목과 문장을 검색·공유에 쓰기 좋은 URL 형태로 정리합니다."},
+ {href:"/tools/entities",icon:"<>" ,title:"HTML 엔티티 변환기",desc:"HTML 특수문자를 엔티티로 인코딩하거나 다시 복원합니다."},
+ {href:"/tools/jwt",icon:"JWT",title:"JWT 디코더",desc:"JWT의 Header와 Payload 내용을 브라우저에서 확인합니다."},
+ {href:"/tools/csv-json",icon:"CSV",title:"CSV · JSON 변환기",desc:"표 데이터를 JSON으로, JSON 배열을 CSV로 변환합니다."},
+ {href:"/tools/sql",icon:"SQL",title:"SQL 포맷터",desc:"한 줄 SQL을 주요 절 기준으로 읽기 쉽게 정리합니다."},
+ {href:"/tools/html",icon:"HTML",title:"HTML 정리기",desc:"HTML을 압축하거나 태그별 줄바꿈으로 보기 좋게 정리합니다."},
+ {href:"/tools/cron",icon:"⏰",title:"Cron 도우미",desc:"5필드 Cron 표현식을 분·시·일·월·요일로 나눠 확인합니다."},
+ {href:"/tools/table",icon:"▤",title:"Markdown 표 생성기",desc:"쉼표로 구분한 데이터를 Markdown 표로 변환합니다."},
+ {href:"/tools/lorem",icon:"Aa",title:"더미 텍스트 생성기",desc:"개발·디자인 테스트용 Lorem Ipsum을 원하는 길이로 만듭니다."},
+ {href:"/tools/number",icon:"123",title:"숫자 포맷터",desc:"큰 숫자에 구분을 넣고 만·억·조 단위로 확인합니다."},
+ {href:"/tools/discount",icon:"🏷️",title:"연속 할인 계산기",desc:"여러 할인율을 순서대로 적용한 실제 최종 가격을 계산합니다."},
  {href:"/compare",icon:"⚖️",title:"AI 서비스 비교",desc:"대표 AI 서비스를 기능과 용도 중심으로 한눈에 비교합니다."},
  {href:"/guides",icon:"🧭",title:"목적별 선택 가이드",desc:"쇼츠·이미지·챗봇·음성 등 만들고 싶은 결과물부터 서비스를 찾습니다."}
 ];

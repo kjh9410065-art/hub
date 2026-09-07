@@ -1,4 +1,4 @@
-/* HUB 1.3: 전체 서비스 카탈로그를 사용해 목적·예산·난이도·핵심 기능을 함께 계산합니다. */
+/* HUB 1.5: 추천 화면의 목적 아이콘을 캐시가 남아 있는 기존 파일과 분리된 SVG 자산으로 교체합니다. */
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -7,14 +7,15 @@ import "./recommend-next.css";
 import { catalog, catalogMap } from "../lib/catalog";
 import { rankServices } from "../lib/recommendation";
 
-// 아이콘은 이모지 대신 저장된 SVG 일러스트를 사용합니다.
+// 운영체제별 이모지 대신 HUB 전용 SVG 일러스트를 사용합니다.
+// 새 파일명을 사용해 이전 배포본의 아이콘 캐시와도 확실하게 분리합니다.
 const goals = [
-  ["shorts", "/illustrations/task-shorts.svg", "쇼츠 만들기", "이미지·영상·음성을 조합해 콘텐츠 제작"],
-  ["image", "/illustrations/task-image.svg", "AI 이미지 만들기", "생성·편집·상품 이미지 제작"],
-  ["video", "/illustrations/task-video.svg", "AI 영상 만들기", "텍스트·이미지 기반 영상 제작"],
-  ["voice", "/illustrations/task-voice.svg", "AI 음성 만들기", "TTS·더빙·음성 콘텐츠 제작"],
-  ["chat", "/illustrations/task-chat.svg", "AI 챗봇 만들기", "LLM을 활용한 서비스 개발"],
-  ["api", "/illustrations/task-api.svg", "개발용 API 찾기", "검색·크롤링·AI 인프라 연결"]
+  ["shorts", "/illustrations/task-short.svg", "쇼츠 만들기", "이미지·영상·음성을 조합해 콘텐츠 제작"],
+  ["image", "/illustrations/task-image-new.svg", "AI 이미지 만들기", "생성·편집·상품 이미지 제작"],
+  ["video", "/illustrations/task-video-new.svg", "AI 영상 만들기", "텍스트·이미지 기반 영상 제작"],
+  ["voice", "/illustrations/task-voice-new.svg", "AI 음성 만들기", "TTS·더빙·음성 콘텐츠 제작"],
+  ["chat", "/illustrations/task-chat-new.svg", "AI 챗봇 만들기", "LLM을 활용한 서비스 개발"],
+  ["api", "/illustrations/task-api-new.svg", "개발용 API 찾기", "검색·크롤링·AI 인프라 연결"]
 ];
 
 const budgetOptions = [["free", "무료 우선"], ["low", "저렴하게 시작"], ["any", "비용 상관없음"]];
@@ -84,7 +85,7 @@ export default function RecommendPage() {
         </header>
 
         <section className="recommendIntro">
-          <div className="eyebrow">HUB 1.3 · PERSONAL RECOMMEND</div>
+          <div className="eyebrow">HUB 1.5 · PERSONAL RECOMMEND</div>
           <h1>조건까지 반영해서<br /><span>{selectedGoal?.[2]}</span>을 찾아보세요.</h1>
           <p>{selectedGoal?.[3]}</p>
         </section>

@@ -7,24 +7,10 @@ export const metadata = {
 };
 
 const tools = [
-  {
-    href: "/tools/cost",
-    icon: "🧮",
-    title: "AI API 비용 계산기",
-    desc: "예상 사용량을 입력하고 월간 API 비용을 빠르게 계산합니다."
-  },
-  {
-    href: "/compare",
-    icon: "⚖️",
-    title: "AI 서비스 비교",
-    desc: "대표 AI 서비스를 기능과 용도 중심으로 한눈에 비교합니다."
-  },
-  {
-    href: "/guides",
-    icon: "🧭",
-    title: "목적별 선택 가이드",
-    desc: "쇼츠·이미지·챗봇·음성 등 만들고 싶은 결과물부터 서비스를 찾습니다."
-  }
+  { href: "/tools/cost", icon: "🧮", title: "AI API 비용 계산기", desc: "예상 사용량을 입력하고 월간 API 비용을 빠르게 계산합니다." },
+  { href: "/tools/token", icon: "🔢", title: "AI 토큰 추정기", desc: "프롬프트를 붙여 넣고 대략적인 토큰 사용량을 확인합니다." },
+  { href: "/compare", icon: "⚖️", title: "AI 서비스 비교", desc: "대표 AI 서비스를 기능과 용도 중심으로 한눈에 비교합니다." },
+  { href: "/guides", icon: "🧭", title: "목적별 선택 가이드", desc: "쇼츠·이미지·챗봇·음성 등 만들고 싶은 결과물부터 서비스를 찾습니다." }
 ];
 
 export default function ToolsPage() {
@@ -32,10 +18,7 @@ export default function ToolsPage() {
     <main className="page toolPage">
       <header className="header">
         <Link className="logo" href="/">HUB</Link>
-        <nav>
-          <Link href="/guides">가이드</Link>
-          <Link href="/compare">비교하기</Link>
-        </nav>
+        <nav><Link href="/guides">가이드</Link><Link href="/compare">비교하기</Link></nav>
       </header>
 
       <section className="guideHero">

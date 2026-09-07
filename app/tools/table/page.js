@@ -1,0 +1,7 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import Link from "next/link";
+
+// 쉼표로 구분한 데이터를 Markdown 표로 만들어 블로그·문서에 바로 붙일 수 있게 합니다.
+export default function TablePage(){const [input,setInput]=useState("이름,가격,평점\n상품 A,12000,4.8\n상품 B,18000,4.6");const output=useMemo(()=>{const rows=input.split(/\r?\n/).map(r=>r.split(",").map(x=>x.trim())).filter(r=>r.length);if(!rows.length)return "";const width=rows[0].length;const normalized=rows.map(r=>Array.from({length:width},(_,i)=>r[i]||""));return [`| ${normalized[0].join(" | ")} |`,`| ${normalized[0].map(()=>"---").join(" | ")} |`,...normalized.slice(1).map(r=>`| ${r.join(" | ")} |`)].join("\n")},[input]);return <main className="page toolPage"><header className="header"><Link className="logo" href="/">HUB</Link><nav><Link href="/tools">도구 모음</Link><Link href="/">서비스 찾기</Link></nav></header><section className="guideHero"><div className="eyebrow">MARKDOWN TABLE</div><h1>Markdown 표 만들기<br/><span>복붙 한 번으로</span></h1><p>쉼표로 나눈 데이터를 Markdown 표 형식으로 변환합니다.</p></section><section className="section"><div className="toolPanel"><textarea value={input} onChange={e=>setInput(e.target.value)} placeholder="이름,가격,평점\n상품 A,12000,4.8"/><div className="toolActions"><button onClick={()=>navigator.clipboard.writeText(output)}>결과 복사</button><button onClick={()=>setInput("")}>초기화</button></div><div className="toolResult"><small>Markdown 결과</small><pre>{output||"여기에 결과가 표시됩니다."}</pre></div><p className="toolNote">쉼표가 데이터 안에 포함된 복잡한 CSV는 CSV 변환 도구를 이용하세요.</p></div></section></main>}

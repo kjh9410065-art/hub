@@ -3,12 +3,34 @@
   <url><loc>https://hub.carpick.workers.dev/</loc></url>
   <url><loc>https://hub.carpick.workers.dev/recommend</loc></url>
   <url><loc>https://hub.carpick.workers.dev/catalog</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/compare</loc></url>
   <url><loc>https://hub.carpick.workers.dev/guides</loc></url>
   <url><loc>https://hub.carpick.workers.dev/guides/shorts</loc></url>
   <url><loc>https://hub.carpick.workers.dev/guides/image</loc></url>
   <url><loc>https://hub.carpick.workers.dev/guides/chat</loc></url>
   <url><loc>https://hub.carpick.workers.dev/guides/voice</loc></url>
-  <url><loc>https://hub.carpick.workers.dev/compare</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/openai</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/gemini</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/claude</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/groq</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/replicate</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/fal</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/elevenlabs</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/firecrawl</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/runpod</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/huggingface</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/mistral</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/together</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/google-ai-studio</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/perplexity</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/deepseek</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/cohere</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/stability</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/leonardo</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/runway</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/pika</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/suno</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/services/canva</loc></url>
   <url><loc>https://hub.carpick.workers.dev/tools</loc></url>
   <url><loc>https://hub.carpick.workers.dev/tools/cost</loc></url>
   <url><loc>https://hub.carpick.workers.dev/tools/token</loc></url>

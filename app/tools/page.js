@@ -9,6 +9,7 @@ export const metadata = {
 const tools = [
   { href: "/tools/cost", icon: "🧮", title: "AI API 비용 계산기", desc: "예상 사용량을 입력하고 월간 API 비용을 빠르게 계산합니다." },
   { href: "/tools/token", icon: "🔢", title: "AI 토큰 추정기", desc: "프롬프트를 붙여 넣고 대략적인 토큰 사용량을 확인합니다." },
+  { href: "/tools/prompt", icon: "✍️", title: "프롬프트 길이 측정", desc: "프롬프트의 글자·단어·줄 수와 예상 토큰을 바로 확인합니다." },
   { href: "/tools/json", icon: "{ }", title: "JSON 정리·검사", desc: "AI API 응답과 설정 JSON의 문법을 검사하고 보기 좋게 정리합니다." },
   { href: "/tools/base64", icon: "64", title: "Base64 변환기", desc: "텍스트와 Base64 문자열을 인코딩·디코딩합니다." },
   { href: "/compare", icon: "⚖️", title: "AI 서비스 비교", desc: "대표 AI 서비스를 기능과 용도 중심으로 한눈에 비교합니다." },

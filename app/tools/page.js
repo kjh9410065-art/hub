@@ -15,6 +15,11 @@ const tools = [
   { href: "/tools/url", icon: "🔗", title: "URL 인코더·디코더", desc: "한글·공백·특수문자를 URL용 문자열로 변환하거나 복원합니다." },
   { href: "/tools/uuid", icon: "🆔", title: "UUID 생성기", desc: "개발에 사용할 UUID를 최대 20개까지 한 번에 생성합니다." },
   { href: "/tools/markdown", icon: "MD", title: "Markdown 정리기", desc: "AI가 만든 Markdown의 불필요한 공백과 빈 줄을 정리합니다." },
+  { href: "/tools/regex", icon: ".*", title: "정규식 테스트기", desc: "정규식 패턴과 테스트 문자열을 넣어 매칭 결과를 즉시 확인합니다." },
+  { href: "/tools/word", icon: "Aa", title: "텍스트 분석기", desc: "글자·단어·줄 수와 한글 글자 수를 한눈에 확인합니다." },
+  { href: "/tools/color", icon: "🎨", title: "색상 변환기", desc: "HEX 색상을 RGB와 HSL 값으로 변환합니다." },
+  { href: "/tools/timestamp", icon: "⏱", title: "Timestamp 변환기", desc: "Unix timestamp를 날짜와 시간으로 변환합니다." },
+  { href: "/tools/qr", icon: "▣", title: "QR 빠른 공유 가이드", desc: "URL과 텍스트를 QR로 공유할 때 알아둘 점을 확인합니다." },
   { href: "/compare", icon: "⚖️", title: "AI 서비스 비교", desc: "대표 AI 서비스를 기능과 용도 중심으로 한눈에 비교합니다." },
   { href: "/guides", icon: "🧭", title: "목적별 선택 가이드", desc: "쇼츠·이미지·챗봇·음성 등 만들고 싶은 결과물부터 서비스를 찾습니다." }
 ];
@@ -26,21 +31,16 @@ export default function ToolsPage() {
         <Link className="logo" href="/">HUB</Link>
         <nav><Link href="/guides">가이드</Link><Link href="/compare">비교하기</Link></nav>
       </header>
-
       <section className="guideHero">
         <div className="eyebrow">HUB TOOLS</div>
         <h1>서비스를 고르기 전에,<br /><span>직접 계산하고 비교하세요.</span></h1>
         <p>무료 도구를 이용해 필요한 서비스와 예상 비용을 먼저 확인할 수 있습니다.</p>
       </section>
-
       <section className="section">
         <div className="guideGrid">
           {tools.map((tool) => (
             <Link className="guideCard" href={tool.href} key={tool.href}>
-              <span className="toolIcon">{tool.icon}</span>
-              <h2>{tool.title}</h2>
-              <p>{tool.desc}</p>
-              <b>사용하기 →</b>
+              <span className="toolIcon">{tool.icon}</span><h2>{tool.title}</h2><p>{tool.desc}</p><b>사용하기 →</b>
             </Link>
           ))}
         </div>

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "AI 무료 도구 | HUB",
-  description: "AI 서비스 선택에 도움이 되는 무료 계산기와 실용 도구를 HUB에서 이용하세요."
+  description: "AI 서비스 선택에 도움이 되는 무료 계산기와 개발자용 실용 도구를 HUB에서 이용하세요."
 };
 
 const tools = [
@@ -12,6 +12,9 @@ const tools = [
   { href: "/tools/prompt", icon: "✍️", title: "프롬프트 길이 측정", desc: "프롬프트의 글자·단어·줄 수와 예상 토큰을 바로 확인합니다." },
   { href: "/tools/json", icon: "{ }", title: "JSON 정리·검사", desc: "AI API 응답과 설정 JSON의 문법을 검사하고 보기 좋게 정리합니다." },
   { href: "/tools/base64", icon: "64", title: "Base64 변환기", desc: "텍스트와 Base64 문자열을 인코딩·디코딩합니다." },
+  { href: "/tools/url", icon: "🔗", title: "URL 인코더·디코더", desc: "한글·공백·특수문자를 URL용 문자열로 변환하거나 복원합니다." },
+  { href: "/tools/uuid", icon: "🆔", title: "UUID 생성기", desc: "개발에 사용할 UUID를 최대 20개까지 한 번에 생성합니다." },
+  { href: "/tools/markdown", icon: "MD", title: "Markdown 정리기", desc: "AI가 만든 Markdown의 불필요한 공백과 빈 줄을 정리합니다." },
   { href: "/compare", icon: "⚖️", title: "AI 서비스 비교", desc: "대표 AI 서비스를 기능과 용도 중심으로 한눈에 비교합니다." },
   { href: "/guides", icon: "🧭", title: "목적별 선택 가이드", desc: "쇼츠·이미지·챗봇·음성 등 만들고 싶은 결과물부터 서비스를 찾습니다." }
 ];

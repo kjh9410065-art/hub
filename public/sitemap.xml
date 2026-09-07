@@ -7,5 +7,7 @@
   <url><loc>https://hub.carpick.workers.dev/guides/chat</loc></url>
   <url><loc>https://hub.carpick.workers.dev/guides/voice</loc></url>
   <url><loc>https://hub.carpick.workers.dev/compare</loc></url>
-  <url><loc>https://hub.carpick.workers.dev/tools/ai-cost-calculator</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/cost</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/token</loc></url>
 </urlset>

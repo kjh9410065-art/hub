@@ -1,0 +1,7 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import Link from "next/link";
+
+// 할인율을 연속으로 적용했을 때 실제 최종 가격을 계산합니다.
+export default function DiscountPage(){const [price,setPrice]=useState(100000);const [discounts,setDiscounts]=useState("20,10");const result=useMemo(()=>{let current=Number(price)||0;const rates=discounts.split(",").map(x=>Number(x.trim())).filter(x=>Number.isFinite(x)&&x>=0&&x<=100);rates.forEach(r=>current*=1-r/100);return {final:Math.round(current),saved:Math.round((Number(price)||0)-current),rates}},[price,discounts]);return <main className="page toolPage"><header className="header"><Link className="logo" href="/">HUB</Link><nav><Link href="/tools">도구 모음</Link><Link href="/">서비스 찾기</Link></nav></header><section className="guideHero"><div className="eyebrow">DISCOUNT CALCULATOR</div><h1>연속 할인 계산기<br/><span>실제 가격을 확인</span></h1><p>20% 할인 후 10% 추가 할인처럼 여러 할인율을 순서대로 적용합니다.</p></section><section className="section"><div className="toolPanel"><label>원래 가격<input type="number" value={price} onChange={e=>setPrice(e.target.value)} /></label><label>할인율 <small>쉼표로 구분</small><input value={discounts} onChange={e=>setDiscounts(e.target.value)} placeholder="20,10" /></label><div className="statGrid"><div className="statCard"><b>{result.final.toLocaleString()}원</b><span>최종 가격</span></div><div className="statCard"><b>{result.saved.toLocaleString()}원</b><span>총 절약 금액</span></div></div><p className="toolNote">각 할인율은 이전 할인 후 금액에 순차 적용됩니다.</p></div></section></main>}

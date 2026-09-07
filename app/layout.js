@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./hub-design.css";
 
 export const metadata = {
   title: "HUB — 목적에 맞는 AI·개발 서비스 찾기",

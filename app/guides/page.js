@@ -15,8 +15,8 @@ export const metadata = {
 
 export default function Guides() {
   return <main className="page guidePage">
-    <header className="header"><Link className="logo" href="/">HUB</Link><nav><Link href="/">서비스 찾기</Link><Link href="/compare">비교하기</Link></nav></header>
+    <header className="header"><Link className="logo" href="/">HUB</Link><nav><Link href="/">서비스 찾기</Link><Link href="/compare">비교하기</Link><Link href="/tools/ai-cost-calculator">비용 계산기</Link></nav></header>
     <section className="guideHero"><div className="eyebrow">HUB GUIDE</div><h1>무엇을 만들지 정했다면,<br /><span>도구 선택은 더 쉽게.</span></h1><p>목적별로 어떤 서비스가 잘 맞는지 빠르게 확인하세요.</p></section>
-    <section className="section"><div className="guideGrid">{guides.map(([id,title,desc]) => <Link className="guideCard" href={`/guides/${id}`} key={id}><span>HUB GUIDE</span><h2>{title}</h2><p>{desc}</p><b>가이드 보기 →</b></Link>)}</div></section>
+    <section className="section"><div className="guideGrid">{guides.map(([id,title,desc]) => <Link className="guideCard" href={`/guides/${id}`} key={id}><span>HUB GUIDE</span><h2>{title}</h2><p>{desc}</p><b>가이드 보기 →</b></Link>)}</div><Link className="primaryLink" href="/tools/ai-cost-calculator" style={{display:"block",marginTop:18,textAlign:"center"}}>AI API 비용 계산기 →</Link></section>
   </main>;
 }

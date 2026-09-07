@@ -24,4 +24,15 @@
   <url><loc>https://hub.carpick.workers.dev/tools/percent</loc></url>
   <url><loc>https://hub.carpick.workers.dev/tools/bytes</loc></url>
   <url><loc>https://hub.carpick.workers.dev/tools/base</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/slug</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/entities</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/jwt</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/csv-json</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/sql</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/html</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/cron</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/table</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/lorem</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/number</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/discount</loc></url>
 </urlset>

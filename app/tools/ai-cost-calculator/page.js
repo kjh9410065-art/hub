@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-export const metadata = { title: "AI API 비용 계산기 | HUB", description: "월간 입력·출력 토큰을 기준으로 AI API 예상 사용 비용을 계산하는 무료 도구입니다." };
-
+// 이 페이지는 입력값을 브라우저에서 계산하는 클라이언트 컴포넌트입니다.
+// Next.js의 metadata는 서버 컴포넌트에서만 선언할 수 있으므로 이 파일에서는 제거했습니다.
 const models = [
   { name: "직접 입력", input: 0, output: 0, note: "공식 가격을 확인한 뒤 직접 입력" },
-  { name: "Gemini 3.7 Flash · Standard", input: 0.75, output: 3.75, note: "2026-12-31까지 공개된 현재 프로모션 가격" },
-  { name: "Gemini 3.7 Flash-Lite · Standard", input: 0.25, output: 1.5, note: "Google 공식 가격표 기준" },
+  { name: "Gemini 3.7 Flash · Standard", input: 0.75, output: 3.75, note: "계산용 예시 가격 · 사용 전 공식 가격 확인" },
+  { name: "Gemini 3.7 Flash-Lite · Standard", input: 0.25, output: 1.5, note: "계산용 예시 가격 · 사용 전 공식 가격 확인" },
   { name: "예시: 저가형 LLM", input: 0.2, output: 1.2, note: "비교용 예시값 · 실제 선택 전 공식 가격 확인" },
 ];
 
@@ -18,6 +18,7 @@ export default function Calculator() {
   const [outputTokens, setOutputTokens] = useState(5);
   const [requests, setRequests] = useState(1000);
 
+  // 월간 요청 수와 요청당 입력·출력 토큰을 이용해 예상 비용을 계산합니다.
   const cost = useMemo(() => {
     const monthlyInput = Number(inputTokens) * Number(requests);
     const monthlyOutput = Number(outputTokens) * Number(requests);
@@ -59,7 +60,7 @@ export default function Calculator() {
 
         <div style={{ marginTop: 18, padding: 18, borderRadius: 16, background: "#fff", border: "1px solid #e5e2eb", fontSize: 12, color: "#666", lineHeight: 1.7 }}>
           <b style={{ color: "#444" }}>가격 데이터 안내</b><br />
-          Gemini 가격은 Google의 공식 Gemini API 가격표를 기준으로 입력했습니다. 가격과 모델은 변경될 수 있으므로 결제 전 공식 가격 페이지를 확인하세요.
+          표시 가격은 계산 편의를 위한 값이며 모델과 가격은 변경될 수 있습니다. 결제 전 반드시 각 제공사의 공식 가격 페이지를 확인하세요.
         </div>
 
         <Link href="/compare" className="primaryLink" style={{ display: "block", marginTop: 18, textAlign: "center" }}>서비스 비교로 돌아가기 →</Link>

@@ -6,14 +6,15 @@ import { catalog } from "./lib/catalog";
 import { rankServices } from "./lib/recommendation";
 import "./home.css";
 
-// 홈에서 보여줄 목적 목록입니다. 아이콘은 문자 아이콘 대신 저장소의 SVG 자산을 사용합니다.
+// 홈의 목적 카드는 운영체제별 이모지가 아니라 HUB 전용 SVG 일러스트를 사용합니다.
+// 신규 파일명으로 연결해 이전 배포본의 아이콘 캐시가 남아 있어도 새 디자인을 받도록 합니다.
 const tasks = [
-  { id: "shorts", icon: "/illustrations/task-shorts.svg", title: "쇼츠 만들기", desc: "이미지·영상·음성까지 한 번에" },
-  { id: "image", icon: "/illustrations/task-image.svg", title: "AI 이미지 만들기", desc: "생성·편집·상품 이미지" },
-  { id: "video", icon: "/illustrations/task-video.svg", title: "AI 영상 만들기", desc: "텍스트·이미지로 영상 생성" },
-  { id: "voice", icon: "/illustrations/task-voice.svg", title: "AI 음성 만들기", desc: "음성 생성·더빙·변환" },
-  { id: "chat", icon: "/illustrations/task-chat.svg", title: "AI 챗봇 만들기", desc: "LLM API로 서비스 개발" },
-  { id: "api", icon: "/illustrations/task-api.svg", title: "개발용 API 찾기", desc: "검색·크롤링·AI 인프라" }
+  { id: "shorts", icon: "/illustrations/task-short.svg", title: "쇼츠 만들기", desc: "이미지·영상·음성까지 한 번에" },
+  { id: "image", icon: "/illustrations/task-image-new.svg", title: "AI 이미지 만들기", desc: "생성·편집·상품 이미지" },
+  { id: "video", icon: "/illustrations/task-video-new.svg", title: "AI 영상 만들기", desc: "텍스트·이미지로 영상 생성" },
+  { id: "voice", icon: "/illustrations/task-voice-new.svg", title: "AI 음성 만들기", desc: "음성 생성·더빙·변환" },
+  { id: "chat", icon: "/illustrations/task-chat-new.svg", title: "AI 챗봇 만들기", desc: "LLM API로 서비스 개발" },
+  { id: "api", icon: "/illustrations/task-api-new.svg", title: "개발용 API 찾기", desc: "검색·크롤링·AI 인프라" }
 ];
 
 const categories = ["전체", "LLM", "이미지", "영상", "음성", "검색", "개발", "인프라", "생산성"];

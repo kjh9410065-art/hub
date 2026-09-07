@@ -8,6 +8,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
+      <head>
+        {/* 개별 SVG 일러스트를 별도 정적 CSS로 연결해 기존 Next 전역 CSS와 분리합니다. */}
+        <link rel="stylesheet" href="/illustrations.css" />
+      </head>
       <body>{children}</body>
     </html>
   );

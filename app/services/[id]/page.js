@@ -52,12 +52,16 @@ export default async function ServiceDetail({ params }) {
     ["image", "이미지"],
     ["video", "영상"],
     ["voice", "음성"],
-    ["search", "검색"]
+    ["search", "검색"],
+    ["api", "API"]
   ];
   const primaryGoal = getPrimaryGoal(service);
   const primaryResult = scoreService(service, { goal: primaryGoal.id });
   const affiliateReady = hasAffiliateLink(service);
   const outboundUrl = getOutboundUrl(service);
+  const supportedFeatureKeys = features
+    .filter(([key]) => key === "api" ? service.api : Boolean(service.features?.[key] || service.uses?.includes(key)))
+    .map(([key]) => key);
 
   // 같은 목적과 기능을 공유하는 서비스를 계산해 상세 페이지의 대안으로 보여줍니다.
   const related = catalog
@@ -112,6 +116,12 @@ export default async function ServiceDetail({ params }) {
           <span>{service.free ? "무료 시작 가능" : "무료 시작 정보 없음"}</span>
           <span>{service.api ? "API 제공" : "API 없음"}</span>
         </div>
+        <div className="heroFeatureRow">
+          <strong>핵심 기능</strong>
+          {supportedFeatureKeys.slice(0, 5).map((key) => (
+            <span key={key}>{features.find(([featureKey]) => featureKey === key)?.[1]}</span>
+          ))}
+        </div>
       </section>
 
       <section className="serviceVerdict">
@@ -147,7 +157,7 @@ export default async function ServiceDetail({ params }) {
           <div className="featureList">
             {features.map(([key, label]) => {
               // 상세 페이지도 카탈로그·추천과 동일하게 features와 uses를 모두 지원 데이터로 취급합니다.
-              const supported = service.features?.[key] || service.uses?.includes(key);
+              const supported = key === "api" ? Boolean(service.api) : Boolean(service.features?.[key] || service.uses?.includes(key));
               return (
                 <div key={key} className={supported ? "supported" : "disabled"}>
                   <span>{label}</span>
@@ -182,6 +192,7 @@ export default async function ServiceDetail({ params }) {
 
       <section className={`serviceBottom ${affiliateReady ? "affiliateBottom" : ""}`}>
         <Link href="/recommend">맞춤 추천 다시 받기</Link>
+        <Link href={`/compare?services=${service.id}`}>이 서비스 비교하기</Link>
         <HubOutboundLink
           service={service}
           href={outboundUrl}

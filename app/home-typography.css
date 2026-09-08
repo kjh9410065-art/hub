@@ -1,0 +1,130 @@
+/* HUB 홈 가독성 보정 레이어입니다.
+   기존 레이아웃과 카드 크기는 유지하면서 너무 작게 보이던 보조 문구와 버튼 글자를 키웁니다.
+   모바일·Flip·Fold·가로·PC 모두 같은 원칙으로 적용하고, 좁은 화면에서는 줄바꿈을 허용합니다. */
+
+.homePage{
+  /* 모바일 브라우저의 임의 텍스트 축소를 막지 않고 기본 글자 크기를 안정적으로 유지합니다. */
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+
+/* 헤더와 섹션의 기본 보조 텍스트를 먼저 한 단계 올립니다. */
+.topNav a{font-size:12px}
+.sectionKicker{font-size:11px}
+.stepHeading>p:last-child{font-size:13px}
+
+/* 목적 카드: 제목과 설명 모두 실제 휴대폰에서 읽기 쉬운 크기로 조정합니다. */
+.taskCopy strong{font-size:15px}
+.taskCopy small{font-size:11px}
+.taskChevron{font-size:27px}
+
+/* 추천 영역의 필터와 검색 UI는 정보 전달이 목적이므로 기존 8~10px 글자를 키웁니다. */
+.recommendTabs button,
+.recommendTabs label,
+.recommendTabs a{font-size:12px}
+.searchBox input{font-size:13px}
+.searchBox button{font-size:11px}
+.featureFilters button{font-size:11px}
+.resultMeta{font-size:11px}
+.resultMeta button{font-size:11px}
+
+/* 서비스 카드의 핵심 정보는 제목 16px, 설명 12px 이상으로 통일합니다. */
+.serviceName{font-size:16px}
+.matchBadge,.freeBadge{font-size:10px}
+.serviceBest{font-size:12px}
+.tagList span{font-size:9px}
+.recommendReason{font-size:11px;line-height:1.55}
+.recommendReasonLabel{font-size:9px}
+.favoriteButton{font-size:10px}
+.detailButton,.compareButton{font-size:12px}
+.moreLink{font-size:12px}
+
+/* 카테고리와 비교 영역도 동일한 가독성 기준을 적용합니다. */
+.categoryCard span{font-size:12px}
+.categoryCard b{font-size:10px}
+.categoryCard i{font-size:21px}
+.compareCta strong{font-size:14px}
+.compareCta small{font-size:10px}
+.compareCta>b{font-size:25px}
+.homeFooter strong{font-size:13px}
+.homeFooter span,.footerLinks a{font-size:10px}
+.compareBar strong{font-size:12px}
+.compareBar span{font-size:10px}
+.compareBarActions button,.compareBarActions a{font-size:10px}
+
+/* 좁은 일반폰: 글자 크기는 낮추되 10px 아래로 내려가지 않도록 합니다. */
+@media(max-width:430px) and (orientation:portrait){
+  .topNav a{font-size:10px}
+  .sectionKicker{font-size:10px}
+  .stepHeading>p:last-child{font-size:12px}
+  .taskCopy strong{font-size:14px}
+  .taskCopy small{font-size:10px}
+  .recommendTabs button,.recommendTabs label,.recommendTabs a{font-size:11px}
+  .searchBox input{font-size:12px}
+  .featureFilters button{font-size:10px}
+  .resultMeta{font-size:10px}
+  .resultMeta button{font-size:10px}
+  .serviceName{font-size:15px}
+  .matchBadge,.freeBadge{font-size:9px}
+  .serviceBest{font-size:11px}
+  .tagList span{font-size:9px}
+  .recommendReason{font-size:10px}
+  .recommendReasonLabel{font-size:9px}
+  .favoriteButton{font-size:9px}
+  .detailButton,.compareButton{font-size:11px}
+  .categoryCard span{font-size:11px}
+  .categoryCard b{font-size:9px}
+  .compareCta strong{font-size:13px}
+  .compareCta small{font-size:10px}
+  .homeFooter span,.footerLinks a{font-size:9px}
+}
+
+/* Flip/Fold 세로: 넓어진 카드에서도 텍스트가 지나치게 작아 보이지 않도록 한 단계 올립니다. */
+@media(min-width:431px) and (max-width:900px) and (orientation:portrait){
+  .taskCopy strong{font-size:15px}
+  .taskCopy small{font-size:11px}
+  .serviceName{font-size:16px}
+  .serviceBest{font-size:12px}
+  .tagList span{font-size:9px}
+  .recommendReason{font-size:11px}
+  .detailButton,.compareButton{font-size:12px}
+  .categoryCard span{font-size:12px}
+}
+
+/* 휴대폰·Flip 가로 화면은 카드가 두 열로 줄어들므로 최소 10~11px의 본문 크기를 유지합니다. */
+@media(max-width:900px) and (orientation:landscape){
+  .topNav a{font-size:10px}
+  .stepHeading>p:last-child{font-size:11px}
+  .taskCopy strong{font-size:13px}
+  .taskCopy small{font-size:10px}
+  .recommendTabs button,.recommendTabs label,.recommendTabs a{font-size:10px}
+  .searchBox input{font-size:11px}
+  .featureFilters button{font-size:10px}
+  .resultMeta{font-size:10px}
+  .serviceName{font-size:14px}
+  .serviceBest{font-size:10px}
+  .tagList span{font-size:8px}
+  .recommendReason{font-size:9px}
+  .recommendReasonLabel{font-size:8px}
+  .detailButton,.compareButton{font-size:10px}
+  .categoryCard span{font-size:11px}
+  .categoryCard b{font-size:9px}
+}
+
+/* 태블릿·PC: 작은 보조문구도 충분한 크기로 유지해 정보 밀도를 높이면서 가독성을 확보합니다. */
+@media(min-width:901px){
+  .topNav a{font-size:12px}
+  .taskCopy strong{font-size:15px}
+  .taskCopy small{font-size:11px}
+  .serviceName{font-size:16px}
+  .serviceBest{font-size:12px}
+  .tagList span{font-size:9px}
+  .recommendReason{font-size:11px}
+  .detailButton,.compareButton{font-size:12px}
+  .categoryCard span{font-size:12px}
+  .homeFooter span,.footerLinks a{font-size:10px}
+}
+
+/* 사용자가 브라우저에서 글자 크기를 키워도 레이아웃이 잘 흐르도록 줄바꿈을 허용합니다. */
+.taskCopy,.serviceInfo,.recommendReason,.categoryCard,.compareCta,.homeFooter{min-width:0}
+.serviceBest,.taskCopy small,.recommendReason,.compareCta small,.homeFooter span{overflow-wrap:anywhere}

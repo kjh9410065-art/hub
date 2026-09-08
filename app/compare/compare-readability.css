@@ -1,19 +1,69 @@
-/* 비교 결과의 설명을 읽기 쉽게 유지하면서 데스크톱에서는 4개 조건을 한 줄에 배치합니다. */
+/* 비교 결과의 설명을 읽기 쉽게 유지하면서 아이콘과 0.5단위 별점을 함께 보여줍니다. */
 @media (min-width: 761px) {
-  /* 1위 배너는 화면을 많이 차지하지 않도록 compact 카드로 유지합니다. */
+  /* 1위 배너: 서비스 아이콘 + 별점 + 상세 버튼을 한 줄 구조로 정리합니다. */
   .compareWinner {
-    width: min(320px, 100%);
-    min-height: 155px;
+    width: min(560px, 100%);
+    min-height: 165px;
     aspect-ratio: auto;
-    padding: 20px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .compareWinnerService {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+  }
+
+  .compareWinnerService > div:last-child { min-width: 0; }
+
+  .compareWinnerIcon,
+  .decisionServiceIcon {
+    flex: 0 0 auto;
+    width: 50px;
+    height: 50px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: #f1eeff;
+    overflow: hidden;
+  }
+
+  .compareWinnerIcon img,
+  .decisionServiceIcon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 8px;
   }
 
   .compareWinnerKicker { font-size: 11px; }
-  .compareWinner strong { font-size: 22px; }
-  .compareWinner p { margin-top: 9px; font-size: 12px; line-height: 1.65; }
+  .compareWinner strong { display: block; margin-top: 2px; font-size: 22px; }
+  .compareWinner p { margin: 5px 0 0; font-size: 12px; line-height: 1.6; }
+
+  .compareWinner > a {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: 10px;
+    background: #6049cf;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
   .scoreNotice { font-size: 13px; line-height: 1.65; margin-top: -4px; }
 
-  /* 4개의 조건 카드를 PC에서는 정확히 4열로 배치합니다. */
   .decisionGrid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 12px;
@@ -25,72 +75,147 @@
   .decisionSectionIntro > strong { font-size: 25px; }
   .decisionSectionIntro > p { font-size: 13px; line-height: 1.65; }
 
-  /* 카드 자체는 작게 만들되, 설명은 12~13px로 읽을 수 있게 유지합니다. */
+  /* 조건 카드마다 회사 아이콘과 별점을 넣어 서비스가 한눈에 들어오게 합니다. */
   .decisionCard {
     min-height: 205px;
     padding: 18px;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     box-sizing: border-box;
   }
 
   .decisionCard > span { font-size: 12px; }
-  .decisionCard > strong { font-size: 20px; margin-top: 9px; }
+
+  .decisionServiceHead {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 10px;
+  }
+
+  .decisionServiceIcon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
+  .decisionServiceIcon img { padding: 6px; }
+  .decisionCard > .decisionServiceHead > strong { margin: 0; font-size: 19px; }
+
+  .starRating {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .decisionCard > .starRating { margin-top: 8px; }
+
+  /* 별은 숫자 대신 0.5단위로 표시하며 반쪽 별은 CSS 그라데이션으로 표현합니다. */
+  .ratingStar {
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    line-height: 1;
+    color: #ddd9e5;
+  }
+
+  .ratingStar.filled { color: #f5b72e; }
+  .ratingStar.empty { color: #ddd9e5; }
+  .ratingStar.half {
+    color: #ddd9e5;
+    background: linear-gradient(90deg, #f5b72e 50%, #ddd9e5 50%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .starRating.large .ratingStar { font-size: 24px; }
+
   .decisionCard > p {
     flex: 1;
-    margin: 10px 0 14px;
+    margin: 9px 0 12px;
     min-height: 0;
     font-size: 12px;
     line-height: 1.7;
     color: #625d6b;
   }
-  .decisionCard > a { font-size: 12px; }
 
-  /* 아래 요약 영역도 같은 크기 체계로 맞춥니다. */
+  .decisionCard > a { font-size: 12px; font-weight: 800; }
+
+  .snapshotTop .starRating { margin-left: auto; }
+  .snapshotTop .ratingStar { font-size: 15px; }
+
   .comparisonSnapshot { padding: 22px; }
   .snapshotIntro > strong { font-size: 23px; }
   .snapshotIntro > p { font-size: 12px; line-height: 1.65; }
   .snapshotTop strong { font-size: 15px; }
   .snapshotTop small { font-size: 10px; }
-  .snapshotTop > b { font-size: 14px; }
   .snapshotBadges span, .snapshotFeatures span { font-size: 9px; }
   .snapshotCard p { font-size: 11px; line-height: 1.6; }
 
-  /* 비교표의 실제 데이터도 너무 작지 않게 유지합니다. */
   .compareMatrixHead > div, .compareMatrixRow > div { font-size: 14px; line-height: 1.7; }
   .matrixLabel { font-size: 13px !important; }
-  .matrixScore strong { font-size: 16px; }
+  .matrixScore .ratingStar { font-size: 18px; }
   .matrixScore small { font-size: 11px; line-height: 1.55; }
+}
+
+@media (min-width: 761px) and (max-width: 1050px) {
+  /* 태블릿 폭에서는 카드가 너무 좁아지지 않도록 2열로 전환합니다. */
+  .decisionGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* 모바일에서는 4열을 강제로 유지하지 않고 한 장씩 읽기 쉽게 배치합니다. */
 @media (max-width: 760px) {
-  .compareWinner { width: 100%; min-height: 165px; padding: 20px; aspect-ratio: auto; }
-  .compareWinnerKicker { font-size: 10px; }
-  .compareWinner strong { font-size: 19px; }
-  .compareWinner p { margin-top: 8px; font-size: 12px; line-height: 1.7; }
-  .scoreNotice { font-size: 11px; line-height: 1.65; }
+  .compareWinner {
+    width: 100%;
+    min-height: 165px;
+    padding: 18px;
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 13px;
+  }
 
+  .compareWinnerService { display: flex; align-items: center; gap: 11px; min-width: 0; }
+  .compareWinnerIcon { flex: 0 0 46px; width: 46px; height: 46px; border-radius: 13px; background: #f1eeff; overflow: hidden; }
+  .compareWinnerIcon img { width: 100%; height: 100%; object-fit: contain; padding: 7px; }
+  .compareWinnerKicker { font-size: 10px; }
+  .compareWinner strong { display: block; margin-top: 2px; font-size: 19px; }
+  .compareWinner p { margin: 5px 0 0; font-size: 12px; line-height: 1.65; }
+  .compareWinner > a { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; border-radius: 10px; background: #6049cf; color: #fff; font-size: 11px; font-weight: 800; text-decoration: none; }
+
+  .scoreNotice { font-size: 11px; line-height: 1.65; }
   .decisionGrid { grid-template-columns: 1fr; gap: 10px; }
   .decisionSectionIntro > span { font-size: 11px; }
   .decisionSectionIntro > strong { font-size: 20px; }
   .decisionSectionIntro > p { font-size: 12px; line-height: 1.65; }
   .decisionCard { min-height: 0; padding: 17px; }
   .decisionCard > span { font-size: 11px; }
-  .decisionCard > strong { font-size: 18px; }
+  .decisionServiceHead { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+  .decisionServiceIcon { width: 38px; height: 38px; border-radius: 11px; }
+  .decisionServiceIcon img { padding: 5px; }
+  .decisionCard > .decisionServiceHead > strong { margin: 0; font-size: 18px; }
+  .decisionCard > .starRating { margin-top: 7px; }
+  .ratingStar { font-size: 19px; }
+  .starRating.large .ratingStar { font-size: 22px; }
   .decisionCard > p { margin: 8px 0 12px; font-size: 12px; line-height: 1.7; }
   .decisionCard > a { font-size: 12px; }
 
+  .snapshotTop .starRating { margin-left: auto; }
+  .snapshotTop .ratingStar { font-size: 12px; }
   .snapshotIntro > strong { font-size: 19px; }
   .snapshotIntro > p { font-size: 11px; line-height: 1.65; }
   .snapshotTop strong { font-size: 12px; }
   .snapshotTop small { font-size: 9px; }
-  .snapshotTop > b { font-size: 11px; }
   .snapshotBadges span, .snapshotFeatures span { font-size: 8px; }
   .snapshotCard p { font-size: 10px; line-height: 1.6; }
-
   .mobileCompareReason { font-size: 11px; line-height: 1.65; }
   .mobileCompareCard dt { font-size: 11px; }
   .mobileCompareCard dd { font-size: 12px; }
+  .mobileScore .starRating { margin-left: auto; }
 }

@@ -91,3 +91,27 @@ export function hasAffiliateLink(service) {
 export function getAffiliateDisclosure(service) {
   return getAffiliateProgram(service)?.disclosure || "";
 }
+
+// 실제 제휴 링크가 연결되기 전에도 서비스별 외부 클릭 수를 브라우저에 기록합니다.
+// 이후 Cloudflare Analytics/Workers 같은 서버 측 수집기로 교체할 때 동일한 이벤트 구조를 재사용할 수 있습니다.
+export function trackOutboundClick(service, source = "unknown") {
+  if (typeof window === "undefined" || !service?.id) return;
+
+  const event = {
+    serviceId: service.id,
+    provider: service.name,
+    source,
+    affiliate: hasAffiliateLink(service),
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    const key = "hub-outbound-clicks";
+    const current = JSON.parse(window.localStorage.getItem(key) || "[]");
+    const next = Array.isArray(current) ? current.slice(-199) : [];
+    next.push(event);
+    window.localStorage.setItem(key, JSON.stringify(next));
+  } catch {
+    // 저장이 막힌 브라우저에서도 외부 링크 이동 자체는 정상적으로 동작하게 합니다.
+  }
+}

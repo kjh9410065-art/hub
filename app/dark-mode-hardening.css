@@ -1,9 +1,6 @@
 /* 다크모드 최종 보정: 각 페이지에서 새로 추가된 카드·패널·버튼도 같은 테마를 강제로 따르도록 합니다. */
-html[data-theme="dark"] {
-  color-scheme: dark;
-}
+html[data-theme="dark"] { color-scheme: dark; }
 
-/* 모든 주요 컨테이너와 카드의 밝은 배경을 제거합니다. */
 html[data-theme="dark"] .comparePage,
 html[data-theme="dark"] .compareModern,
 html[data-theme="dark"] .compareGoalBox,
@@ -25,7 +22,22 @@ html[data-theme="dark"] .compareGoalTabs button {
   color: #eeeaf3 !important;
 }
 
-/* 비교표 안의 행·헤더·서비스 영역까지 같은 어두운 계층으로 통일합니다. */
+/* 모든 비교 카드의 외곽선은 상태와 관계없이 같은 다크 테두리로 통일합니다. */
+html[data-theme="dark"] .compareWinner,
+html[data-theme="dark"] .decisionCard,
+html[data-theme="dark"] .decisionCard.primary,
+html[data-theme="dark"] .comparisonSnapshot,
+html[data-theme="dark"] .snapshotCard,
+html[data-theme="dark"] .snapshotCard.winner,
+html[data-theme="dark"] .mobileCompareCard,
+html[data-theme="dark"] .mobileCompareCard.featured,
+html[data-theme="dark"] .compareCandidate,
+html[data-theme="dark"] .compareCandidate.recommended,
+html[data-theme="dark"] .compareGoalBox,
+html[data-theme="dark"] .compareDesktop {
+  border-color: #302c39 !important;
+}
+
 html[data-theme="dark"] .compareMatrixHead,
 html[data-theme="dark"] .compareMatrixRow,
 html[data-theme="dark"] .compareMatrixHead > div,
@@ -38,11 +50,8 @@ html[data-theme="dark"] .compareScoreRow {
   color: #bdb7c7 !important;
 }
 html[data-theme="dark"] .compareMatrixHead,
-html[data-theme="dark"] .compareScoreRow {
-  background: #211e29 !important;
-}
+html[data-theme="dark"] .compareScoreRow { background: #211e29 !important; }
 
-/* 모바일 상세 비교 카드 내부의 흰색 정보 박스를 전부 어두운 패널로 바꿉니다. */
 html[data-theme="dark"] .mobileCompareCard header,
 html[data-theme="dark"] .mobileCompareCard dl,
 html[data-theme="dark"] .mobileCompareCard dl > div,
@@ -51,15 +60,11 @@ html[data-theme="dark"] .mobileCompareReason {
   background: transparent !important;
   border-color: #393342 !important;
 }
-html[data-theme="dark"] .mobileScore {
-  background: #211e29 !important;
-}
+html[data-theme="dark"] .mobileScore { background: #211e29 !important; }
 html[data-theme="dark"] .mobileCompareCard dd,
 html[data-theme="dark"] .mobileCompareCard dt,
 html[data-theme="dark"] .mobileCompareCard header small,
-html[data-theme="dark"] .mobileCompareReason {
-  color: #aaa5b2 !important;
-}
+html[data-theme="dark"] .mobileCompareReason { color: #aaa5b2 !important; }
 html[data-theme="dark"] .mobileCompareCard header button,
 html[data-theme="dark"] .matrixService button {
   background: #28242f !important;
@@ -67,7 +72,6 @@ html[data-theme="dark"] .matrixService button {
   color: #bdb7c7 !important;
 }
 
-/* 서비스 후보·스냅샷의 아이콘 영역도 흰색으로 남지 않게 합니다. */
 html[data-theme="dark"] .compareCandidateIcon,
 html[data-theme="dark"] .snapshotCard img,
 html[data-theme="dark"] .snapshotBadges span,
@@ -77,7 +81,6 @@ html[data-theme="dark"] .mobileSnapshotBadges span {
   border-color: #393342 !important;
 }
 
-/* 활성/추천 요소는 HUB 보라색 계열을 유지합니다. */
 html[data-theme="dark"] .compareGoalTabs button.active,
 html[data-theme="dark"] .compareCandidate > button,
 html[data-theme="dark"] .toolbarActions a,
@@ -88,28 +91,22 @@ html[data-theme="dark"] .compareWinnerActions > a {
   color: #fff !important;
 }
 
-/* 튜토리얼·공통 플로팅 버튼도 완전한 다크 UI로 고정합니다. */
 html[data-theme="dark"] .hubTutorialHelp,
 html[data-theme="dark"] .hubThemeToggle {
   background: #211e29 !important;
   border-color: #3a3545 !important;
   color: #eeeaf3 !important;
 }
-html[data-theme="dark"] .hubTutorialBackdrop {
-  background: rgba(0,0,0,.72) !important;
-}
+html[data-theme="dark"] .hubTutorialBackdrop { background: rgba(0,0,0,.72) !important; }
 html[data-theme="dark"] .hubTutorial {
   background: #18161d !important;
   border-color: #302c39 !important;
   color: #eeeaf3 !important;
 }
 
-/* 일반적인 흰색 폼 컨트롤도 다크모드에서 자동으로 통일합니다. */
 html[data-theme="dark"] input,
 html[data-theme="dark"] textarea,
-html[data-theme="dark"] select {
-  color-scheme: dark;
-}
+html[data-theme="dark"] select { color-scheme: dark; }
 html[data-theme="dark"] .comparePage input,
 html[data-theme="dark"] .comparePage textarea,
 html[data-theme="dark"] .comparePage select {

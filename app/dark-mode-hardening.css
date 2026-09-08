@@ -382,3 +382,26 @@ html[data-theme="dark"] .ratingStar.emptyStar {
   border-radius: 0 !important;
   color: #5e586d !important;
 }
+
+/* 실제 외곽선이 없던 주요 카드도 보라색 1px 테두리를 명시적으로 생성합니다. */
+html[data-theme="dark"] .homePage .categoryCard,
+html[data-theme="dark"] .homePage .taskCard,
+html[data-theme="dark"] .homePage .serviceCard,
+html[data-theme="dark"] .homePage .miniCard,
+html[data-theme="dark"] .recommendPage .recommendCandidate,
+html[data-theme="dark"] .recommendPage .resultCard,
+html[data-theme="dark"] .catalogPage .catalogCard,
+html[data-theme="dark"] .catalogPage .searchSuggestionCard,
+html[data-theme="dark"] .serviceDetail .serviceDetailGrid article,
+html[data-theme="dark"] .serviceDetail .relatedCard,
+html[data-theme="dark"] .serviceDetail .toolPanel,
+html[data-theme="dark"] .comparePage .compareGoalBox,
+html[data-theme="dark"] .comparePage .compareWinner,
+html[data-theme="dark"] .comparePage .decisionCard,
+html[data-theme="dark"] .comparePage .comparisonSnapshot,
+html[data-theme="dark"] .comparePage .snapshotCard,
+html[data-theme="dark"] .comparePage .compareDesktop,
+html[data-theme="dark"] .comparePage .mobileCompareCard,
+html[data-theme="dark"] .catalogPage .catalogCompareBar {
+  border: 1px solid #7659d6 !important;
+}

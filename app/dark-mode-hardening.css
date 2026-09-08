@@ -22,22 +22,6 @@ html[data-theme="dark"] .compareGoalTabs button {
   color: #eeeaf3 !important;
 }
 
-/* 모든 비교 카드의 외곽선은 상태와 관계없이 같은 다크 테두리로 통일합니다. */
-html[data-theme="dark"] .compareWinner,
-html[data-theme="dark"] .decisionCard,
-html[data-theme="dark"] .decisionCard.primary,
-html[data-theme="dark"] .comparisonSnapshot,
-html[data-theme="dark"] .snapshotCard,
-html[data-theme="dark"] .snapshotCard.winner,
-html[data-theme="dark"] .mobileCompareCard,
-html[data-theme="dark"] .mobileCompareCard.featured,
-html[data-theme="dark"] .compareCandidate,
-html[data-theme="dark"] .compareCandidate.recommended,
-html[data-theme="dark"] .compareGoalBox,
-html[data-theme="dark"] .compareDesktop {
-  border-color: #302c39 !important;
-}
-
 html[data-theme="dark"] .compareMatrixHead,
 html[data-theme="dark"] .compareMatrixRow,
 html[data-theme="dark"] .compareMatrixHead > div,
@@ -114,3 +98,6 @@ html[data-theme="dark"] .comparePage select {
   border-color: #373241 !important;
   color: #eeeaf3 !important;
 }
+
+/* 비교 화면의 보라색 강조 테두리는 원래 스타일을 그대로 유지합니다.
+   다크모드 공통 규칙으로 회색 테두리를 덮어쓰지 않습니다. */

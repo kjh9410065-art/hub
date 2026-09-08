@@ -1,9 +1,9 @@
-// HUB 검색 보조 모듈 2.0입니다.
-// 정확한 서비스 이름을 몰라도 목적·기능·태그·무료 여부·API 제공 여부를 함께 찾아낼 수 있게 합니다.
-// 검색 결과는 단순 포함 여부가 아니라 점수를 계산하므로 더 관련성 높은 서비스가 먼저 노출됩니다.
+// HUB 검색 보조 모듈 3.0입니다.
+// 검색어를 단순 문자열이 아니라 "목적 + 조건"으로 해석해 관련 서비스가 먼저 나오도록 합니다.
+// 홈과 카탈로그가 같은 검색 엔진을 사용하도록 모든 검색 순위 계산을 이 모듈에서 처리합니다.
 
 const aliases = {
-  쇼츠: ["shorts", "영상", "콘텐츠", "음성", "숏폼"],
+  쇼츠: ["shorts", "영상", "콘텐츠", "숏폼"],
   숏츠: ["shorts", "영상", "콘텐츠", "숏폼"],
   릴스: ["shorts", "영상", "콘텐츠", "숏폼"],
   틱톡: ["shorts", "영상", "콘텐츠", "숏폼"],
@@ -20,12 +20,12 @@ const aliases = {
   더빙: ["voice", "음성", "아바타"],
   tts: ["voice", "음성", "더빙"],
   stt: ["voice", "전사", "음성"],
-  챗봇: ["chat", "llm", "text", "api", "대화"],
-  채팅봇: ["chat", "llm", "api", "대화"],
-  llm: ["chat", "text", "api", "모델"],
-  모델: ["llm", "chat", "text", "api"],
-  api: ["api", "개발", "developer", "개발용 API"],
-  개발: ["api", "developer", "개발용 API", "자동화"],
+  챗봇: ["chat", "llm", "대화"],
+  채팅봇: ["chat", "llm", "대화"],
+  llm: ["chat", "text", "모델"],
+  모델: ["llm", "chat", "text"],
+  api: ["api", "개발", "developer", "개발용 api"],
+  개발: ["api", "developer", "개발용 api", "자동화"],
   크롤링: ["search", "웹 데이터", "firecrawl", "스크래핑"],
   스크래핑: ["search", "웹 데이터", "크롤링"],
   검색: ["search", "웹 데이터", "크롤링", "리서치"],
@@ -41,14 +41,27 @@ const aliases = {
   자동화: ["api", "워크플로", "개발", "영상"]
 };
 
+// 검색 조건으로만 쓰이고 일반 관련도 점수에는 넣지 않는 단어입니다.
+const conditionTerms = new Set(["무료", "공짜", "api", "개발"]);
+
+// 사용 목적은 aliases의 확장어와 별도로 직접 판별해 과도한 연쇄 매칭을 막습니다.
+const purposeAliases = {
+  쇼츠: "shorts", 숏츠: "shorts", 릴스: "shorts", 틱톡: "shorts", 숏폼: "shorts",
+  이미지: "image", 사진: "image", 상품사진: "image", 상품이미지: "image", 썸네일: "image",
+  영상: "video", 비디오: "video",
+  음성: "voice", 목소리: "voice", 더빙: "voice", tts: "voice", stt: "voice",
+  챗봇: "chat", 채팅봇: "chat", llm: "chat", 모델: "chat",
+  검색: "search", 크롤링: "search", 스크래핑: "search", 리서치: "search"
+};
+
 const fieldWeights = {
-  name: 14,
-  category: 9,
-  bestFor: 8,
-  tags: 7,
-  strengths: 5,
+  name: 18,
+  category: 8,
+  bestFor: 7,
+  tags: 6,
+  strengths: 4,
   uses: 5,
-  caveat: 1
+  caveat: 0
 };
 
 function clean(value = "") {
@@ -61,18 +74,33 @@ function clean(value = "") {
 }
 
 function buildTerms(query) {
-  const normalized = clean(query);
-  if (!normalized) return { raw: "", terms: [], expanded: [] };
+  const raw = clean(query);
+  if (!raw) return { raw: "", terms: [], expanded: [], purposes: [], conditions: [] };
 
-  const terms = new Set(normalized.split(/\s+/).filter(Boolean));
+  const terms = raw.split(/\s+/).filter(Boolean);
   const expanded = new Set(terms);
+  const purposes = new Set();
+  const conditions = new Set();
 
-  // 한글 목적어와 영어 서비스 용어를 함께 검색할 수 있도록 별칭을 확장합니다.
   terms.forEach((word) => {
-    (aliases[word] || []).forEach((alias) => expanded.add(clean(alias)));
+    const purpose = purposeAliases[word];
+    if (purpose) purposes.add(purpose);
+
+    if (conditionTerms.has(word)) conditions.add(word === "공짜" ? "무료" : word);
+
+    // 조건어는 일반 검색 확장에서 제외합니다. 무료/API가 텍스트 필드 때문에 엉뚱한 서비스를 올리는 것을 막습니다.
+    if (!conditionTerms.has(word)) {
+      (aliases[word] || []).forEach((alias) => expanded.add(clean(alias)));
+    }
   });
 
-  return { raw: normalized, terms: [...terms], expanded: [...expanded].filter(Boolean) };
+  return {
+    raw,
+    terms,
+    expanded: [...expanded].filter(Boolean),
+    purposes: [...purposes],
+    conditions: [...conditions]
+  };
 }
 
 export function normalizeSearchQuery(query = "") {
@@ -85,7 +113,6 @@ export function getSearchText(service) {
     service.name,
     service.category,
     service.bestFor,
-    service.caveat,
     ...(service.tags || []),
     ...(service.uses || []),
     ...(service.strengths || [])
@@ -100,29 +127,32 @@ function fieldText(service, field) {
 }
 
 function termMatches(text, term) {
-  if (!term) return false;
+  if (!term) return 0;
   if (text === term) return 1;
   if (text.includes(term)) return 0.75;
 
-  // 영어·한글이 섞인 검색어는 토큰 일부가 일치해도 약한 점수를 줍니다.
   const tokens = text.split(" ");
   return tokens.some((token) => token.startsWith(term) || term.startsWith(token)) ? 0.35 : 0;
 }
 
+function serviceSupportsPurpose(service, purpose) {
+  return Boolean(service.uses?.includes(purpose) || service.features?.[purpose]);
+}
+
 export function scoreSearch(service, query) {
-  const { raw, terms, expanded } = buildTerms(query);
-  if (!raw) return 0;
+  const { raw, terms, expanded, purposes, conditions } = buildTerms(query);
+  if (!raw) return { score: 0, reasons: [] };
 
   let score = 0;
   const reasons = [];
-
-  // 원문 검색어가 서비스명에 직접 들어가면 가장 높은 가중치를 줍니다.
+  const fields = ["name", "category", "bestFor", "tags", "uses", "strengths"];
   const name = fieldText(service, "name");
-  if (name === raw) score += 60;
-  else if (name.includes(raw)) score += 45;
 
-  // 원문 검색어와 확장어를 각 정보 필드에 적용합니다.
-  const fields = ["name", "category", "bestFor", "tags", "uses", "strengths", "caveat"];
+  // 서비스 이름을 직접 찾은 경우 가장 강하게 올립니다.
+  if (name === raw) score += 80;
+  else if (name.includes(raw)) score += 55;
+
+  // 일반 검색어는 서비스 설명을 참고하되, caveat(주의사항)는 검색 순위에 사용하지 않습니다.
   for (const field of fields) {
     const text = fieldText(service, field);
     if (!text) continue;
@@ -131,83 +161,75 @@ export function scoreSearch(service, query) {
     for (const term of expanded) {
       best = Math.max(best, termMatches(text, term));
     }
-
     if (best > 0) score += fieldWeights[field] * best;
   }
 
-  // 여러 검색어를 입력했다면 서로 다른 단어가 모두 맞는 서비스에 추가 점수를 줍니다.
+  // 검색어 각각이 실제 서비스 정보에 존재하는지 확인해 복합 검색의 정확도를 높입니다.
   const matchedOriginalTerms = terms.filter((term) => {
-    const normalizedTerm = clean(term);
-    return fields.some((field) => termMatches(fieldText(service, field), normalizedTerm) > 0);
+    if (conditionTerms.has(term)) return true;
+    return fields.some((field) => termMatches(fieldText(service, field), term) > 0);
   });
-  score += matchedOriginalTerms.length * 4;
-  if (matchedOriginalTerms.length === terms.length && terms.length > 1) score += 10;
+  score += matchedOriginalTerms.length * 3;
+  if (terms.length > 1 && matchedOriginalTerms.length === terms.length) score += 12;
 
-  // 사용자가 명시한 무료/API 조건은 데이터 필드를 직접 확인해 오검색을 줄입니다.
-  if (terms.some((term) => term === "무료" || term === "공짜")) {
+  // 목적어는 단순 문자열 일치보다 실제 uses/features를 우선합니다.
+  purposes.forEach((purpose) => {
+    if (service.uses?.includes(purpose)) {
+      score += 24;
+      reasons.push("목적과 직접 연결");
+    } else if (service.features?.[purpose]) {
+      score += 10;
+      reasons.push("관련 기능 지원");
+    } else {
+      score -= 8;
+    }
+  });
+
+  // 여러 목적을 동시에 검색하면 모든 목적을 지원하는 서비스에 추가 보너스를 줍니다.
+  if (purposes.length > 1 && purposes.every((purpose) => serviceSupportsPurpose(service, purpose))) {
+    score += 14;
+    reasons.push("여러 기능을 함께 지원");
+  }
+
+  // 무료/API는 검색 조건으로 강하게 반영합니다.
+  if (conditions.includes("무료")) {
     if (service.free) {
-      score += 18;
+      score += 24;
       reasons.push("무료 시작 가능");
     } else {
-      score -= 18;
+      score -= 30;
     }
   }
 
-  if (terms.some((term) => term === "api" || term === "개발")) {
+  if (conditions.includes("api")) {
     if (service.api) {
-      score += 12;
+      score += 24;
       reasons.push("API 제공");
     } else {
-      score -= 12;
+      score -= 30;
     }
   }
 
-  // 목적형 별칭이 검색된 경우 실제 uses/features도 확인합니다.
-  const purposeKeys = ["shorts", "image", "video", "voice", "chat", "search", "text"];
-  const matchedPurpose = expanded.find((term) => purposeKeys.includes(term));
-  if (matchedPurpose) {
-    if (service.uses?.includes(matchedPurpose)) {
-      score += 12;
-      reasons.push("목적과 직접 연결");
-    } else if (service.features?.[matchedPurpose]) {
-      score += 8;
-      reasons.push("관련 기능 지원");
-    }
-  }
-
-  return { score: Math.max(0, Math.round(score)), reasons: reasons.slice(0, 2) };
+  // 이유는 최대 2개만 표시해 카드가 복잡해지지 않게 합니다.
+  return { score: Math.max(0, Math.round(score)), reasons: [...new Set(reasons)].slice(0, 2) };
 }
 
 export function matchesSearch(service, query) {
   return !clean(query) || scoreSearch(service, query).score > 0;
 }
 
-// 검색어가 없으면 원래 카탈로그 순서를 유지하고, 검색어가 있으면 관련도 높은 순으로 정렬합니다.
+// 검색어가 없으면 카탈로그 원래 순서를 유지하고, 검색어가 있으면 동일한 엔진으로 관련도를 계산합니다.
 export function searchCatalog(catalog, query) {
   if (!clean(query)) return catalog;
 
   return catalog
-    .map((service, index) => ({
-      service,
-      index,
-      ...scoreSearch(service, query)
-    }))
+    .map((service, index) => ({ service, index, ...scoreSearch(service, query) }))
     .filter((item) => item.score > 0)
     .sort((a, b) => b.score - a.score || a.index - b.index)
     .map((item) => item.service);
 }
 
-// 홈 추천 화면에서 기존 추천 순위를 유지하면서 검색어가 강하게 맞는 서비스만 위로 올립니다.
+// 홈과 카탈로그가 같은 검색 결과를 사용하도록 동일한 순위 계산을 적용합니다.
 export function rankSearchResults(services, query) {
-  if (!clean(query)) return services;
-
-  return services
-    .map((service, index) => ({
-      service,
-      index,
-      ...scoreSearch(service, query)
-    }))
-    .filter((item) => item.score > 0)
-    .sort((a, b) => b.score - a.score || a.index - b.index)
-    .map((item) => item.service);
+  return searchCatalog(services, query);
 }

@@ -1,4 +1,4 @@
-/* HUB 2.0 비교 화면: 선택한 서비스만 단순 나열하지 않고 선택 목적에 따라 비교 우선순위를 계산합니다. */
+/* HUB 2.0 비교 화면: 선택한 서비스의 목적 적합도와 조건별 승자를 함께 보여줍니다. */
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -39,11 +39,14 @@ function featureValue(service, key) {
   return service[key] ?? "—";
 }
 
+function findWinner(services, predicate, fallbackService) {
+  return services.filter(predicate).sort((a, b) => b.score - a.score)[0] || fallbackService;
+}
+
 export default function Compare() {
   const [selected, setSelected] = useState([]);
   const [goal, setGoal] = useState("shorts");
 
-  // 홈과 추천 화면에서 저장한 비교 목록을 복원합니다.
   useEffect(() => {
     try {
       const raw = JSON.parse(localStorage.getItem("hub-compare") || "[]");
@@ -53,8 +56,7 @@ export default function Compare() {
     }
   }, []);
 
-  // 선택된 서비스만 현재 목적에 맞춰 다시 점수화합니다.
-  // 비교 순서는 사용자가 선택한 순서가 아니라 실제 목적 적합도가 높은 순서가 되도록 합니다.
+  // 선택한 서비스만 현재 목적에 맞춰 다시 점수화합니다.
   const ranked = useMemo(() => {
     const ids = selected.length ? selected : fallback;
     const services = ids.map((id) => catalogMap[id]).filter(Boolean);
@@ -71,6 +73,16 @@ export default function Compare() {
       relativeScore: range ? Math.round(((item.score - min) / range) * 100) : 100
     }));
   }, [selected, goal]);
+
+  const winners = useMemo(() => {
+    const top = ranked[0];
+    return [
+      { key: "goal", label: "목적 적합도", description: "현재 선택한 제작 목적을 가장 잘 맞추는 서비스", service: top },
+      { key: "free", label: "무료 시작", description: "무료 시작이 가능한 후보 중 목적 점수가 높은 서비스", service: findWinner(ranked, (item) => item.free, top) },
+      { key: "api", label: "API 활용", description: "API 연결이 가능한 후보 중 목적 점수가 높은 서비스", service: findWinner(ranked, (item) => item.api, top) },
+      { key: "easy", label: "쉬운 시작", description: "쉬운 난이도 후보 중 목적 점수가 높은 서비스", service: findWinner(ranked, (item) => item.difficulty === "쉬움", top) }
+    ];
+  }, [ranked]);
 
   const remove = (id) => {
     const next = selected.filter((item) => item !== id);
@@ -102,63 +114,39 @@ export default function Compare() {
           <span>목적을 바꾸면 비교 점수와 추천 이유도 함께 바뀝니다.</span>
         </div>
         <div className="compareGoalTabs" role="tablist" aria-label="비교 목적">
-          {goals.map(([id, label]) => <button key={id} type="button" className={goal === id ? "active" : ""} onClick={() => setGoal(id)}>{label}</button>)}
+          {goals.map(([id, label]) => <button type="button" key={id} className={goal === id ? "active" : ""} onClick={() => setGoal(id)} aria-selected={goal === id}>{label}</button>)}
         </div>
       </div>
 
       <div className="compareToolbar">
-        <div>
-          <b>{ranked.length}개 서비스</b>
-          <span>{selected.length ? "선택한 서비스" : "기본 비교 목록"}</span>
-        </div>
-        <div className="toolbarActions">
-          <Link href="/recommend">서비스 더 고르기</Link>
-          {selected.length > 0 && <button type="button" onClick={clear}>전체 해제</button>}
-        </div>
+        <div><b>{ranked.length}개 서비스</b><span>{selected.length ? "선택한 서비스" : "기본 비교 목록"}</span></div>
+        <div className="toolbarActions"><Link href="/recommend">서비스 더 고르기</Link>{selected.length > 0 && <button type="button" onClick={clear}>전체 해제</button>}</div>
       </div>
 
       <div className="compareWinner">
-        <div>
-          <span className="compareWinnerKicker">현재 목적 기준 1위</span>
-          <strong>{ranked[0]?.name || "비교할 서비스가 없습니다."}</strong>
-          <p>{ranked[0]?.reasons?.slice(0, 2).join(" · ") || "서비스를 선택하면 목적별 비교 이유가 표시됩니다."}</p>
-        </div>
+        <div><span className="compareWinnerKicker">현재 목적 기준 1위</span><strong>{ranked[0]?.name || "비교할 서비스가 없습니다."}</strong><p>{ranked[0]?.reasons?.slice(0, 2).join(" · ") || "서비스를 선택하면 목적별 비교 이유가 표시됩니다."}</p></div>
         {ranked[0] && <b>{ranked[0].relativeScore}점</b>}
       </div>
 
+      <section className="decisionGrid" aria-label="조건별 추천">
+        {winners.map((winner) => <article className={`decisionCard ${winner.key === "goal" ? "primary" : ""}`} key={winner.key}>
+          <span>{winner.label}</span>
+          <strong>{winner.service?.name || "없음"}</strong>
+          <p>{winner.description}</p>
+          {winner.service && <Link href={`/services/${winner.service.id}`}>상세 보기</Link>}
+        </article>)}
+      </section>
+
       <div className="compareDesktop">
-        <div className="compareMatrixHead">
-          <div className="matrixLabel">비교 항목</div>
-          {ranked.map((service) => <div className="matrixService" key={service.id}>
-            <img src={service.icon} alt="" />
-            <strong>{service.name}</strong>
-            {selected.includes(service.id) && <button type="button" onClick={() => remove(service.id)} aria-label={`${service.name} 제거`}>제거</button>}
-          </div>)}
-        </div>
-        <div className="compareMatrixRow compareScoreRow">
-          <div className="matrixLabel">목적 적합도</div>
-          {ranked.map((service) => <div key={service.id} className="matrixScore"><strong>{service.relativeScore}점</strong><small>{service.reasons?.[0] || "목적과 기능을 비교 중"}</small></div>)}
-        </div>
-        {rows.map(([key, label]) => <div className="compareMatrixRow" key={key}>
-          <div className="matrixLabel">{label}</div>
-          {ranked.map((service) => <div key={service.id} className={key === "bestFor" ? "matrixStrong" : ""}>{featureValue(service, key)}</div>)}
-        </div>)}
+        <div className="compareMatrixHead"><div className="matrixLabel">비교 항목</div>{ranked.map((service) => <div className="matrixService" key={service.id}><img src={service.icon} alt=""/><strong>{service.name}</strong>{selected.includes(service.id) && <button type="button" onClick={() => remove(service.id)} aria-label={`${service.name} 제거`}>제거</button>}</div>)}</div>
+        <div className="compareMatrixRow compareScoreRow"><div className="matrixLabel">목적 적합도</div>{ranked.map((service) => <div key={service.id} className="matrixScore"><strong>{service.relativeScore}점</strong><small>{service.reasons?.[0] || "목적과 기능을 비교 중"}</small></div>)}</div>
+        {rows.map(([key, label]) => <div className="compareMatrixRow" key={key}><div className="matrixLabel">{label}</div>{ranked.map((service) => <div key={service.id} className={key === "bestFor" ? "matrixStrong" : ""}>{featureValue(service, key)}</div>)}</div>)}
       </div>
 
       <div className="compareMobile">
         {ranked.map((service, index) => <article className={`mobileCompareCard ${index === 0 ? "featured" : ""}`} key={service.id}>
-          <header>
-            <div className="mobileServiceIcon"><img src={service.icon} alt="" /></div>
-            <div>
-              <strong>{service.name}</strong>
-              <small>{service.category}</small>
-            </div>
-            {selected.includes(service.id) && <button type="button" onClick={() => remove(service.id)} aria-label={`${service.name} 제거`}>제거</button>}
-          </header>
-          <div className="mobileScore">
-            <span>{index === 0 ? "현재 목적 추천 1위" : "목적 적합도"}</span>
-            <b>{service.relativeScore}점</b>
-          </div>
+          <header><div className="mobileServiceIcon"><img src={service.icon} alt="" /></div><div><strong>{service.name}</strong><small>{service.category}</small></div>{selected.includes(service.id) && <button type="button" onClick={() => remove(service.id)} aria-label={`${service.name} 제거`}>제거</button>}</header>
+          <div className="mobileScore"><span>{index === 0 ? "현재 목적 추천 1위" : "목적 적합도"}</span><b>{service.relativeScore}점</b></div>
           <p className="mobileCompareReason">{service.reasons?.slice(0, 2).join(" · ") || "현재 목적과 주요 기능을 기준으로 비교했습니다."}</p>
           <dl>{rows.slice(0, 9).map(([key, label]) => <div key={key}><dt>{label}</dt><dd>{featureValue(service, key)}</dd></div>)}</dl>
           <Link href={`/services/${service.id}`}>상세 정보 보기</Link>

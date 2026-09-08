@@ -1,0 +1,104 @@
+/* HUB 최종 가독성 오버라이드입니다.
+   홈 페이지의 기존 스타일보다 선택자 우선순위를 높여 파일 로딩 순서와 관계없이 글자 크기를 안정적으로 유지합니다.
+   레이아웃 자체는 건드리지 않고 텍스트만 읽기 좋은 수준으로 키웁니다. */
+
+.homePage .topNav a{font-size:12px}
+.homePage .sectionKicker{font-size:11px}
+.homePage .stepHeading>p:last-child{font-size:13px}
+.homePage .taskCopy strong{font-size:15px}
+.homePage .taskCopy small{font-size:11px}
+.homePage .taskChevron{font-size:27px}
+.homePage .recommendTabs button,.homePage .recommendTabs label,.homePage .recommendTabs a{font-size:12px}
+.homePage .searchBox input{font-size:13px}
+.homePage .searchBox button{font-size:11px}
+.homePage .featureFilters button{font-size:11px}
+.homePage .resultMeta{font-size:11px}
+.homePage .resultMeta button{font-size:11px}
+.homePage .serviceName{font-size:16px}
+.homePage .matchBadge,.homePage .freeBadge{font-size:10px}
+.homePage .serviceBest{font-size:12px}
+.homePage .tagList span{font-size:9px}
+.homePage .recommendReason{font-size:11px;line-height:1.55}
+.homePage .recommendReasonLabel{font-size:9px}
+.homePage .favoriteButton{font-size:10px}
+.homePage .detailButton,.homePage .compareButton{font-size:12px}
+.homePage .moreLink{font-size:12px}
+.homePage .categoryCard span{font-size:12px}
+.homePage .categoryCard b{font-size:10px}
+.homePage .categoryCard i{font-size:21px}
+.homePage .compareCta strong{font-size:14px}
+.homePage .compareCta small{font-size:10px}
+.homePage .compareCta>b{font-size:25px}
+.homePage .homeFooter strong{font-size:13px}
+.homePage .homeFooter span,.homePage .footerLinks a{font-size:10px}
+.homePage .compareBar strong{font-size:12px}
+.homePage .compareBar span{font-size:10px}
+.homePage .compareBarActions button,.homePage .compareBarActions a{font-size:10px}
+
+@media(max-width:430px) and (orientation:portrait){
+  .homePage .topNav a{font-size:10px}
+  .homePage .sectionKicker{font-size:10px}
+  .homePage .stepHeading>p:last-child{font-size:12px}
+  .homePage .taskCopy strong{font-size:14px}
+  .homePage .taskCopy small{font-size:10px}
+  .homePage .recommendTabs button,.homePage .recommendTabs label,.homePage .recommendTabs a{font-size:11px}
+  .homePage .searchBox input{font-size:12px}
+  .homePage .featureFilters button{font-size:10px}
+  .homePage .resultMeta,.homePage .resultMeta button{font-size:10px}
+  .homePage .serviceName{font-size:15px}
+  .homePage .matchBadge,.homePage .freeBadge{font-size:9px}
+  .homePage .serviceBest{font-size:11px}
+  .homePage .tagList span{font-size:9px}
+  .homePage .recommendReason{font-size:10px}
+  .homePage .recommendReasonLabel{font-size:9px}
+  .homePage .favoriteButton{font-size:9px}
+  .homePage .detailButton,.homePage .compareButton{font-size:11px}
+  .homePage .categoryCard span{font-size:11px}
+  .homePage .categoryCard b{font-size:9px}
+  .homePage .compareCta strong{font-size:13px}
+  .homePage .compareCta small{font-size:10px}
+  .homePage .homeFooter span,.homePage .footerLinks a{font-size:9px}
+}
+
+@media(min-width:431px) and (max-width:900px) and (orientation:portrait){
+  .homePage .taskCopy strong{font-size:15px}
+  .homePage .taskCopy small{font-size:11px}
+  .homePage .serviceName{font-size:16px}
+  .homePage .serviceBest{font-size:12px}
+  .homePage .tagList span{font-size:9px}
+  .homePage .recommendReason{font-size:11px}
+  .homePage .detailButton,.homePage .compareButton{font-size:12px}
+  .homePage .categoryCard span{font-size:12px}
+}
+
+@media(max-width:900px) and (orientation:landscape){
+  .homePage .topNav a{font-size:10px}
+  .homePage .stepHeading>p:last-child{font-size:11px}
+  .homePage .taskCopy strong{font-size:13px}
+  .homePage .taskCopy small{font-size:10px}
+  .homePage .recommendTabs button,.homePage .recommendTabs label,.homePage .recommendTabs a{font-size:10px}
+  .homePage .searchBox input{font-size:11px}
+  .homePage .featureFilters button{font-size:10px}
+  .homePage .resultMeta,.homePage .resultMeta button{font-size:10px}
+  .homePage .serviceName{font-size:14px}
+  .homePage .serviceBest{font-size:10px}
+  .homePage .tagList span{font-size:8px}
+  .homePage .recommendReason{font-size:9px}
+  .homePage .recommendReasonLabel{font-size:8px}
+  .homePage .detailButton,.homePage .compareButton{font-size:10px}
+  .homePage .categoryCard span{font-size:11px}
+  .homePage .categoryCard b{font-size:9px}
+}
+
+@media(min-width:901px){
+  .homePage .topNav a{font-size:12px}
+  .homePage .taskCopy strong{font-size:15px}
+  .homePage .taskCopy small{font-size:11px}
+  .homePage .serviceName{font-size:16px}
+  .homePage .serviceBest{font-size:12px}
+  .homePage .tagList span{font-size:9px}
+  .homePage .recommendReason{font-size:11px}
+  .homePage .detailButton,.homePage .compareButton{font-size:12px}
+  .homePage .categoryCard span{font-size:12px}
+  .homePage .homeFooter span,.homePage .footerLinks a{font-size:10px}
+}

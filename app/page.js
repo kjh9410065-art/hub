@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { catalog, categoryGroups, matchesCategory } from "./lib/catalog";
 import { rankServices } from "./lib/recommendation";
-import { matchesSearch } from "./lib/search";
+import { matchesSearch, rankSearchResults, scoreSearch } from "./lib/search";
 import "./home.css";
 import "./home-responsive.css";
 import "./home-polish.css";
@@ -61,8 +61,7 @@ export default function HomePage() {
   useEffect(() => { localStorage.setItem("hub-favorites", JSON.stringify(favorites)); }, [favorites]);
   useEffect(() => { localStorage.setItem("hub-compare", JSON.stringify(compare)); }, [compare]);
 
-  // 추천 엔진은 점수와 이유를 함께 반환하므로 홈 화면에서 서비스 객체를 꺼내 사용합니다.
-  // 기존처럼 래퍼 객체를 그대로 필터링하면 서비스 이름과 기능 정보가 사라지는 문제가 있어 이 단계에서 정규화합니다.
+  // 추천 엔진은 목적·기능·예산을 종합해 기본 순위를 계산합니다.
   const ranked = useMemo(() => rankServices(catalog, {
     goal: selectedTask,
     budget: onlyFree ? "free" : "any",
@@ -74,17 +73,22 @@ export default function HomePage() {
     recommendationReasons: item.reasons || []
   })), [selectedTask, onlyFree, feature]);
 
-  // 검색과 필터를 적용한 결과를 만들고, 홈에서는 상위 5개를 먼저 보여줍니다.
-  const results = useMemo(() => ranked.filter((service) => {
+  // 검색어가 없을 때는 목적 추천 순서를 유지하고,
+  // 검색어가 있을 때만 검색 관련도를 추가해 실제로 찾는 서비스가 위로 올라오게 합니다.
+  const searchedRanked = useMemo(() => rankSearchResults(ranked, query), [ranked, query]);
+
+  // 검색과 필터를 모두 적용한 최종 결과입니다.
+  const results = useMemo(() => searchedRanked.filter((service) => {
     if (!matchesCategory(service, category)) return false;
     if (!serviceSupports(service, feature)) return false;
     if (onlyFree && !service.free) return false;
     if (onlyApi && !service.api) return false;
     return matchesSearch(service, query);
-  }), [ranked, query, category, feature, onlyFree, onlyApi]);
+  }), [searchedRanked, query, category, feature, onlyFree, onlyApi]);
 
   const visibleResults = results.slice(0, 5);
   const activeTask = tasks.find((task) => task.id === selectedTask) || tasks[0];
+  const isSearching = Boolean(query.trim());
 
   const toggleFavorite = (id) => {
     setFavorites((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
@@ -155,7 +159,7 @@ export default function HomePage() {
         </div>
 
         <div className="resultMeta">
-          <span>{results.length}개 서비스 중 상위 {Math.min(5, results.length)}개</span>
+          <span>{isSearching ? `검색 결과 ${results.length}개` : `${results.length}개 서비스 중 상위 ${Math.min(5, results.length)}개`}</span>
           {(query || category !== "all" || feature !== "전체" || onlyFree || onlyApi) && <button type="button" onClick={resetFilters}>필터 초기화</button>}
         </div>
 
@@ -167,6 +171,8 @@ export default function HomePage() {
               const isFavorite = favorites.includes(service.id);
               const isCompared = compare.includes(service.id);
               const reasons = service.recommendationReasons?.length ? service.recommendationReasons : [service.bestFor];
+              const searchResult = isSearching ? scoreSearch(service, query) : null;
+              const displayReasons = searchResult?.reasons?.length ? searchResult.reasons : reasons;
               return (
                 <article className={`serviceCard ${index === 0 ? "topMatch" : ""}`} key={service.id}>
                   <div className="serviceMain">
@@ -174,14 +180,14 @@ export default function HomePage() {
                     <div className="serviceInfo">
                       <div className="serviceTitleRow">
                         <Link href={`/services/${service.id}`} className="serviceName">{service.name}</Link>
-                        {index === 0 && <span className="matchBadge">추천</span>}
+                        {index === 0 && <span className="matchBadge">{isSearching ? "검색 일치" : "추천"}</span>}
                         {service.free && <span className="freeBadge">무료 시작</span>}
                       </div>
                       <p className="serviceBest">{service.bestFor}</p>
                       <div className="tagList">{(service.tags || []).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
-                      <div className="recommendReason" aria-label="추천 이유">
-                        <span className="recommendReasonLabel">추천 이유</span>
-                        <span>{reasons.slice(0, 2).join(" · ")}</span>
+                      <div className="recommendReason" aria-label={isSearching ? "검색 일치 이유" : "추천 이유"}>
+                        <span className="recommendReasonLabel">{isSearching ? "검색 일치" : "추천 이유"}</span>
+                        <span>{displayReasons.slice(0, 2).join(" · ")}</span>
                       </div>
                     </div>
                     <button type="button" className={`favoriteButton ${isFavorite ? "isFavorite" : ""}`} onClick={() => toggleFavorite(service.id)} aria-label={isFavorite ? "즐겨찾기 해제" : "즐겨찾기 추가"}>{isFavorite ? "저장됨" : "저장"}</button>

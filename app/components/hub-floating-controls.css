@@ -20,6 +20,7 @@ html[data-theme="dark"] .recommendPage .conditionCard,
 html[data-theme="dark"] .recommendPage .recommendResult,
 html[data-theme="dark"] .recommendPage .topMatch,
 html[data-theme="dark"] .recommendPage .resultCard,
+html[data-theme="dark"] .recommendPage .recommendCandidate,
 html[data-theme="dark"] .recommendPage .recommendSearch,
 html[data-theme="dark"] .recommendPage .compareBar,
 html[data-theme="dark"] .catalogPage .catalogHero,
@@ -35,13 +36,16 @@ html[data-theme="dark"] .homePage .hero,
 html[data-theme="dark"] .homePage .taskCard,
 html[data-theme="dark"] .homePage .serviceCard,
 html[data-theme="dark"] .homePage .miniCard,
+html[data-theme="dark"] .homePage .categoryCard,
 html[data-theme="dark"] .comparePage .compareGoalBox,
 html[data-theme="dark"] .comparePage .compareWinner,
 html[data-theme="dark"] .comparePage .decisionCard,
 html[data-theme="dark"] .comparePage .comparisonSnapshot,
 html[data-theme="dark"] .comparePage .snapshotCard,
 html[data-theme="dark"] .comparePage .mobileCompareCard,
-html[data-theme="dark"] .comparePage .compareDesktop {
+html[data-theme="dark"] .comparePage .compareDesktop,
+html[data-theme="dark"] .comparePage .compareMatrixHead,
+html[data-theme="dark"] .comparePage .compareMatrixRow {
   border-color: #7659d6 !important;
 }
 

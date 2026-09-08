@@ -1,6 +1,7 @@
 import "./globals.css";
 import "./responsive.css";
 import "./home-typography.css";
+import "./readable-ui.css";
 
 export const metadata = {
   title: "HUB — 목적에 맞는 AI·개발 서비스 찾기",

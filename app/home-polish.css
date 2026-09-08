@@ -28,3 +28,50 @@
 }
 @media(max-width:430px) and (orientation:portrait){.categoryList{grid-template-columns:1fr !important}.categoryCard{min-height:58px !important}}
 @media(min-width:1200px){.categoryList{grid-template-columns:repeat(4,minmax(0,1fr)) !important}}
+
+/* 다크모드 최종 우선 규칙: 이 파일의 기존 !important 스타일보다 우선하여 홈 UI를 모두 다크 팔레트로 맞춥니다. */
+html[data-theme="dark"] .homePage,html[data-theme="dark"] .homeHeader{background:#0d0c11 !important;color:#f3f1f7 !important;border-color:#302c39 !important}
+html[data-theme="dark"] .taskCard,html[data-theme="dark"] .searchBox,html[data-theme="dark"] .serviceCard,html[data-theme="dark"] .emptyState{background:#18161d !important;border-color:#302c39 !important;color:#eeeaf3 !important}
+html[data-theme="dark"] .taskCard:hover,html[data-theme="dark"] .taskCard.isActive,html[data-theme="dark"] .serviceCard.topMatch{background:#18161d !important;border-color:#7864d9 !important}
+html[data-theme="dark"] .taskCopy strong,html[data-theme="dark"] .serviceName,html[data-theme="dark"] .serviceCard h3,html[data-theme="dark"] .serviceCard strong,html[data-theme="dark"] .emptyState strong{color:#f3f1f7 !important}
+html[data-theme="dark"] .taskCopy small,html[data-theme="dark"] .serviceBest,html[data-theme="dark"] .serviceCard p,html[data-theme="dark"] .resultMeta,html[data-theme="dark"] .emptyState p{color:#aaa5b2 !important}
+html[data-theme="dark"] .serviceIconWrap{background:#211e29 !important;border-color:#3a3545 !important}
+html[data-theme="dark"] .tagList span,html[data-theme="dark"] .serviceMetaRow span{background:#28242f !important;border-color:#393342 !important;color:#bdb7c7 !important}
+html[data-theme="dark"] .serviceMetaRow span.isPositive{background:#173529 !important;color:#75d7a9 !important}
+html[data-theme="dark"] .serviceMetaRow span.isApi{background:#30285a !important;color:#c8bdff !important}
+html[data-theme="dark"] .matchBadge{background:#30285a !important;color:#c8bdff !important}
+html[data-theme="dark"] .freeBadge{background:#173529 !important;color:#75d7a9 !important}
+html[data-theme="dark"] .recommendReason{background:#211e29 !important;border-color:#393342 !important;border-left-color:#7055e8 !important;color:#bdb7c7 !important}
+html[data-theme="dark"] .recommendReasonLabel{color:#b9aaff !important}
+html[data-theme="dark"] .favoriteButton{background:#211e29 !important;border-color:#3a3545 !important;color:#bdb7c7 !important}
+html[data-theme="dark"] .favoriteButton.isFavorite{background:#30285a !important;border-color:#5c4ab0 !important;color:#c8bdff !important}
+html[data-theme="dark"] .detailButton{background:#24212b !important;border-color:#4a4555 !important;color:#eeeaf3 !important}
+html[data-theme="dark"] .compareButton{background:#24212b !important;border-color:#4a4555 !important;color:#eeeaf3 !important}
+html[data-theme="dark"] .compareButton.selected{background:#7055e8 !important;border-color:#7055e8 !important;color:#fff !important}
+
+/* 다크모드 필터 버튼 */
+html[data-theme="dark"] .recommendTabs button,html[data-theme="dark"] .recommendTabs label,html[data-theme="dark"] .recommendTabs a,html[data-theme="dark"] .featureFilters button{background:#211e29 !important;border-color:#393342 !important;color:#bdb7c7 !important}
+html[data-theme="dark"] .recommendTabs button.active,html[data-theme="dark"] .featureFilters button.active{background:#7055e8 !important;border-color:#7055e8 !important;color:#fff !important}
+html[data-theme="dark"] .recommendTabs label:has(input:checked){background:#30285a !important;border-color:#5c4ab0 !important;color:#c8bdff !important}
+html[data-theme="dark"] .recommendTabs a{color:#b9aaff !important}
+html[data-theme="dark"] .searchBox input{background:transparent !important;color:#eeeaf3 !important}
+html[data-theme="dark"] .searchBox input::placeholder{color:#77717f !important}
+
+/* 카테고리와 비교 CTA */
+html[data-theme="dark"] .categoryCard{background:#18161d !important;border-color:#302c39 !important;color:#eeeaf3 !important;box-shadow:0 7px 20px rgba(0,0,0,.18) !important}
+html[data-theme="dark"] .categoryCard:hover{background:#211e29 !important;border-color:#5a4b99 !important}
+html[data-theme="dark"] .categoryCard img{background:#28242f !important}
+html[data-theme="dark"] .categoryCard span{color:#f3f1f7 !important}
+html[data-theme="dark"] .categoryCard b{background:#28242f !important;color:#aaa5b5 !important}
+html[data-theme="dark"] .categoryCard i{color:#aaa5b5 !important}
+html[data-theme="dark"] .compareCta{background:linear-gradient(110deg,#18161d 0%,#211c30 100%) !important;border-color:#4a3e75 !important;color:#f3f1f7 !important}
+html[data-theme="dark"] .compareCtaIcon{background:#30285a !important;color:#c8bdff !important}
+html[data-theme="dark"] .compareCta strong{color:#f3f1f7 !important}
+html[data-theme="dark"] .compareCta small{color:#aaa5b5 !important}
+html[data-theme="dark"] .compareCta>b{color:#b9aaff !important}
+html[data-theme="dark"] .compareBar{background:rgba(24,22,29,.97) !important;border-color:#3a3545 !important;color:#eeeaf3 !important}
+html[data-theme="dark"] .compareBarActions button{background:#28242f !important;color:#bdb7c7 !important}
+html[data-theme="dark"] .compareBarActions a{background:#7055e8 !important;color:#fff !important}
+html[data-theme="dark"] .homeFooter{border-color:#302c39 !important}
+html[data-theme="dark"] .homeFooter strong{color:#f3f1f7 !important}
+html[data-theme="dark"] .homeFooter span,html[data-theme="dark"] .footerLinks a{color:#85808f !important}

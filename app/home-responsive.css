@@ -1,5 +1,18 @@
 /* 홈 전용 반응형 보정: page.js에서 home.css 다음에 로드되어 작은 화면 규칙이 우선 적용됩니다. */
 
+/* 공통 카드 높이 충돌 제거
+   globals.css의 기존 공용 .serviceCard가 min-height:375px와 flex-column을 가지고 있어
+   홈 추천 카드가 불필요하게 길어지고 버튼이 카드 맨 아래로 밀리는 문제가 있었습니다.
+   홈에서는 실제 콘텐츠 높이에 맞춰 카드가 자연스럽게 줄어들도록 명시적으로 초기화합니다. */
+.serviceCard{
+  min-height:0;
+  height:auto;
+  display:block;
+}
+.serviceActions{
+  margin-top:12px;
+}
+
 /* 일반폰 세로 */
 @media(max-width:430px) and (orientation:portrait){
   .homeHeader{height:56px;padding-inline:14px}
@@ -9,8 +22,8 @@
   .taskCard{min-height:64px;padding:8px 11px;border-radius:15px}.taskIllustration{width:36px;height:36px;flex-basis:36px}
   .taskCopy strong{font-size:12px}.taskCopy small{font-size:8px}
   .recommendationStep,.categoryStep,.compareStep{padding-top:48px}
-  .serviceCard{padding:12px;border-radius:14px}.serviceIconWrap{width:39px;height:39px;flex-basis:39px}.serviceIconImage{width:27px;height:27px}
-  .serviceInfo{padding-right:39px}.serviceName{font-size:13px}.serviceActions{gap:6px}.detailButton,.compareButton{height:34px}
+  .serviceCard{padding:12px;border-radius:14px;min-height:0;height:auto;display:block}.serviceIconWrap{width:39px;height:39px;flex-basis:39px}.serviceIconImage{width:27px;height:27px}
+  .serviceInfo{padding-right:39px}.serviceName{font-size:13px}.serviceActions{gap:6px;margin-top:12px}.detailButton,.compareButton{height:34px}
   .categoryCard{min-height:38px}.compareCta{min-height:64px}.homeFooter{margin-top:48px}.footerLinks{gap:8px}
 }
 
@@ -22,9 +35,9 @@
   .taskList{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.taskCard{min-height:58px;padding:7px 10px}
   .taskIllustration{width:34px;height:34px;flex-basis:34px}.taskCopy strong{font-size:11px}.taskCopy small{font-size:8px}
   .recommendationStep,.categoryStep,.compareStep{padding-top:42px}.serviceList{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-  .serviceCard{padding:11px}.serviceIconWrap{width:38px;height:38px;flex-basis:38px}.serviceIconImage{width:26px;height:26px}
+  .serviceCard{padding:11px;min-height:0;height:auto;display:block}.serviceIconWrap{width:38px;height:38px;flex-basis:38px}.serviceIconImage{width:26px;height:26px}
   .serviceInfo{padding-right:38px}.serviceName{font-size:12px}.serviceBest{font-size:8px}.tagList span{font-size:6px}.recommendReason{font-size:7px}
-  .detailButton,.compareButton{height:30px;font-size:8px}.categoryList{grid-template-columns:repeat(2,minmax(0,1fr))}.categoryCard{min-height:36px}
+  .serviceActions{margin-top:12px}.detailButton,.compareButton{height:30px;font-size:8px}.categoryList{grid-template-columns:repeat(2,minmax(0,1fr))}.categoryCard{min-height:36px}
   .compareCta{min-height:62px}.homeFooter{margin-top:42px}
 }
 
@@ -33,20 +46,20 @@
   .stepSection{width:min(820px,calc(100% - 44px))}.homeHeader{padding-inline:22px}
   .taskList{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.taskCard{min-height:74px}
   .taskIllustration{width:42px;height:42px;flex-basis:42px}.taskCopy strong{font-size:13px}.taskCopy small{font-size:9px}
-  .serviceList{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.categoryList{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .serviceList{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.serviceCard{min-height:0;height:auto;display:block}.categoryList{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
 /* 펼친 Fold·태블릿 */
 @media(min-width:901px) and (max-width:1199px){
   .stepSection{width:min(1000px,calc(100% - 56px))}.taskList{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .taskCard{min-height:78px}.serviceList{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.categoryList{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .taskCard{min-height:78px}.serviceList{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.serviceCard{min-height:0;height:auto;display:block}.categoryList{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 
 /* PC */
 @media(min-width:1200px){
   .stepSection{width:min(1120px,calc(100% - 72px))}.taskList{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
   .taskCard{min-height:104px;padding:16px}.taskIllustration{width:50px;height:50px;flex-basis:50px}.taskCopy strong{font-size:15px}.taskCopy small{font-size:10px}
-  .recommendationStep,.categoryStep,.compareStep{padding-top:82px}.serviceList{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.categoryList{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .recommendationStep,.categoryStep,.compareStep{padding-top:82px}.serviceList{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.serviceCard{min-height:0;height:auto;display:block}.categoryList{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
   .categoryCard{min-height:48px}.categoryCard img{width:27px;height:27px}.categoryCard span{font-size:11px}.homeFooter{width:min(1120px,calc(100% - 72px));margin-top:72px}
 }
 

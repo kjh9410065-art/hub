@@ -147,11 +147,28 @@ export default function Compare() {
         </div>
 
         <div className="compareWinner">
-          <div className="compareWinnerService">
+          <div className="compareWinnerIdentity">
             {ranked[0] && <div className="compareWinnerIcon"><img src={ranked[0].icon} alt="" /></div>}
-            <div><span className="compareWinnerKicker">현재 목적 기준 1위</span><strong>{ranked[0]?.name || "비교할 서비스가 없습니다."}</strong><StarRating score={ranked[0]?.score} size="large" /><p>{ranked[0]?.reasons?.slice(0, 3).join(" · ") || "서비스를 선택하면 목적별 비교 이유가 표시됩니다."}</p></div>
+            <div className="compareWinnerIdentityText">
+              <span className="compareWinnerKicker">현재 목적 기준 1위</span>
+              <strong>{ranked[0]?.name || "비교할 서비스가 없습니다."}</strong>
+              <small>{ranked[0]?.category || ""}</small>
+              <StarRating score={ranked[0]?.score} size="large" />
+              <div className="compareWinnerFeatures">{ranked[0]?.supportedFeatures?.slice(0, 4).map((feature) => <span key={feature}>{feature}</span>)}</div>
+            </div>
           </div>
-          {ranked[0] && <Link href={`/services/${ranked[0].id}`}>상세 정보 보기</Link>}
+          <div className="compareWinnerReason">
+            <span>추천 이유</span>
+            <strong>{ranked[0] ? `왜 ${ranked[0].name}이(가) 1위인가요?` : "추천 이유"}</strong>
+            <p>{ranked[0]?.reasons?.slice(0, 3).join(" ") || "서비스를 선택하면 목적별 비교 이유가 표시됩니다."}</p>
+            <ul>
+              {(ranked[0]?.reasons?.slice(0, 3) || ["선택한 목적에 맞는 기능과 활용도를 종합했습니다.", "비교 대상의 주요 조건을 함께 반영했습니다."]).map((reason, index) => <li key={`${reason}-${index}`}>{reason}</li>)}
+            </ul>
+          </div>
+          <div className="compareWinnerActions">
+            {ranked[0] && <Link href={`/services/${ranked[0].id}`}>상세 정보 보기 <span>→</span></Link>}
+            <div className="compareWinnerActionLinks"><span>HUB 추천 결과</span><span>서비스 상세에서 더 확인</span></div>
+          </div>
         </div>
         <p className="scoreNotice">HUB 추천 별점 · 선택한 목적과 서비스 데이터를 기반으로 계산한 내부 추천 결과입니다. 객관적인 시장 평가 점수는 아닙니다.</p>
 

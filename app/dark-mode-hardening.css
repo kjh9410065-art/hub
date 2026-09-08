@@ -101,3 +101,233 @@ html[data-theme="dark"] .comparePage select {
 
 /* 비교 화면의 보라색 강조 테두리는 원래 스타일을 그대로 유지합니다.
    다크모드 공통 규칙으로 회색 테두리를 덮어쓰지 않습니다. */
+
+/* 1차 전역 보정: 페이지별 CSS에 남아 있는 흰색 카드/컨트롤도 동일한 다크 계층을 사용합니다. */
+html[data-theme="dark"] .catalogPage,
+html[data-theme="dark"] .recommendPage,
+html[data-theme="dark"] .serviceDetail,
+html[data-theme="dark"] .homePage,
+html[data-theme="dark"] .page,
+html[data-theme="dark"] .header,
+html[data-theme="dark"] .catalogHero,
+html[data-theme="dark"] .recommendHero,
+html[data-theme="dark"] .serviceHero,
+html[data-theme="dark"] .serviceVerdict,
+html[data-theme="dark"] .conditionCard,
+html[data-theme="dark"] .catalogCard,
+html[data-theme="dark"] .resultCard,
+html[data-theme="dark"] .serviceCard,
+html[data-theme="dark"] .taskCard,
+html[data-theme="dark"] .miniCard,
+html[data-theme="dark"] .empty,
+html[data-theme="dark"] .relatedCard,
+html[data-theme="dark"] .serviceDetailGrid article,
+html[data-theme="dark"] .toolPanel,
+html[data-theme="dark"] .calculatorCard,
+html[data-theme="dark"] .callout,
+html[data-theme="dark"] .sourceBox,
+html[data-theme="dark"] .searchSuggestionCard,
+html[data-theme="dark"] .modal,
+html[data-theme="dark"] .catalogSearch,
+html[data-theme="dark"] .searchBox,
+html[data-theme="dark"] .comparisonSnapshot,
+html[data-theme="dark"] .catalogCompareBar {
+  background: #18161d !important;
+  border-color: #302c39 !important;
+  color: #eeeaf3 !important;
+}
+
+html[data-theme="dark"] .catalogHero,
+html[data-theme="dark"] .serviceHero,
+html[data-theme="dark"] .recommendPage,
+html[data-theme="dark"] .catalogPage,
+html[data-theme="dark"] .serviceDetail,
+html[data-theme="dark"] .recommendPage {
+  background: linear-gradient(180deg,#141219 0%,#18161d 48%,#141219 100%) !important;
+}
+
+html[data-theme="dark"] .catalogHero,
+html[data-theme="dark"] .serviceHero {
+  background: linear-gradient(135deg,#211e29,#18161d) !important;
+}
+
+html[data-theme="dark"] .catalogSearch input,
+html[data-theme="dark"] .searchBox input,
+html[data-theme="dark"] .calcField input,
+html[data-theme="dark"] .calcField select,
+html[data-theme="dark"] .toolTextarea {
+  background: #111016 !important;
+  border-color: #373241 !important;
+  color: #eeeaf3 !important;
+}
+
+html[data-theme="dark"] .filterScroll button,
+html[data-theme="dark"] .catalogOptions label,
+html[data-theme="dark"] .catalogOptions select,
+html[data-theme="dark"] .catalogFavorite,
+html[data-theme="dark"] .catalogActions a:last-child,
+html[data-theme="dark"] .catalogActions button,
+html[data-theme="dark"] .choiceGrid button,
+html[data-theme="dark"] .pills button,
+html[data-theme="dark"] .sortButtons button,
+html[data-theme="dark"] .categoryFilters button,
+html[data-theme="dark"] .serviceActions button,
+html[data-theme="dark"] .modalActions > button,
+html[data-theme="dark"] .toolActions button,
+html[data-theme="dark"] .calcResult button,
+html[data-theme="dark"] .guideLinkGrid a,
+html[data-theme="dark"] .serviceBottom a:not(:first-child) {
+  background: #211e29 !important;
+  border-color: #3a3545 !important;
+  color: #bdb7c7 !important;
+}
+
+html[data-theme="dark"] .choiceGrid button.active,
+html[data-theme="dark"] .pills button.active,
+html[data-theme="dark"] .sortButtons button.active,
+html[data-theme="dark"] .categoryFilters button.active,
+html[data-theme="dark"] .filterScroll button.active {
+  background: #7055e8 !important;
+  border-color: #7055e8 !important;
+  color: #fff !important;
+}
+
+html[data-theme="dark"] .catalogTop img,
+html[data-theme="dark"] .searchSuggestionCard img,
+html[data-theme="dark"] .serviceIdentity img,
+html[data-theme="dark"] .relatedCard img,
+html[data-theme="dark"] .serviceIcon,
+html[data-theme="dark"] .modalIcon,
+html[data-theme="dark"] .compareCandidateIcon {
+  background: #28242f !important;
+}
+
+html[data-theme="dark"] .catalogFeatureRow span,
+html[data-theme="dark"] .heroFeatureRow span,
+html[data-theme="dark"] .match,
+html[data-theme="dark"] .catalogState span,
+html[data-theme="dark"] .bestFor,
+html[data-theme="dark"] .detailReason,
+html[data-theme="dark"] .featureList div,
+html[data-theme="dark"] .modalInfo,
+html[data-theme="dark"] .toolStats > div,
+html[data-theme="dark"] .statGrid > div,
+html[data-theme="dark"] .resultList > div,
+html[data-theme="dark"] .calcResult,
+html[data-theme="dark"] .sourceLinks a,
+html[data-theme="dark"] .tags span,
+html[data-theme="dark"] .catalogMeta span,
+html[data-theme="dark"] .catalogTags span {
+  background: #211e29 !important;
+  border-color: #393342 !important;
+  color: #bdb7c7 !important;
+}
+
+html[data-theme="dark"] .catalogFreeBadge,
+html[data-theme="dark"] .catalogApiBadge {
+  background: #2b3a34 !important;
+  color: #9fe0bf !important;
+}
+
+html[data-theme="dark"] .catalogActions a:first-child,
+html[data-theme="dark"] .serviceActions a,
+html[data-theme="dark"] .modalLink,
+html[data-theme="dark"] .primaryLink,
+html[data-theme="dark"] .primaryCalc,
+html[data-theme="dark"] .toolActions button:first-child,
+html[data-theme="dark"] .serviceBottom a:first-child {
+  background: #7055e8 !important;
+  border-color: #7055e8 !important;
+  color: #fff !important;
+}
+
+html[data-theme="dark"] .catalogActions a.affiliateCatalogLink,
+html[data-theme="dark"] .affiliateBottom .serviceOutbound {
+  background: #7055e8 !important;
+  border-color: #7055e8 !important;
+  color: #fff !important;
+}
+
+html[data-theme="dark"] .catalogCompareBar {
+  background: rgba(24,22,29,.96) !important;
+  box-shadow: 0 18px 45px rgba(0,0,0,.38) !important;
+}
+
+html[data-theme="dark"] .catalogSearch strong,
+html[data-theme="dark"] .badge,
+html[data-theme="dark"] .calcResult,
+html[data-theme="dark"] .recommendNote {
+  background: #28242f !important;
+  color: #bdb7c7 !important;
+}
+
+html[data-theme="dark"] .catalogPage p,
+html[data-theme="dark"] .recommendPage p,
+html[data-theme="dark"] .serviceDetail p,
+html[data-theme="dark"] .catalogMeta span,
+html[data-theme="dark"] .catalogTags span,
+html[data-theme="dark"] .resultTitle small,
+html[data-theme="dark"] .resultMain p,
+html[data-theme="dark"] .serviceCard p,
+html[data-theme="dark"] .serviceVerdict p,
+html[data-theme="dark"] .relatedCard span,
+html[data-theme="dark"] .relatedCard p,
+html[data-theme="dark"] .sectionSub,
+html[data-theme="dark"] .calcField small,
+html[data-theme="dark"] .toolNote,
+html[data-theme="dark"] .affiliateBottom .affiliateDisclosure {
+  color: #aaa5b2 !important;
+}
+
+html[data-theme="dark"] nav,
+html[data-theme="dark"] .catalogState b,
+html[data-theme="dark"] .catalogState button,
+html[data-theme="dark"] .catalogRankLine,
+html[data-theme="dark"] .catalogTop small,
+html[data-theme="dark"] .catalogFavorite,
+html[data-theme="dark"] .catalogActions a:last-child,
+html[data-theme="dark"] .serviceBadges span,
+html[data-theme="dark"] .suitableGrid span,
+html[data-theme="dark"] .featureList div,
+html[data-theme="dark"] .guideLinkGrid a,
+html[data-theme="dark"] footer {
+  color: #aaa5b2 !important;
+}
+
+html[data-theme="dark"] .catalogPage a,
+html[data-theme="dark"] .recommendPage a,
+html[data-theme="dark"] .serviceDetail a {
+  color: #b7aaff;
+}
+
+html[data-theme="dark"] .catalogPage h1,
+html[data-theme="dark"] .catalogPage h2,
+html[data-theme="dark"] .catalogPage h3,
+html[data-theme="dark"] .recommendPage h1,
+html[data-theme="dark"] .recommendPage h2,
+html[data-theme="dark"] .recommendPage h3,
+html[data-theme="dark"] .serviceDetail h1,
+html[data-theme="dark"] .serviceDetail h2,
+html[data-theme="dark"] .serviceDetail h3,
+html[data-theme="dark"] .catalogPage strong,
+html[data-theme="dark"] .recommendPage strong,
+html[data-theme="dark"] .serviceDetail strong {
+  color: #eeeaf3 !important;
+}
+
+html[data-theme="dark"] .catalogCard.catalogTopResult,
+html[data-theme="dark"] .serviceCard.featured,
+html[data-theme="dark"] .resultCard.best,
+html[data-theme="dark"] .catalogCard.affiliateCard {
+  border-color: #7663d6 !important;
+}
+
+html[data-theme="dark"] .modalBackdrop {
+  background: rgba(0,0,0,.72) !important;
+}
+
+html[data-theme="dark"] .hubTutorialNext,
+html[data-theme="dark"] .hubTutorialSkip,
+html[data-theme="dark"] .hubTutorialClose {
+  border-color: #3a3545 !important;
+}

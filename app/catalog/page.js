@@ -8,7 +8,8 @@ import { getOutboundUrl, hasAffiliateLink, trackOutboundClick } from "../lib/aff
 import "./catalog.css";
 
 const filters = categoryGroups.map((group) => [group.id, group.label]);
-const featureFilters = [["전체", "전체"], ["image", "이미지"], ["video", "영상"], ["voice", "음성"], ["search", "검색"], ["text", "텍스트"]];
+// 기능 필터는 추천 엔진과 동일한 내부 키를 사용해 화면 간 결과가 어긋나지 않게 합니다.
+const featureFilters = [["전체", "전체"], ["image", "이미지"], ["video", "영상"], ["voice", "음성"], ["chat", "챗봇"], ["search", "검색"], ["text", "텍스트"]];
 
 function readStoredList(key) {
   try {
@@ -40,7 +41,10 @@ export default function CatalogPage() {
       const text = [service.name, service.category, service.bestFor, service.caveat, ...(service.tags || []), ...(service.strengths || []), ...(service.uses || [])].join(" ").toLowerCase();
       if (q && !text.includes(q)) return false;
       if (!matchesCategory(service, category)) return false;
-      if (feature !== "전체" && !service.features?.[feature]) return false;
+
+      // 서비스 데이터가 features 또는 uses 중 한쪽에만 기능을 정의해도 필터에 잡히게 합니다.
+      if (feature !== "전체" && !(service.features?.[feature] || service.uses?.includes(feature))) return false;
+
       if (onlyFree && !service.free) return false;
       if (onlyApi && !service.api) return false;
       return true;

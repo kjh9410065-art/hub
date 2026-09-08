@@ -1,54 +1,67 @@
 /*
- * 기본 홈 타이포그래피 복원 레이어
+ * HUB 홈 가독성 + 정보 밀도 최종 레이어
  *
- * 정보 밀도 패치가 기존 가독성 규칙을 덮어쓰지 않도록 핵심 UI의
- * 최소 글자 크기와 터치 영역을 마지막에 다시 고정합니다.
+ * 작은 글자를 단순 확대하는 방식이 아니라 핵심 정보의 우선순위를 정합니다.
+ * 좁은 화면에서는 추천 카드의 폭을 넓히고 중복되는 태그를 숨겨
+ * 서비스명, 설명, 추천 이유, 버튼이 실제로 읽히도록 합니다.
  */
+
 .homePage,
 .homePage *{
   -webkit-text-size-adjust:100%;
   text-size-adjust:100%;
 }
 
+/* 섹션 기본 계층 */
 .homePage .topNav a{font-size:12px;line-height:1.3}
 .homePage .sectionKicker{font-size:11px;line-height:1.25;letter-spacing:1.6px}
 .homePage .stepHeading h1{font-size:32px;line-height:1.2;letter-spacing:-1.8px}
 .homePage .stepHeading h2{font-size:28px;line-height:1.25;letter-spacing:-1.5px}
-.homePage .stepHeading>p:last-child{font-size:13px;line-height:1.6}
+.homePage .stepHeading>p:last-child{font-size:13px;line-height:1.6;color:#74717d}
 
-/* 목적 카드는 제목과 설명이 한눈에 구분되도록 합니다. */
+/* 목적 카드: 제목은 선명하게, 설명은 한 단계 작게 */
 .homePage .taskCard{min-height:70px;gap:13px}
 .homePage .taskCopy{gap:4px}
 .homePage .taskCopy strong{font-size:15px;line-height:1.35}
 .homePage .taskCopy small{font-size:11px;line-height:1.4}
 .homePage .taskChevron{font-size:24px}
 
-/* 추천 조작부는 작은 보조 UI가 아니라 실제 탐색 컨트롤이므로 충분한 크기를 유지합니다. */
+/* 추천 컨트롤 */
 .homePage .recommendTabs button,
 .homePage .recommendTabs label,
-.homePage .recommendTabs a{
-  min-height:34px;
-  font-size:12px;
-  line-height:1.2;
-}
+.homePage .recommendTabs a{min-height:34px;font-size:12px;line-height:1.2}
 .homePage .searchBox input{font-size:14px;line-height:1.45}
 .homePage .searchBox button{font-size:11px}
 .homePage .featureFilters button{font-size:11px;line-height:1.2;padding-top:8px;padding-bottom:8px}
 .homePage .resultMeta{min-height:34px;font-size:11px;line-height:1.35}
 .homePage .resultMeta button{font-size:11px}
 
-/* 서비스 카드의 핵심 정보는 작은 화면에서도 축소되지 않도록 합니다. */
-.homePage .serviceTitleRow{min-height:23px}
+/* 서비스 카드 공통: 핵심 정보가 먼저 보이도록 간격과 최소 크기를 확보 */
+.homePage .serviceCard{padding:17px;border-radius:17px}
+.homePage .serviceMain{gap:13px}
+.homePage .serviceTitleRow{min-height:23px;gap:6px}
+.homePage .serviceInfo{min-width:0;padding-right:52px}
 .homePage .serviceName{font-size:17px;line-height:1.3;font-weight:950;letter-spacing:-.35px}
 .homePage .matchBadge,
 .homePage .freeBadge{padding:4px 7px;font-size:10px;line-height:1.1}
+.homePage .serviceBest{margin-top:7px;font-size:12.5px;line-height:1.55;color:#5f5c68}
+.homePage .tagList{margin-top:8px;gap:5px}
+.homePage .tagList span{font-size:10px;padding:4px 7px;line-height:1.2}
+.homePage .recommendReason{margin-top:9px;padding:8px 10px;font-size:11.5px;line-height:1.5;color:#66636f}
+.homePage .recommendReasonLabel{font-size:10px;line-height:1.2;margin-right:3px;font-weight:900}
 .homePage .favoriteButton{padding:6px 7px;font-size:10px;line-height:1.2}
+.homePage .serviceActions{margin-top:15px;gap:8px}
+.homePage .detailButton,
+.homePage .compareButton{height:38px;font-size:12.5px;line-height:1.2}
+.homePage .moreLink{font-size:12px;line-height:1.4}
 
-/* 카테고리와 비교 영역도 실제 탐색/행동 요소이므로 읽을 수 있는 하한을 유지합니다. */
-.homePage .categoryCard{min-height:44px}
+/* 카테고리 */
+.homePage .categoryCard{min-height:44px;gap:10px}
 .homePage .categoryCard span{font-size:13px;line-height:1.3}
 .homePage .categoryCard b{font-size:11px;line-height:1.1}
 .homePage .categoryCard i{font-size:20px}
+
+/* 비교 CTA와 푸터 */
 .homePage .compareCta strong{font-size:15px;line-height:1.35}
 .homePage .compareCta small{font-size:11px;line-height:1.4}
 .homePage .compareCta>b{font-size:24px}
@@ -56,7 +69,7 @@
 .homePage .homeFooter span,
 .homePage .footerLinks a{font-size:10px;line-height:1.4}
 
-/* 일반폰 세로: 제목은 조금 줄이고 본문은 충분히 유지합니다. */
+/* 일반폰 세로 */
 @media(max-width:430px) and (orientation:portrait){
   .homePage .topNav a{font-size:10px}
   .homePage .sectionKicker{font-size:10px}
@@ -72,10 +85,16 @@
   .homePage .searchBox input{font-size:13px}
   .homePage .featureFilters button{font-size:10px}
   .homePage .resultMeta{font-size:10px}
+  .homePage .serviceList{grid-template-columns:1fr;gap:10px}
+  .homePage .serviceCard{padding:15px}
+  .homePage .serviceInfo{padding-right:46px}
   .homePage .serviceName{font-size:17px}
-  .homePage .matchBadge,
-  .homePage .freeBadge{font-size:9px}
-  .homePage .favoriteButton{font-size:9px}
+  .homePage .serviceBest{font-size:12px}
+  .homePage .tagList{display:none}
+  .homePage .recommendReason{font-size:11px;padding:8px 9px}
+  .homePage .recommendReasonLabel{font-size:9px}
+  .homePage .detailButton,
+  .homePage .compareButton{height:37px;font-size:12px}
   .homePage .categoryCard span{font-size:11px}
   .homePage .categoryCard b{font-size:9px}
   .homePage .compareCta strong{font-size:14px}
@@ -84,8 +103,8 @@
   .homePage .footerLinks a{font-size:9px}
 }
 
-/* Fold/태블릿 세로: 폭이 충분해져도 핵심 정보의 가독성을 유지합니다. */
-@media(min-width:431px) and (max-width:900px) and (orientation:portrait){
+/* 431~760px 세로: Fold 펼침/큰 휴대폰에서는 서비스 추천을 한 열로 전환합니다. */
+@media(min-width:431px) and (max-width:760px) and (orientation:portrait){
   .homePage .topNav a{font-size:12px}
   .homePage .sectionKicker{font-size:11px}
   .homePage .stepHeading h1{font-size:32px}
@@ -99,9 +118,42 @@
   .homePage .searchBox input{font-size:14px}
   .homePage .featureFilters button{font-size:11px}
   .homePage .resultMeta{font-size:11px}
+
+  /* 목적 카드와 카테고리는 2열을 유지하지만 서비스 카드는 읽기 폭을 확보합니다. */
+  .homePage .serviceList{grid-template-columns:1fr;gap:11px}
+  .homePage .serviceCard{padding:17px 18px}
+  .homePage .serviceMain{gap:14px}
+  .homePage .serviceIconWrap{width:46px;height:46px;flex-basis:46px}
+  .homePage .serviceIconImage{width:31px;height:31px}
+  .homePage .serviceInfo{padding-right:54px}
+  .homePage .serviceName{font-size:18px;line-height:1.3}
+  .homePage .serviceBest{font-size:13px;line-height:1.55}
+  /* 태그는 서비스 설명과 역할이 겹치므로 좁은 화면에서는 제거합니다. */
+  .homePage .tagList{display:none}
+  .homePage .recommendReason{margin-top:10px;padding:9px 10px;font-size:12px;line-height:1.55}
+  .homePage .recommendReasonLabel{font-size:10px}
+  .homePage .serviceActions{margin-top:15px}
+  .homePage .detailButton,
+  .homePage .compareButton{height:39px;font-size:13px}
+  .homePage .categoryCard span{font-size:13px}
+  .homePage .categoryCard b{font-size:11px}
 }
 
-/* 폰/Flip 가로: 세로보다 높이가 부족하므로 제목만 조금 줄이고 본문은 유지합니다. */
+/* 761~900px 세로: 태블릿 폭에서는 다시 2열을 사용합니다. */
+@media(min-width:761px) and (max-width:900px) and (orientation:portrait){
+  .homePage .topNav a{font-size:12px}
+  .homePage .stepHeading h1{font-size:33px}
+  .homePage .stepHeading h2{font-size:29px}
+  .homePage .serviceList{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .homePage .serviceName{font-size:17px}
+  .homePage .serviceBest{font-size:12px}
+  .homePage .tagList span{font-size:9px}
+  .homePage .recommendReason{font-size:10.5px}
+  .homePage .detailButton,
+  .homePage .compareButton{font-size:11px}
+}
+
+/* 폰/Flip 가로: 2열은 유지하되 텍스트 하한을 지킵니다. */
 @media(max-width:900px) and (orientation:landscape){
   .homePage .topNav a{font-size:10px}
   .homePage .sectionKicker{font-size:10px}
@@ -116,9 +168,15 @@
   .homePage .searchBox input{font-size:12px}
   .homePage .featureFilters button{font-size:10px}
   .homePage .resultMeta{font-size:10px}
+  .homePage .serviceName{font-size:16px}
+  .homePage .serviceBest{font-size:11px}
+  .homePage .tagList span{font-size:9px}
+  .homePage .recommendReason{font-size:10px}
+  .homePage .detailButton,
+  .homePage .compareButton{height:34px;font-size:11px}
 }
 
-/* 데스크톱은 정보 계층을 가장 여유 있게 보여줍니다. */
+/* 데스크톱: 넓은 카드에서 정보 계층을 가장 여유 있게 보여줍니다. */
 @media(min-width:901px){
   .homePage .topNav a{font-size:13px}
   .homePage .sectionKicker{font-size:12px}
@@ -133,6 +191,7 @@
   .homePage .searchBox input{font-size:14px}
   .homePage .featureFilters button{font-size:12px}
   .homePage .resultMeta{font-size:12px}
+  .homePage .serviceList{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   .homePage .serviceName{font-size:18px}
   .homePage .serviceBest{font-size:13px}
   .homePage .recommendReason{font-size:12px}

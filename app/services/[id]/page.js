@@ -65,7 +65,12 @@ export default async function ServiceDetail({ params }) {
     .map((item) => {
       const categoryMatch = item.category === service.category ? 3 : 0;
       const useMatch = (item.uses || []).filter((use) => (service.uses || []).includes(use)).length;
-      const featureMatch = Object.keys(service.features || {}).filter((key) => service.features?.[key] && item.features?.[key]).length;
+      // features에만 기능이 적힌 서비스도 대안 선정에서 빠지지 않도록 uses와 함께 비교합니다.
+      const featureMatch = Object.keys(service.features || {}).filter((key) => {
+        const serviceSupports = service.features?.[key] || service.uses?.includes(key);
+        const itemSupports = item.features?.[key] || item.uses?.includes(key);
+        return serviceSupports && itemSupports;
+      }).length;
       return { item, score: categoryMatch + useMatch * 2 + featureMatch };
     })
     .sort((a, b) => b.score - a.score)
@@ -140,12 +145,16 @@ export default async function ServiceDetail({ params }) {
         <article>
           <h2>지원 기능</h2>
           <div className="featureList">
-            {features.map(([key, label]) => (
-              <div key={key} className={service.features?.[key] ? "supported" : "disabled"}>
-                <span>{label}</span>
-                <b>{service.features?.[key] ? "지원" : "미지원"}</b>
-              </div>
-            ))}
+            {features.map(([key, label]) => {
+              // 상세 페이지도 카탈로그·추천과 동일하게 features와 uses를 모두 지원 데이터로 취급합니다.
+              const supported = service.features?.[key] || service.uses?.includes(key);
+              return (
+                <div key={key} className={supported ? "supported" : "disabled"}>
+                  <span>{label}</span>
+                  <b>{supported ? "지원" : "미지원"}</b>
+                </div>
+              );
+            })}
           </div>
         </article>
       </section>

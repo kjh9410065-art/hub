@@ -1,0 +1,100 @@
+/* HUB 공통 반응형 레이어입니다.
+   기본 화면을 해치지 않으면서 일반폰, Flip/Fold, 태블릿, PC와 가로·세로 회전을 보정합니다.
+   폴더블 전용 viewport segment 기능은 지원 브라우저에서만 적용되며 일반 브라우저에는 영향을 주지 않습니다. */
+
+html,body{width:100%;min-width:0;overflow-x:hidden}
+img,svg,video{max-width:100%;height:auto}
+button,a,input,select,textarea{min-width:0}
+
+/* 노치·둥근 모서리·하단 제스처 영역을 사용하는 휴대폰의 안전 영역입니다. */
+body{padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+
+/* 430px 이하 일반폰 세로 */
+@media(max-width:430px) and (orientation:portrait){
+  .page{width:100%;padding:0 14px}
+  .header{height:58px}
+  .hero{margin-top:18px;padding:40px 16px 32px;border-radius:22px}
+  .hero h1{font-size:clamp(30px,9vw,40px);letter-spacing:-2px}
+  .hero p{font-size:12px;line-height:1.65}
+  .searchBox{width:100%;margin-top:24px}
+  .section{padding:52px 0 30px}
+  h2{font-size:27px;letter-spacing:-1.5px}
+  .taskGrid,.serviceGrid,.miniGrid{grid-template-columns:1fr}
+  .taskCard{min-height:92px;padding:16px;border-radius:17px}
+  .serviceCard{min-height:0;padding:16px;border-radius:17px}
+  .serviceCard h3{font-size:18px}
+  .serviceCard p{font-size:12px}
+  .serviceActions{grid-template-columns:1fr 1.2fr}
+  .calculatorCard{grid-template-columns:1fr;padding:16px;border-radius:18px}
+  .calcWide,.primaryCalc,.calcResult{grid-column:1}
+  .toolStats{grid-template-columns:repeat(2,1fr)}
+  .toolPanel{padding:14px;border-radius:18px}
+  .toolTextarea{min-height:240px;padding:14px}
+  .guideArticle article{margin-top:45px}
+  .guideArticle h1,.guideHero h1{font-size:clamp(32px,10vw,46px);letter-spacing:-2px}
+  footer{flex-direction:column;align-items:flex-start;padding-bottom:calc(35px + env(safe-area-inset-bottom,0px))}
+}
+
+/* 431~900px 세로: Flip/Fold 내부 화면과 소형 태블릿에 두 열을 활용합니다. */
+@media(min-width:431px) and (max-width:900px) and (orientation:portrait){
+  .page{width:min(820px,calc(100% - 40px));padding-inline:0}
+  .header{height:66px}
+  .hero{margin-top:28px;padding:56px 28px 48px}
+  .taskGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .serviceGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .miniGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .calculatorCard{grid-template-columns:1fr 1fr}
+  .toolStats{grid-template-columns:repeat(4,1fr)}
+  .guideArticle article{width:min(760px,100%)}
+}
+
+/* 일반폰·Flip 가로: 화면 높이가 낮으므로 헤더와 섹션 간격을 줄이고 카드 열 수를 늘립니다. */
+@media(max-width:900px) and (orientation:landscape){
+  .page{width:calc(100% - 32px);padding-inline:0}
+  .header{height:50px}
+  .hero{margin-top:16px;padding:34px 22px 30px;border-radius:22px}
+  .hero h1{font-size:34px}
+  .hero p{font-size:11px}
+  .section{padding:45px 0 25px}
+  h2{font-size:28px}
+  .taskGrid,.serviceGrid,.miniGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .taskCard{min-height:88px;padding:14px}
+  .serviceCard{min-height:0;padding:16px}
+  .calculatorCard{grid-template-columns:1fr 1fr}
+  .toolStats{grid-template-columns:repeat(4,1fr)}
+  .guideArticle article{margin-top:35px}
+}
+
+/* 901~1199px: 펼친 Flip/Fold, 태블릿, 작은 노트북을 위한 중간 폭입니다. */
+@media(min-width:901px) and (max-width:1199px){
+  .page{width:min(1000px,calc(100% - 56px));padding-inline:0}
+  .taskGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .serviceGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .miniGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+/* PC: 과도하게 넓어지지 않도록 읽기 폭을 제한하면서 카드 수를 늘립니다. */
+@media(min-width:1200px){
+  .page{width:min(1180px,calc(100% - 72px));padding-inline:0}
+  .taskGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .serviceGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .miniGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+/* 접힌 듀얼스크린이 좌우 세그먼트로 나뉘는 경우입니다.
+   실제 힌지 폭을 브라우저가 제공할 때 콘텐츠가 힌지 위에 걸치지 않게 합니다. */
+@media(horizontal-viewport-segments:2){
+  body{padding-left:0;padding-right:0}
+  .page{width:min(100%,env(viewport-segment-width 0 0,50vw));margin-left:0;margin-right:auto}
+  .header,.hero,.section,.guideArticle{max-width:100%}
+}
+
+/* 접힌 듀얼스크린이 위·아래 세그먼트로 나뉘는 경우입니다. */
+@media(vertical-viewport-segments:2){
+  .header{padding-top:env(safe-area-inset-top,0px)}
+}
+
+/* 지원되지 않는 환경에서는 폴더블 규칙이 무시되고 위의 일반 반응형 규칙만 사용됩니다. */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:0.01ms!important;animation-duration:0.01ms!important}
+}

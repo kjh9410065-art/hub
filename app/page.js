@@ -10,12 +10,12 @@ import "./home.css";
 // 목적 카드에는 운영체제별 문자가 아니라 HUB 전용 SVG 일러스트만 사용합니다.
 // 각 목적은 추천 페이지의 같은 task 파라미터로 연결되어 홈과 추천 흐름이 이어집니다.
 const tasks = [
-  { id: "shorts", icon: "/illustrations/task-short.svg", title: "쇼츠 만들기", desc: "이미지·영상·음성까지 한 번에" },
-  { id: "image", icon: "/illustrations/task-image-new.svg", title: "AI 이미지 만들기", desc: "생성·편집·상품 이미지" },
-  { id: "video", icon: "/illustrations/task-video-new.svg", title: "AI 영상 만들기", desc: "텍스트·이미지로 영상 생성" },
-  { id: "voice", icon: "/illustrations/task-voice-new.svg", title: "AI 음성 만들기", desc: "음성 생성·더빙·변환" },
-  { id: "chat", icon: "/illustrations/task-chat-new.svg", title: "AI 챗봇 만들기", desc: "LLM API로 서비스 개발" },
-  { id: "api", icon: "/illustrations/task-api-new.svg", title: "개발용 API 찾기", desc: "검색·크롤링·AI 인프라" }
+  { id: "shorts", icon: "/illustrations/task-short-v2.svg", title: "쇼츠 만들기", desc: "이미지·영상·음성까지 한 번에" },
+  { id: "image", icon: "/illustrations/task-image-v2.svg", title: "AI 이미지 만들기", desc: "생성·편집·상품 이미지" },
+  { id: "video", icon: "/illustrations/task-video-v2.svg", title: "AI 영상 만들기", desc: "텍스트·이미지로 영상 생성" },
+  { id: "voice", icon: "/illustrations/task-voice-v2.svg", title: "AI 음성 만들기", desc: "음성 생성·더빙·변환" },
+  { id: "chat", icon: "/illustrations/task-chat-v2.svg", title: "AI 챗봇 만들기", desc: "LLM API로 서비스 개발" },
+  { id: "api", icon: "/illustrations/task-api-v2.svg", title: "개발용 API 찾기", desc: "검색·크롤링·AI 인프라" }
 ];
 
 const categories = categoryGroups.filter((group) => group.id !== "all");

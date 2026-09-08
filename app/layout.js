@@ -3,6 +3,7 @@ import "./responsive.css";
 import "./home-typography.css";
 import "./readable-ui.css";
 import "./components/adsense.css";
+import "./components/hub-floating-controls.css";
 import Script from "next/script";
 import HubTutorial from "./components/hub-tutorial";
 import HubTheme from "./components/hub-theme";

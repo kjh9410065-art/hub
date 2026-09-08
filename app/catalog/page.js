@@ -9,8 +9,8 @@ import { getOutboundUrl, hasAffiliateLink, trackOutboundClick } from "../lib/aff
 import "./catalog.css";
 
 const filters = categoryGroups.map((group) => [group.id, group.label]);
-// 기능 필터는 추천 엔진과 동일한 내부 키를 사용합니다.
 const featureFilters = [["전체", "전체"], ["image", "이미지"], ["video", "영상"], ["voice", "음성"], ["chat", "챗봇"], ["search", "검색"], ["text", "텍스트"]];
+const featureLabels = { text: "텍스트", image: "이미지", video: "영상", voice: "음성", search: "검색", chat: "챗봇" };
 
 function readStoredList(key) {
   try {
@@ -22,6 +22,11 @@ function readStoredList(key) {
 function serviceSupportsFeature(service, feature) {
   // features 또는 uses 중 한쪽에만 기능이 정의돼 있어도 필터에 포함합니다.
   return Boolean(service.features?.[feature] || service.uses?.includes(feature));
+}
+
+function getSupportedFeatures(service) {
+  // 카탈로그 카드에는 실제 지원 기능 중 핵심 3개만 표시해 정보량을 제한합니다.
+  return Object.keys(featureLabels).filter((key) => Boolean(service.features?.[key] || service.uses?.includes(key))).slice(0, 3);
 }
 
 export default function CatalogPage() {
@@ -60,11 +65,11 @@ export default function CatalogPage() {
     });
   }, [query, category, feature, onlyFree, onlyApi, sort]);
 
-  // 검색 결과가 0개라면 검색 의도에 가까운 서비스를 최대 3개 제안합니다.
+  // 검색 결과가 0개라면 현재 검색어와 가까운 서비스를 최대 3개 제안합니다.
   const suggestions = useMemo(() => {
     if (!query.trim() || list.length > 0) return [];
-    return getSearchSuggestions(catalog, query, 3);
-  }, [query, list]);
+    return getSearchSuggestions(catalog, query, { onlyFree, onlyApi }).slice(0, 3);
+  }, [query, list.length, onlyFree, onlyApi]);
 
   const toggleFavorite = (id) => setFavorites((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
   const toggleCompare = (id) => setCompare((current) => current.includes(id) ? current.filter((item) => item !== id) : current.length >= 4 ? current : [...current, id]);
@@ -86,13 +91,16 @@ export default function CatalogPage() {
       </div>
       <div className="catalogState"><span>{activeCategory}</span><span>{feature}</span>{onlyFree && <span>무료</span>}{onlyApi && <span>API</span>}<b>{list.length}개 결과</b>{(query || category !== "all" || feature !== "전체" || onlyFree || onlyApi) && <button type="button" onClick={resetFilters}>필터 초기화</button>}</div>
       {list.length > 0 && <div className="catalogGrid">
-        {list.map((s) => {
+        {list.map((s, index) => {
           const affiliate = hasAffiliateLink(s);
-          return <article className={`catalogCard ${affiliate ? "affiliateCard" : ""}`} key={s.id}>
-            <div className="catalogTop"><img src={s.icon} alt=""/><div><strong>{s.name}</strong><small>{s.category}</small></div><button type="button" className={`catalogFavorite ${favorites.includes(s.id) ? "active" : ""}`} onClick={() => toggleFavorite(s.id)}>{favorites.includes(s.id) ? "즐겨찾기됨" : "즐겨찾기"}</button></div>
-            <p>{s.bestFor}</p><div className="catalogMeta"><span>{s.price}</span><span>{s.difficulty}</span><span>{s.free ? "무료 시작" : "유료 중심"}</span>{s.api && <span>API</span>}</div>
+          const supportedFeatures = getSupportedFeatures(s);
+          return <article className={`catalogCard ${affiliate ? "affiliateCard" : ""} ${index < 3 ? "catalogTopResult" : ""}`} key={s.id}>
+            <div className="catalogRankLine"><span>{index < 3 ? `추천 ${index + 1}` : "서비스"}</span><span>{s.category}</span></div>
+            <div className="catalogTop"><img src={s.icon} alt=""/><div><strong>{s.name}</strong><small>{s.bestFor}</small></div><button type="button" className={`catalogFavorite ${favorites.includes(s.id) ? "active" : ""}`} onClick={() => toggleFavorite(s.id)}>{favorites.includes(s.id) ? "즐겨찾기됨" : "즐겨찾기"}</button></div>
+            <div className="catalogFeatureRow">{supportedFeatures.map((key) => <span key={key}>{featureLabels[key]}</span>)}{s.api && <span className="catalogApiBadge">API</span>}</div>
+            <div className="catalogMeta"><span>{s.price}</span><span>{s.difficulty}</span><span className={s.free ? "catalogFreeBadge" : ""}>{s.free ? "무료 시작" : "유료 중심"}</span></div>
             <div className="catalogTags">{(s.tags || []).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
-            <div className="catalogActions"><Link href={`/services/${s.id}`}>상세 보기</Link><a className={affiliate ? "affiliateCatalogLink" : ""} href={getOutboundUrl(s)} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => openService(s, "catalog")}>{affiliate ? "서비스 시작하기" : "공식 사이트"}</a><button type="button" onClick={() => toggleCompare(s.id)}>{compare.includes(s.id) ? "비교 선택됨" : "비교하기"}</button></div>
+            <div className="catalogActions"><Link href={`/services/${s.id}`}>자세히 보기</Link><a className={affiliate ? "affiliateCatalogLink" : ""} href={getOutboundUrl(s)} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => openService(s, "catalog")}>{affiliate ? "서비스 시작하기" : "공식 사이트"}</a><button type="button" onClick={() => toggleCompare(s.id)}>{compare.includes(s.id) ? "비교 선택됨" : "비교하기"}</button></div>
             {affiliate && <p className="affiliateCatalogDisclosure">제휴 링크를 통해 가입하면 HUB가 제휴 수수료를 받을 수 있습니다.</p>}
           </article>;
         })}

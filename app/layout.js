@@ -6,9 +6,10 @@ import "./components/adsense.css";
 import Script from "next/script";
 import HubTutorial from "./components/hub-tutorial";
 import HubTheme from "./components/hub-theme";
+import Adsense from "./components/adsense";
 
 // AdSense Publisher ID는 Cloudflare Pages/Workers 빌드 환경변수로 넣습니다.
-// 아직 ID가 없으면 광고 스크립트 자체를 로드하지 않아 승인 전 상태를 유지합니다.
+// 아직 ID가 없으면 광고 스크립트와 광고 영역을 모두 비활성화해 승인 전 상태를 유지합니다.
 const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim();
 
 export const metadata = {
@@ -42,6 +43,8 @@ export default function RootLayout({ children }) {
           />
         )}
         {children}
+        {/* Publisher ID가 실제로 설정된 경우에만 자동 광고 영역을 렌더링합니다. */}
+        <Adsense />
         {/* 모든 페이지에서 사용자가 화면 테마를 바꿀 수 있게 공통 토글을 표시합니다. */}
         <HubTheme />
         {/* 모든 페이지에서 같은 튜토리얼을 사용할 수 있도록 공통 레이아웃에 연결합니다. */}

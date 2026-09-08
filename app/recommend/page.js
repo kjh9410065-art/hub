@@ -9,6 +9,7 @@ import { rankServices } from "../lib/recommendation";
 import { rankSearchResults, scoreSearch } from "../lib/search";
 import { parseRecommendationIntent } from "../lib/recommendation-intent";
 import { getAffiliateDisclosure, getOutboundUrl, hasAffiliateLink } from "../lib/affiliate-programs";
+import HubTutorial from "../components/hub-tutorial";
 
 // 목적 카드에는 HUB 전용 SVG 일러스트만 사용합니다.
 const goals = [
@@ -149,5 +150,7 @@ export default function RecommendPage() {
         <div className="resultActions"><button type="button" className="compareBtn" onClick={() => toggleCompare(service.id)}>{compare.includes(service.id) ? "비교 선택됨" : "비교하기"}</button><a className="officialBtn" href={`/services/${service.id}`}>상세 보기</a>{hasAffiliateLink(service) && <a className="affiliateMiniBtn" href={getOutboundUrl(service)} target="_blank" rel="nofollow sponsored noopener noreferrer">시작하기</a>}</div>
       </article>)}</div>
     </section>
-  </div>{compare.length > 0 && <div className="compareBar"><strong>{compare.length}/4 비교</strong><div className="compareNames">{compare.map((id) => <span className="compareName" key={id}>{catalogMap[id]?.name}</span>)}</div><a className="compareGo" href="/compare">비교하기</a></div>}</main>;
+  </div>{compare.length > 0 && <div className="compareBar"><strong>{compare.length}/4 비교</strong><div className="compareNames">{compare.map((id) => <span className="compareName" key={id}>{catalogMap[id]?.name}</span>)}</div><a className="compareGo" href="/compare">비교하기</a></div>}
+  <HubTutorial />
+  </main>;
 }

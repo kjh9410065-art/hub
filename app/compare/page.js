@@ -1,4 +1,4 @@
-/* HUB 비교 화면: 비교 전에 사용자가 목적과 비교 대상을 이해할 수 있도록 흐름을 단순화합니다. */
+/* HUB 비교 화면: 선택한 서비스의 차이를 빠르게 판단할 수 있도록 구성합니다. */
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -9,6 +9,7 @@ import "./compare.css";
 
 const goals = [["shorts", "쇼츠 제작"], ["image", "이미지 제작"], ["video", "영상 제작"], ["voice", "음성 제작"], ["chat", "AI 챗봇"], ["api", "개발용 API"]];
 const rows = [["category", "분류"], ["price", "비용 부담"], ["free", "무료 시작"], ["difficulty", "개발 난이도"], ["api", "API"], ["image", "이미지"], ["video", "영상"], ["voice", "음성"], ["search", "검색"], ["bestFor", "추천 용도"], ["strengths", "강점"], ["caveat", "주의할 점"]];
+const featureLabels = { image: "이미지", video: "영상", voice: "음성", search: "검색", api: "API" };
 
 function featureValue(service, key) {
   // 기능은 features와 uses 중 한쪽에만 정의되어 있어도 지원으로 표시합니다.
@@ -17,6 +18,11 @@ function featureValue(service, key) {
   if (key === "api") return service.api ? "제공" : "확인 필요";
   if (key === "strengths") return service.strengths?.join(" · ") || "—";
   return service[key] ?? "—";
+}
+
+function getSupportedFeatures(service) {
+  // 비교 카드에서 실제로 지원하는 기능을 짧은 배지로 보여줍니다.
+  return Object.entries(featureLabels).filter(([key]) => key === "api" ? service.api : Boolean(service.features?.[key] || service.uses?.includes(key))).map(([, label]) => label);
 }
 
 function findWinner(services, predicate, fallbackService) {
@@ -36,8 +42,6 @@ export default function Compare() {
     }
   }, []);
 
-  // 사용자가 아직 비교 대상을 고르지 않았다면 임의의 서비스를 비교하지 않습니다.
-  // 현재 목적에 맞는 후보를 먼저 보여주고, 사용자가 원하는 서비스만 비교 목록에 넣게 합니다.
   const candidates = useMemo(() => {
     return rankServices(catalog, { goal, budget: "any", skill: "any", feature: "all" }).slice(0, 3).map((item) => ({ ...item.service, score: item.score, reasons: item.reasons || [] }));
   }, [goal]);
@@ -56,7 +60,8 @@ export default function Compare() {
       ...item.service,
       score: item.score,
       reasons: item.reasons || [],
-      relativeScore: range ? Math.round(((item.score - min) / range) * 100) : 100
+      relativeScore: range ? Math.round(((item.score - min) / range) * 100) : 100,
+      supportedFeatures: getSupportedFeatures(item.service)
     }));
   }, [selected, goal]);
 
@@ -70,7 +75,6 @@ export default function Compare() {
     ];
   }, [ranked]);
 
-  // 같은 서비스가 여러 조건에서 1위를 차지하면 하나의 카드로 합칩니다.
   const uniqueWinnerGroups = useMemo(() => {
     const groups = new Map();
     winners.forEach((winner) => {
@@ -128,7 +132,7 @@ export default function Compare() {
             <div className="compareCandidateTop"><div className="compareCandidateIcon"><img src={service.icon} alt="" /></div><div><strong>{service.name}</strong><small>{service.category}</small></div>{index === 0 && <span>목적 추천 1위</span>}</div>
             <b>{service.bestFor}</b>
             <p>{service.reasons?.slice(0, 2).join(" · ") || "현재 선택한 목적과 주요 기능을 기준으로 추천된 후보입니다."}</p>
-            <div className="compareCandidateMeta"><span>비용 {service.price}</span><span>{service.free ? "무료 시작 가능" : "무료 시작 없음"}</span></div>
+            <div className="compareCandidateMeta"><span>비용 {service.price}</span><span>{service.free ? "무료 시작 가능" : "무료 시작 없음"}</span>{service.api && <span>API 제공</span>}</div>
             <button type="button" onClick={() => addCompare(service.id)}>비교에 추가</button>
           </article>)}
         </div>
@@ -151,6 +155,18 @@ export default function Compare() {
           </article>)}
         </section>
 
+        <section className="comparisonSnapshot" aria-label="비교 핵심 요약">
+          <div className="snapshotIntro"><span>QUICK SNAPSHOT</span><strong>핵심 차이만 먼저 확인하세요</strong><p>세부 내용은 아래 비교표에서 확인할 수 있습니다.</p></div>
+          <div className="snapshotGrid">
+            {ranked.map((service, index) => <article className={index === 0 ? "snapshotCard winner" : "snapshotCard"} key={service.id}>
+              <div className="snapshotTop"><img src={service.icon} alt="" /><div><strong>{service.name}</strong><small>{service.category}</small></div><b>{service.relativeScore}점</b></div>
+              <div className="snapshotBadges"><span>{service.price}</span><span>{service.free ? "무료 시작" : "유료 시작"}</span><span>{service.api ? "API" : "API 없음"}</span></div>
+              <div className="snapshotFeatures">{service.supportedFeatures.length ? service.supportedFeatures.map((feature) => <span key={feature}>{feature}</span>) : <span>주요 기능 정보 확인 필요</span>}</div>
+              <p>{service.reasons?.slice(0, 2).join(" · ") || service.bestFor}</p>
+            </article>)}
+          </div>
+        </section>
+
         <div className="compareDesktop">
           <div className="compareMatrixHead"><div className="matrixLabel">비교 항목</div>{ranked.map((service) => <div className="matrixService" key={service.id}><img src={service.icon} alt=""/><strong>{service.name}</strong><button type="button" onClick={() => remove(service.id)} aria-label={`${service.name} 제거`}>제거</button></div>)}</div>
           <div className="compareMatrixRow compareScoreRow"><div className="matrixLabel">목적 적합도</div>{ranked.map((service) => <div key={service.id} className="matrixScore"><strong>{service.relativeScore}점</strong><small>{service.reasons?.[0] || "목적과 기능을 비교 중"}</small></div>)}</div>
@@ -161,6 +177,7 @@ export default function Compare() {
           {ranked.map((service, index) => <article className={`mobileCompareCard ${index === 0 ? "featured" : ""}`} key={service.id}>
             <header><div className="mobileServiceIcon"><img src={service.icon} alt="" /></div><div><strong>{service.name}</strong><small>{service.category}</small></div><button type="button" onClick={() => remove(service.id)} aria-label={`${service.name} 제거`}>제거</button></header>
             <div className="mobileScore"><span>{index === 0 ? "현재 목적 추천 1위" : "목적 적합도"}</span><b>{service.relativeScore}점</b></div>
+            <div className="mobileSnapshotBadges">{service.supportedFeatures.map((feature) => <span key={feature}>{feature}</span>)}<span>{service.api ? "API 제공" : "API 없음"}</span><span>{service.free ? "무료 시작" : "유료 시작"}</span></div>
             <p className="mobileCompareReason">{service.reasons?.slice(0, 2).join(" · ") || "현재 목적과 주요 기능을 기준으로 비교했습니다."}</p>
             <dl>{rows.slice(0, 9).map(([key, label]) => <div key={key}><dt>{label}</dt><dd>{featureValue(service, key)}</dd></div>)}</dl>
             <Link href={`/services/${service.id}`}>상세 정보 보기</Link>

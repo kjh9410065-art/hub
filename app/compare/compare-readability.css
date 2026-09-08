@@ -1,233 +1,96 @@
-/* 비교 결과의 설명을 충분히 읽을 수 있도록 글자 크기와 줄 간격을 보정합니다. */
-
-/* 데스크톱: 핵심 설명은 13~14px 이상으로 키우고 카드 높이는 내용에 맞춥니다. */
+/* 비교 결과의 설명을 읽기 쉽게 유지하면서 데스크톱에서는 4개 조건을 한 줄에 배치합니다. */
 @media (min-width: 761px) {
+  /* 1위 배너는 화면을 많이 차지하지 않도록 compact 카드로 유지합니다. */
   .compareWinner {
-    width: min(380px, 100%);
-    min-height: 210px;
+    width: min(320px, 100%);
+    min-height: 155px;
     aspect-ratio: auto;
-    padding: 24px;
+    padding: 20px;
   }
 
-  .compareWinnerKicker {
-    font-size: 11px;
+  .compareWinnerKicker { font-size: 11px; }
+  .compareWinner strong { font-size: 22px; }
+  .compareWinner p { margin-top: 9px; font-size: 12px; line-height: 1.65; }
+  .scoreNotice { font-size: 13px; line-height: 1.65; margin-top: -4px; }
+
+  /* 4개의 조건 카드를 PC에서는 정확히 4열로 배치합니다. */
+  .decisionGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
   }
 
-  .compareWinner strong {
-    font-size: 22px;
-  }
+  .decisionSectionIntro { padding-bottom: 7px; }
+  .decisionSectionIntro > span { font-size: 12px; }
+  .decisionSectionIntro > strong { font-size: 25px; }
+  .decisionSectionIntro > p { font-size: 13px; line-height: 1.65; }
 
-  .compareWinner p {
-    margin-top: 10px;
-    font-size: 13px;
-    line-height: 1.75;
-  }
-
-  .scoreNotice {
-    font-size: 13px;
-    line-height: 1.7;
-    margin-top: -4px;
-  }
-
-  .decisionSectionIntro > span {
-    font-size: 12px;
-  }
-
-  .decisionSectionIntro > strong {
-    font-size: 25px;
-  }
-
-  .decisionSectionIntro > p {
-    font-size: 14px;
-    line-height: 1.7;
-  }
-
+  /* 카드 자체는 작게 만들되, 설명은 12~13px로 읽을 수 있게 유지합니다. */
   .decisionCard {
-    min-height: 175px;
-    padding: 22px;
+    min-height: 205px;
+    padding: 18px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
   }
 
-  .decisionCard > span {
-    font-size: 12px;
-  }
-
-  .decisionCard > strong {
-    font-size: 21px;
-    margin-top: 10px;
-  }
-
+  .decisionCard > span { font-size: 12px; }
+  .decisionCard > strong { font-size: 20px; margin-top: 9px; }
   .decisionCard > p {
-    margin: 9px 0 14px;
-    min-height: 72px;
-    font-size: 13px;
-    line-height: 1.75;
+    flex: 1;
+    margin: 10px 0 14px;
+    min-height: 0;
+    font-size: 12px;
+    line-height: 1.7;
     color: #625d6b;
   }
+  .decisionCard > a { font-size: 12px; }
 
-  .decisionCard > a {
-    font-size: 13px;
-  }
+  /* 아래 요약 영역도 같은 크기 체계로 맞춥니다. */
+  .comparisonSnapshot { padding: 22px; }
+  .snapshotIntro > strong { font-size: 23px; }
+  .snapshotIntro > p { font-size: 12px; line-height: 1.65; }
+  .snapshotTop strong { font-size: 15px; }
+  .snapshotTop small { font-size: 10px; }
+  .snapshotTop > b { font-size: 14px; }
+  .snapshotBadges span, .snapshotFeatures span { font-size: 9px; }
+  .snapshotCard p { font-size: 11px; line-height: 1.6; }
 
-  .comparisonSnapshot {
-    padding: 22px;
-  }
-
-  .snapshotIntro > strong {
-    font-size: 23px;
-  }
-
-  .snapshotIntro > p {
-    font-size: 12px;
-    line-height: 1.7;
-  }
-
-  .snapshotTop strong {
-    font-size: 15px;
-  }
-
-  .snapshotTop small {
-    font-size: 10px;
-  }
-
-  .snapshotTop > b {
-    font-size: 14px;
-  }
-
-  .snapshotBadges span,
-  .snapshotFeatures span {
-    font-size: 10px;
-  }
-
-  .snapshotCard p {
-    font-size: 12px;
-    line-height: 1.65;
-  }
-
-  .compareMatrixHead > div,
-  .compareMatrixRow > div {
-    font-size: 14px;
-    line-height: 1.7;
-  }
-
-  .matrixLabel {
-    font-size: 13px !important;
-  }
-
-  .matrixScore strong {
-    font-size: 16px;
-  }
-
-  .matrixScore small {
-    font-size: 11px;
-    line-height: 1.55;
-  }
+  /* 비교표의 실제 데이터도 너무 작지 않게 유지합니다. */
+  .compareMatrixHead > div, .compareMatrixRow > div { font-size: 14px; line-height: 1.7; }
+  .matrixLabel { font-size: 13px !important; }
+  .matrixScore strong { font-size: 16px; }
+  .matrixScore small { font-size: 11px; line-height: 1.55; }
 }
 
-/* 모바일: 작은 화면에서도 설명을 읽는 데 필요한 최소 크기를 유지합니다. */
+/* 모바일에서는 4열을 강제로 유지하지 않고 한 장씩 읽기 쉽게 배치합니다. */
 @media (max-width: 760px) {
-  .compareWinner {
-    min-height: 180px;
-    padding: 20px;
-    aspect-ratio: auto;
-  }
+  .compareWinner { width: 100%; min-height: 165px; padding: 20px; aspect-ratio: auto; }
+  .compareWinnerKicker { font-size: 10px; }
+  .compareWinner strong { font-size: 19px; }
+  .compareWinner p { margin-top: 8px; font-size: 12px; line-height: 1.7; }
+  .scoreNotice { font-size: 11px; line-height: 1.65; }
 
-  .compareWinnerKicker {
-    font-size: 10px;
-  }
+  .decisionGrid { grid-template-columns: 1fr; gap: 10px; }
+  .decisionSectionIntro > span { font-size: 11px; }
+  .decisionSectionIntro > strong { font-size: 20px; }
+  .decisionSectionIntro > p { font-size: 12px; line-height: 1.65; }
+  .decisionCard { min-height: 0; padding: 17px; }
+  .decisionCard > span { font-size: 11px; }
+  .decisionCard > strong { font-size: 18px; }
+  .decisionCard > p { margin: 8px 0 12px; font-size: 12px; line-height: 1.7; }
+  .decisionCard > a { font-size: 12px; }
 
-  .compareWinner strong {
-    font-size: 19px;
-  }
+  .snapshotIntro > strong { font-size: 19px; }
+  .snapshotIntro > p { font-size: 11px; line-height: 1.65; }
+  .snapshotTop strong { font-size: 12px; }
+  .snapshotTop small { font-size: 9px; }
+  .snapshotTop > b { font-size: 11px; }
+  .snapshotBadges span, .snapshotFeatures span { font-size: 8px; }
+  .snapshotCard p { font-size: 10px; line-height: 1.6; }
 
-  .compareWinner p {
-    margin-top: 8px;
-    font-size: 12px;
-    line-height: 1.7;
-  }
-
-  .scoreNotice {
-    font-size: 11px;
-    line-height: 1.65;
-  }
-
-  .decisionSectionIntro > span {
-    font-size: 11px;
-  }
-
-  .decisionSectionIntro > strong {
-    font-size: 20px;
-  }
-
-  .decisionSectionIntro > p {
-    font-size: 12px;
-    line-height: 1.65;
-  }
-
-  .decisionCard {
-    min-height: 165px;
-    padding: 17px;
-  }
-
-  .decisionCard > span {
-    font-size: 11px;
-  }
-
-  .decisionCard > strong {
-    font-size: 18px;
-    margin-top: 8px;
-  }
-
-  .decisionCard > p {
-    margin: 8px 0 12px;
-    font-size: 12px;
-    line-height: 1.7;
-  }
-
-  .decisionCard > a {
-    font-size: 12px;
-  }
-
-  .snapshotIntro > strong {
-    font-size: 19px;
-  }
-
-  .snapshotIntro > p {
-    font-size: 11px;
-    line-height: 1.65;
-  }
-
-  .snapshotTop strong {
-    font-size: 12px;
-  }
-
-  .snapshotTop small {
-    font-size: 9px;
-  }
-
-  .snapshotTop > b {
-    font-size: 11px;
-  }
-
-  .snapshotBadges span,
-  .snapshotFeatures span {
-    font-size: 8px;
-  }
-
-  .snapshotCard p {
-    font-size: 10px;
-    line-height: 1.6;
-  }
-
-  .mobileCompareReason {
-    font-size: 11px;
-    line-height: 1.65;
-  }
-
-  .mobileCompareCard dt {
-    font-size: 11px;
-  }
-
-  .mobileCompareCard dd {
-    font-size: 12px;
-  }
+  .mobileCompareReason { font-size: 11px; line-height: 1.65; }
+  .mobileCompareCard dt { font-size: 11px; }
+  .mobileCompareCard dd { font-size: 12px; }
 }

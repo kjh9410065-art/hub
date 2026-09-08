@@ -21,12 +21,18 @@ const tasks = [
 
 const categories = categoryGroups.filter((group) => group.id !== "all");
 const featureFilters = ["전체", "텍스트", "이미지", "영상", "음성", "검색", "API"];
+const featureLabels = { text: "텍스트", image: "이미지", video: "영상", voice: "음성", search: "검색" };
 
 function serviceSupports(service, feature) {
   if (feature === "전체") return true;
   if (feature === "API") return Boolean(service.api);
   const key = { 텍스트: "text", 이미지: "image", 영상: "video", 음성: "voice", 검색: "search" }[feature];
   return Boolean(key && (service.features?.[key] || service.uses?.includes(key)));
+}
+
+// 카드에 표시할 실제 지원 기능을 features와 uses 양쪽에서 합칩니다.
+function getSupportedFeatures(service) {
+  return Object.keys(featureLabels).filter((key) => Boolean(service.features?.[key] || service.uses?.includes(key)));
 }
 
 function getCategoryCount(categoryId) {
@@ -133,8 +139,9 @@ export default function HomePage() {
               const reasons = service.recommendationReasons?.length ? service.recommendationReasons : [service.bestFor];
               const searchResult = isSearching ? scoreSearch(service, query) : null;
               const displayReasons = searchResult?.reasons?.length ? searchResult.reasons : reasons;
+              const supportedFeatures = getSupportedFeatures(service).slice(0, 3);
               return <article className={`serviceCard ${index === 0 ? "topMatch" : ""}`} key={service.id}>
-                <div className="serviceMain"><div className="serviceIconWrap"><img src={service.icon} alt="" className="serviceIconImage" /></div><div className="serviceInfo"><div className="serviceTitleRow"><Link href={`/services/${service.id}`} className="serviceName">{service.name}</Link>{index === 0 && <span className="matchBadge">{isSearching ? "검색 일치" : "추천"}</span>}{service.free && <span className="freeBadge">무료 시작</span>}</div><p className="serviceBest">{service.bestFor}</p><div className="tagList">{(service.tags || []).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div><div className="recommendReason" aria-label={isSearching ? "검색 일치 이유" : "추천 이유"}><span className="recommendReasonLabel">{isSearching ? "검색 일치" : "추천 이유"}</span><span>{displayReasons.slice(0, 2).join(" · ")}</span></div></div><button type="button" className={`favoriteButton ${isFavorite ? "isFavorite" : ""}`} onClick={() => toggleFavorite(service.id)} aria-label={isFavorite ? "즐겨찾기 해제" : "즐겨찾기 추가"}>{isFavorite ? "저장됨" : "저장"}</button></div>
+                <div className="serviceMain"><div className="serviceIconWrap"><img src={service.icon} alt="" className="serviceIconImage" /></div><div className="serviceInfo"><div className="serviceTitleRow"><Link href={`/services/${service.id}`} className="serviceName">{service.name}</Link>{index === 0 && <span className="matchBadge">{isSearching ? "검색 일치" : "추천"}</span>}{service.free && <span className="freeBadge">무료 시작</span>}</div><p className="serviceBest">{service.bestFor}</p><div className="serviceMetaRow"><span>{service.price}</span><span>{service.difficulty}</span>{service.free && <span className="isPositive">무료 시작</span>}{service.api && <span className="isApi">API</span>}</div>{supportedFeatures.length > 0 && <div className="tagList">{supportedFeatures.map((key) => <span key={key}>{featureLabels[key]}</span>)}</div>}<div className="recommendReason" aria-label={isSearching ? "검색 일치 이유" : "추천 이유"}><span className="recommendReasonLabel">{isSearching ? "검색 일치" : "추천 이유"}</span><span>{displayReasons.slice(0, 2).join(" · ")}</span></div></div><button type="button" className={`favoriteButton ${isFavorite ? "isFavorite" : ""}`} onClick={() => toggleFavorite(service.id)} aria-label={isFavorite ? "즐겨찾기 해제" : "즐겨찾기 추가"}>{isFavorite ? "저장됨" : "저장"}</button></div>
                 <div className="serviceActions"><Link href={`/services/${service.id}`} className="detailButton">자세히 보기</Link><button type="button" className={`compareButton ${isCompared ? "selected" : ""}`} onClick={() => toggleCompare(service.id)}>{isCompared ? "비교함에서 제거" : "비교하기"}</button></div>
               </article>;
             })}

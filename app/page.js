@@ -7,6 +7,7 @@ import { rankServices } from "./lib/recommendation";
 import { matchesSearch } from "./lib/search";
 import "./home.css";
 import "./home-responsive.css";
+import "./home-polish.css";
 
 // 목적 카드에는 운영체제별 문자가 아니라 HUB 전용 SVG 일러스트만 사용합니다.
 // 각 목적은 추천 페이지의 같은 task 파라미터로 연결되어 홈과 추천 흐름이 이어집니다.

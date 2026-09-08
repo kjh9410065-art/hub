@@ -59,12 +59,15 @@ export function matchesSearch(service, query) {
   const { raw, terms } = normalizeSearchQuery(query);
   if (!raw) return true;
 
+  // 무료/공짜는 서비스 데이터의 별도 boolean 값을 직접 검사합니다.
+  if ((raw === "무료" || raw === "공짜") && service.free) return true;
+
   // 원래 검색어가 직접 포함되면 가장 확실한 일치로 처리합니다.
   const text = getSearchText(service);
   if (text.includes(raw)) return true;
 
   // 확장된 목적·기능 단어 중 하나라도 서비스 정보에 포함되면 결과에 포함합니다.
-  return terms.slice(1).some((term) => text.includes(term));
+  return terms.slice(1).some((term) => term !== "free" && text.includes(term));
 }
 
 export function searchCatalog(catalog, query) {

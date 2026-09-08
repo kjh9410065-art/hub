@@ -1,10 +1,14 @@
 {
-  // Cloudflare Workers가 Next.js의 정적 빌드 결과물(out)을 웹사이트로 배포하도록 설정합니다.
+  // Next.js 정적 빌드 결과를 Cloudflare Workers Static Assets로 서비스합니다.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "hub",
   "compatibility_date": "2026-09-08",
   "assets": {
-    // `npm run build`가 생성하는 정적 사이트 폴더를 Cloudflare에 올립니다.
-    "directory": "./out"
+    // `npm run build`가 생성하는 정적 사이트 폴더입니다.
+    "directory": "./out",
+    // 생성된 404.html을 실제 Not Found 응답으로 사용합니다.
+    "not_found_handling": "404-page",
+    // Next.js의 폴더형 HTML 경로를 자연스럽게 처리합니다.
+    "html_handling": "auto-trailing-slash"
   }
 }

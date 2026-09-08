@@ -1,17 +1,73 @@
-/* 모바일에서 고정 비교 바와 공통 플로팅 버튼이 겹치지 않도록 충분한 간격을 확보합니다. */
+/* 모바일에서 고정 비교 바와 공통 플로팅 버튼이 겹치지 않도록 위치를 계단식으로 분리합니다. */
 @media (max-width: 760px) {
   .hubTutorialHelp {
-    bottom: 170px !important;
+    bottom: 82px !important;
   }
 
   .hubThemeToggle {
-    bottom: 220px !important;
+    bottom: 132px !important;
   }
 
   /* 하단 고정 비교 바가 마지막 콘텐츠를 가리지 않도록 스크롤 여유 공간을 확보합니다. */
   .homePage,
-  .catalogPage,
-  .recommendPage {
-    padding-bottom: 240px !important;
+  .catalogPage {
+    padding-bottom: 170px !important;
   }
+}
+
+/* 다크모드의 주요 카드/패널 외곽선을 HUB 대표 보라색으로 통일합니다. */
+html[data-theme="dark"] .recommendPage .conditionCard,
+html[data-theme="dark"] .recommendPage .recommendResult,
+html[data-theme="dark"] .recommendPage .topMatch,
+html[data-theme="dark"] .recommendPage .resultCard,
+html[data-theme="dark"] .recommendPage .recommendSearch,
+html[data-theme="dark"] .recommendPage .compareBar,
+html[data-theme="dark"] .catalogPage .catalogHero,
+html[data-theme="dark"] .catalogPage .catalogSearch,
+html[data-theme="dark"] .catalogPage .catalogCard,
+html[data-theme="dark"] .catalogPage .searchSuggestionCard,
+html[data-theme="dark"] .catalogPage .catalogCompareBar,
+html[data-theme="dark"] .serviceDetail .serviceHero,
+html[data-theme="dark"] .serviceDetail .serviceVerdict,
+html[data-theme="dark"] .serviceDetail .serviceDetailGrid article,
+html[data-theme="dark"] .serviceDetail .relatedCard,
+html[data-theme="dark"] .homePage .hero,
+html[data-theme="dark"] .homePage .taskCard,
+html[data-theme="dark"] .homePage .serviceCard,
+html[data-theme="dark"] .homePage .miniCard,
+html[data-theme="dark"] .comparePage .compareGoalBox,
+html[data-theme="dark"] .comparePage .compareWinner,
+html[data-theme="dark"] .comparePage .decisionCard,
+html[data-theme="dark"] .comparePage .comparisonSnapshot,
+html[data-theme="dark"] .comparePage .snapshotCard,
+html[data-theme="dark"] .comparePage .mobileCompareCard,
+html[data-theme="dark"] .comparePage .compareDesktop {
+  border-color: #7659d6 !important;
+}
+
+/* 보조 컨트롤도 같은 보라색 외곽선 규칙으로 통일합니다. */
+html[data-theme="dark"] .recommendPage .choice,
+html[data-theme="dark"] .recommendPage .filterButton,
+html[data-theme="dark"] .recommendPage .recommendSearchRow button,
+html[data-theme="dark"] .catalogPage .catalogFavorite,
+html[data-theme="dark"] .catalogPage .catalogActions a:last-child,
+html[data-theme="dark"] .catalogPage .catalogActions button,
+html[data-theme="dark"] .serviceDetail .serviceActions button,
+html[data-theme="dark"] .serviceDetail .guideLinkGrid a,
+html[data-theme="dark"] .comparePage .compareGoalTabs button,
+html[data-theme="dark"] .comparePage .toolbarActions button,
+html[data-theme="dark"] .comparePage .mobileCompareCard header button,
+html[data-theme="dark"] .hubTutorialHelp,
+html[data-theme="dark"] .hubThemeToggle {
+  border-color: #7659d6 !important;
+}
+
+/* 입력창도 같은 보라색 테두리를 사용합니다. */
+html[data-theme="dark"] .recommendPage input,
+html[data-theme="dark"] .catalogPage input,
+html[data-theme="dark"] .catalogPage select,
+html[data-theme="dark"] .serviceDetail input,
+html[data-theme="dark"] .serviceDetail textarea,
+html[data-theme="dark"] .serviceDetail select {
+  border-color: #7659d6 !important;
 }

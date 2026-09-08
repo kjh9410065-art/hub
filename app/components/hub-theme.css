@@ -2,157 +2,87 @@
 .hubThemeToggle{position:fixed;right:18px;bottom:72px;z-index:79;min-height:40px;padding:0 14px;border:1px solid #dfdbe8;border-radius:999px;background:#fff;color:#514b5c;box-shadow:0 8px 24px rgba(40,30,80,.1);font-size:12px;font-weight:800;cursor:pointer}
 .hubThemeToggle:hover{transform:translateY(-1px)}
 
-/* html과 body뿐 아니라 실제 홈 래퍼까지 직접 어둡게 덮어 흰 배경이 남지 않게 합니다. */
-html[data-theme="dark"],
-html[data-theme="dark"] body,
-html[data-theme="dark"] .homePage{background:#0d0c11;color:#f3f1f7}
+html[data-theme="dark"],html[data-theme="dark"] body,html[data-theme="dark"] .homePage,html[data-theme="dark"] .catalogPage,html[data-theme="dark"] .serviceDetail{background:#0d0c11;color:#f3f1f7}
 html[data-theme="dark"] body{min-height:100vh}
-html[data-theme="dark"] .page,
-html[data-theme="dark"] .homePage,
-html[data-theme="dark"] .recommendPage,
-html[data-theme="dark"] .comparePage,
-html[data-theme="dark"] .servicePage{color:#f3f1f7}
+html[data-theme="dark"] .page,html[data-theme="dark"] .homePage,html[data-theme="dark"] .catalogPage,html[data-theme="dark"] .recommendPage,html[data-theme="dark"] .serviceDetail,html[data-theme="dark"] .comparePage,html[data-theme="dark"] .servicePage{color:#f3f1f7}
 
-/* 홈 헤더도 본문과 같은 다크 배경을 사용하고 경계선만 은은하게 남깁니다. */
-html[data-theme="dark"] .homeHeader,
-html[data-theme="dark"] .header,
-html[data-theme="dark"] .recommendTop{background:rgba(13,12,17,.92);color:#f3f1f7;border-color:#302c39}
-html[data-theme="dark"] .brand{color:#f3f1f7}
-html[data-theme="dark"] nav,
-html[data-theme="dark"] .recommendNav{color:#aaa5b5}
-html[data-theme="dark"] nav a,
-html[data-theme="dark"] .topNav a{color:#aaa5b5}
-html[data-theme="dark"] nav a:hover,
-html[data-theme="dark"] .recommendNav a:hover{color:#a99aff}
+/* 헤더 */
+html[data-theme="dark"] .homeHeader,html[data-theme="dark"] .header,html[data-theme="dark"] .recommendTop{background:rgba(13,12,17,.92);color:#f3f1f7;border-color:#302c39}
+html[data-theme="dark"] .brand,html[data-theme="dark"] .logo,html[data-theme="dark"] .recommendBrand{color:#f3f1f7}
+html[data-theme="dark"] nav,html[data-theme="dark"] .recommendNav{color:#aaa5b5}
+html[data-theme="dark"] nav a,html[data-theme="dark"] .topNav a{color:#aaa5b5}
+html[data-theme="dark"] nav a:hover,html[data-theme="dark"] .recommendNav a:hover{color:#a99aff}
 
-/* 제목은 밝게, 설명과 보조 문구는 회색으로 구분합니다. */
-html[data-theme="dark"] h1,
-html[data-theme="dark"] h2,
-html[data-theme="dark"] h3,
-html[data-theme="dark"] h4,
-html[data-theme="dark"] strong,
-html[data-theme="dark"] b{color:#f3f1f7}
-html[data-theme="dark"] .sectionKicker{color:#9b86ff}
-html[data-theme="dark"] .stepHeading>p:last-child,
-html[data-theme="dark"] .sectionSub,
-html[data-theme="dark"] .hero p,
-html[data-theme="dark"] .guideHero p{color:#aaa5b2}
+/* 제목과 설명 */
+html[data-theme="dark"] h1,html[data-theme="dark"] h2,html[data-theme="dark"] h3,html[data-theme="dark"] h4,html[data-theme="dark"] strong,html[data-theme="dark"] b{color:#f3f1f7}
+html[data-theme="dark"] .sectionKicker,html[data-theme="dark"] .eyebrow{color:#9b86ff}
+html[data-theme="dark"] .stepHeading>p:last-child,html[data-theme="dark"] .sectionSub,html[data-theme="dark"] .hero p,html[data-theme="dark"] .guideHero p,html[data-theme="dark"] .catalogHero p,html[data-theme="dark"] .serviceVerdict p,html[data-theme="dark"] .serviceGuideLinks p{color:#aaa5b2}
 
-/* 홈의 히어로와 카드 계열 */
+/* 홈 */
 html[data-theme="dark"] .hero{background:linear-gradient(135deg,#18161d,#211c30);border-color:#302b3d}
-html[data-theme="dark"] .searchBox,
-html[data-theme="dark"] .taskCard,
-html[data-theme="dark"] .serviceCard,
-html[data-theme="dark"] .miniCard,
-html[data-theme="dark"] .recommendNote,
-html[data-theme="dark"] .modal,
-html[data-theme="dark"] .toolPanel,
-html[data-theme="dark"] .callout,
-html[data-theme="dark"] .sourceBox,
-html[data-theme="dark"] .calculatorCard,
-html[data-theme="dark"] .empty,
-html[data-theme="dark"] .emptyState{background:#18161d;border-color:#302c39;color:#eeeaf3}
-html[data-theme="dark"] .taskCard:hover,
-html[data-theme="dark"] .taskCard.isActive{border-color:#7864d9;box-shadow:0 8px 24px rgba(0,0,0,.22)}
-html[data-theme="dark"] .taskCopy strong,
-html[data-theme="dark"] .serviceName,
-html[data-theme="dark"] .categoryCard span{color:#f3f1f7}
-html[data-theme="dark"] .taskCopy small,
-html[data-theme="dark"] .serviceCard p,
-html[data-theme="dark"] .serviceBest,
-html[data-theme="dark"] .bestFor span,
-html[data-theme="dark"] .bestFor b,
-html[data-theme="dark"] .tags span,
-html[data-theme="dark"] .recommendNote,
-html[data-theme="dark"] .modal p,
-html[data-theme="dark"] .sectionSub{color:#aaa5b2}
-html[data-theme="dark"] .serviceIcon,
-html[data-theme="dark"] .serviceIconWrap,
-html[data-theme="dark"] .modalIcon,
-html[data-theme="dark"] .bestFor,
-html[data-theme="dark"] .recommendReason,
-html[data-theme="dark"] .toolStats>div,
-html[data-theme="dark"] .calcResult,
-html[data-theme="dark"] .resultList>div,
-html[data-theme="dark"] .statGrid>div{background:#211e29}
-html[data-theme="dark"] .tags span,
-html[data-theme="dark"] .tagList span{background:#28242f;color:#aaa5b2}
-html[data-theme="dark"] .searchBox input,
-html[data-theme="dark"] .toolTextarea,
-html[data-theme="dark"] .calcField input,
-html[data-theme="dark"] .calcField select{color:#eeeaf3;background:#111016;border-color:#373241}
-html[data-theme="dark"] .searchBox input::placeholder,
-html[data-theme="dark"] .toolTextarea::placeholder{color:#77717f}
-html[data-theme="dark"] .serviceActions button,
-html[data-theme="dark"] .modalActions>button,
-html[data-theme="dark"] .toolActions button,
-html[data-theme="dark"] .calcResult button,
-html[data-theme="dark"] .detailButton{background:#24212b;border-color:#3a3545;color:#e7e3ed}
-html[data-theme="dark"] .serviceActions a,
-html[data-theme="dark"] .modalLink,
-html[data-theme="dark"] .primaryLink{background:#f3f0fa;color:#17151b}
+html[data-theme="dark"] .searchBox,html[data-theme="dark"] .taskCard,html[data-theme="dark"] .serviceCard,html[data-theme="dark"] .miniCard,html[data-theme="dark"] .recommendNote,html[data-theme="dark"] .modal,html[data-theme="dark"] .toolPanel,html[data-theme="dark"] .callout,html[data-theme="dark"] .sourceBox,html[data-theme="dark"] .calculatorCard,html[data-theme="dark"] .empty,html[data-theme="dark"] .emptyState{background:#18161d;border-color:#302c39;color:#eeeaf3}
+html[data-theme="dark"] .taskCard:hover,html[data-theme="dark"] .taskCard.isActive{border-color:#7864d9;box-shadow:0 8px 24px rgba(0,0,0,.22)}
+html[data-theme="dark"] .taskCopy strong,html[data-theme="dark"] .serviceName,html[data-theme="dark"] .categoryCard span{color:#f3f1f7}
+html[data-theme="dark"] .taskCopy small,html[data-theme="dark"] .serviceCard p,html[data-theme="dark"] .serviceBest,html[data-theme="dark"] .bestFor span,html[data-theme="dark"] .bestFor b,html[data-theme="dark"] .tags span,html[data-theme="dark"] .recommendNote,html[data-theme="dark"] .modal p,html[data-theme="dark"] .sectionSub{color:#aaa5b2}
+html[data-theme="dark"] .serviceIcon,html[data-theme="dark"] .serviceIconWrap,html[data-theme="dark"] .modalIcon,html[data-theme="dark"] .bestFor,html[data-theme="dark"] .recommendReason,html[data-theme="dark"] .toolStats>div,html[data-theme="dark"] .calcResult,html[data-theme="dark"] .resultList>div,html[data-theme="dark"] .statGrid>div{background:#211e29}
+html[data-theme="dark"] .tags span,html[data-theme="dark"] .tagList span{background:#28242f;color:#aaa5b2}
+html[data-theme="dark"] .searchBox input,html[data-theme="dark"] .toolTextarea,html[data-theme="dark"] .calcField input,html[data-theme="dark"] .calcField select{color:#eeeaf3;background:#111016;border-color:#373241}
+html[data-theme="dark"] .searchBox input::placeholder,html[data-theme="dark"] .toolTextarea::placeholder{color:#77717f}
+html[data-theme="dark"] .serviceActions button,html[data-theme="dark"] .modalActions>button,html[data-theme="dark"] .toolActions button,html[data-theme="dark"] .calcResult button,html[data-theme="dark"] .detailButton{background:#24212b;border-color:#3a3545;color:#e7e3ed}
+html[data-theme="dark"] .serviceActions a,html[data-theme="dark"] .modalLink,html[data-theme="dark"] .primaryLink{background:#f3f0fa;color:#17151b}
 html[data-theme="dark"] .favoriteButton{background:#211e29;border-color:#3a3545;color:#aaa5b2}
 html[data-theme="dark"] .favoriteButton.isFavorite{background:#30285a;border-color:#5c4ab0;color:#c8bdff}
 html[data-theme="dark"] .compareButton{background:#24212b;border-color:#4a4555;color:#eeeaf3}
 html[data-theme="dark"] .matchBadge{background:#30285a;color:#c8bdff}
 html[data-theme="dark"] .freeBadge{background:#173529;color:#75d7a9}
 
-/* 카테고리·비교 영역까지 홈 전체를 끊김 없이 연결합니다. */
-html[data-theme="dark"] .categoryCard,
-html[data-theme="dark"] .compareCta{background:#18161d;border-color:#302c39;color:#eeeaf3}
-html[data-theme="dark"] .categoryCard b{background:#292530;color:#aaa5b2}
-html[data-theme="dark"] .compareCtaIcon{background:#30285a;color:#c8bdff}
-html[data-theme="dark"] .compareCta small{color:#aaa5b2}
-html[data-theme="dark"] .compareBar{background:rgba(24,22,29,.97);border-color:#3a3545;color:#eeeaf3}
-html[data-theme="dark"] .compareBar span{color:#aaa5b2}
-html[data-theme="dark"] .compareBarActions button{background:#24212b;color:#aaa5b2}
-html[data-theme="dark"] .homeFooter{border-color:#302c39;color:#85808f}
-html[data-theme="dark"] .homeFooter strong{color:#f3f1f7}
-html[data-theme="dark"] .homeFooter span,
-html[data-theme="dark"] .footerLinks a{color:#85808f}
+/* 카탈로그 */
+html[data-theme="dark"] .catalogHero{background:linear-gradient(135deg,#18161d,#211c30);border-color:#302b3d;box-shadow:0 20px 55px rgba(0,0,0,.22)}
+html[data-theme="dark"] .catalogSearch,html[data-theme="dark"] .catalogCard,html[data-theme="dark"] .catalogOptions label,html[data-theme="dark"] .catalogOptions select,html[data-theme="dark"] .catalogState span,html[data-theme="dark"] .emptyCatalog{background:#18161d;border-color:#302c39;color:#eeeaf3}
+html[data-theme="dark"] .catalogSearch input,html[data-theme="dark"] .catalogOptions select{color:#eeeaf3;background:#111016}
+html[data-theme="dark"] .catalogTop small,html[data-theme="dark"] .catalogCard p,html[data-theme="dark"] .catalogState b,html[data-theme="dark"] .catalogState span,html[data-theme="dark"] .catalogOptions label{color:#aaa5b2}
+html[data-theme="dark"] .catalogMeta span,html[data-theme="dark"] .catalogTags span{background:#211e29;border-color:#393342;color:#aaa5b2}
+html[data-theme="dark"] .catalogFavorite{background:#211e29;border-color:#3a3545;color:#aaa5b2}
+html[data-theme="dark"] .catalogFavorite.active{background:#30285a;border-color:#5c4ab0;color:#c8bdff}
+html[data-theme="dark"] .catalogActions a:last-child,html[data-theme="dark"] .catalogActions button{background:#24212b;border-color:#3a3545;color:#e7e3ed}
+html[data-theme="dark"] .catalogActions a.affiliateCatalogLink{background:#7055e8;color:#fff;border-color:#7055e8}
+html[data-theme="dark"] .affiliateCatalogDisclosure{color:#85808f!important}
+html[data-theme="dark"] .catalogCompareBar{background:rgba(24,22,29,.97);border-color:#3a3545;color:#eeeaf3}
+html[data-theme="dark"] .catalogCompareBar span{color:#aaa5b2}
 
-/* 추천·비교 전용 영역도 밝은 배경이 남지 않도록 전체 배경과 내부 카드를 함께 덮습니다. */
-html[data-theme="dark"] .recommendShell,
-html[data-theme="dark"] .recommendSearch,
-html[data-theme="dark"] .conditionCard,
-html[data-theme="dark"] .recommendResult,
-html[data-theme="dark"] .recommendCandidate,
-html[data-theme="dark"] .compareGoalBox,
-html[data-theme="dark"] .compareWinner,
-html[data-theme="dark"] .decisionCard,
-html[data-theme="dark"] .mobileCompareCard,
-html[data-theme="dark"] .compareDesktop{background:#18161d!important;border-color:#302c39!important;color:#eeeaf3}
-html[data-theme="dark"] .recommendSearch input,
-html[data-theme="dark"] .conditionCard select,
-html[data-theme="dark"] .conditionCard input{background:#111016!important;color:#eeeaf3!important;border-color:#373241!important}
-html[data-theme="dark"] .choice,
-html[data-theme="dark"] .filterButton,
-html[data-theme="dark"] .compareGoalTabs button{background:#211e29!important;border-color:#393342!important;color:#bdb7c7!important}
-html[data-theme="dark"] .choice.active,
-html[data-theme="dark"] .filterButton.active,
-html[data-theme="dark"] .compareGoalTabs button.active{background:#6c51c4!important;border-color:#6c51c4!important;color:#fff!important}
-html[data-theme="dark"] .recommendTop p,
-html[data-theme="dark"] .recommendCandidate p,
-html[data-theme="dark"] .compareHero p,
-html[data-theme="dark"] .compareWinner p,
-html[data-theme="dark"] .decisionCard p{color:#aaa5b2!important}
+/* 추천·비교 */
+html[data-theme="dark"] .recommendShell,html[data-theme="dark"] .recommendSearch,html[data-theme="dark"] .conditionCard,html[data-theme="dark"] .recommendResult,html[data-theme="dark"] .recommendCandidate,html[data-theme="dark"] .compareGoalBox,html[data-theme="dark"] .compareWinner,html[data-theme="dark"] .decisionCard,html[data-theme="dark"] .mobileCompareCard,html[data-theme="dark"] .compareDesktop{background:#18161d!important;border-color:#302c39!important;color:#eeeaf3}
+html[data-theme="dark"] .recommendSearch input,html[data-theme="dark"] .conditionCard select,html[data-theme="dark"] .conditionCard input{background:#111016!important;color:#eeeaf3!important;border-color:#373241!important}
+html[data-theme="dark"] .choice,html[data-theme="dark"] .filterButton,html[data-theme="dark"] .compareGoalTabs button{background:#211e29!important;border-color:#393342!important;color:#bdb7c7!important}
+html[data-theme="dark"] .choice.active,html[data-theme="dark"] .filterButton.active,html[data-theme="dark"] .compareGoalTabs button.active{background:#6c51c4!important;border-color:#6c51c4!important;color:#fff!important}
+html[data-theme="dark"] .recommendTop p,html[data-theme="dark"] .recommendCandidate p,html[data-theme="dark"] .compareHero p,html[data-theme="dark"] .compareWinner p,html[data-theme="dark"] .decisionCard p{color:#aaa5b2!important}
 html[data-theme="dark"] .compareMatrixHead{background:#211e29!important}
-html[data-theme="dark"] .compareMatrixHead>div,
-html[data-theme="dark"] .compareMatrixRow>div{border-color:#302c39!important;color:#bdb7c7}
-html[data-theme="dark"] .matrixStrong,
-html[data-theme="dark"] .matrixService strong{color:#f3f1f7!important}
+html[data-theme="dark"] .compareMatrixHead>div,html[data-theme="dark"] .compareMatrixRow>div{border-color:#302c39!important;color:#bdb7c7}
+html[data-theme="dark"] .matrixStrong,html[data-theme="dark"] .matrixService strong{color:#f3f1f7!important}
 html[data-theme="dark"] .compareScoreRow{background:#1c1923!important}
+html[data-theme="dark"] .affiliateDisclosure{color:#aaa5b2!important}
+html[data-theme="dark"] .affiliateMiniBtn,html[data-theme="dark"] .affiliateMatch .secondaryAction{background:#7055e8!important;border-color:#7055e8!important;color:#fff!important}
+
+/* 서비스 상세 */
+html[data-theme="dark"] .serviceHero,html[data-theme="dark"] .serviceVerdict,html[data-theme="dark"] .serviceDetailGrid article,html[data-theme="dark"] .relatedCard,html[data-theme="dark"] .suitableGrid span,html[data-theme="dark"] .serviceGuideLinks,html[data-theme="dark"] .serviceBottom{background:#18161d;border-color:#302c39;color:#eeeaf3}
+html[data-theme="dark"] .serviceHero{background:linear-gradient(135deg,#18161d,#211c30)}
+html[data-theme="dark"] .serviceIdentity h1,html[data-theme="dark"] .serviceDetailGrid h2,html[data-theme="dark"] .relatedHeading h2,html[data-theme="dark"] .serviceGuideLinks h2{color:#f3f1f7}
+html[data-theme="dark"] .serviceBadges span,html[data-theme="dark"] .guideLinkGrid a{background:#211e29;border-color:#393342;color:#bdb7c7}
+html[data-theme="dark"] .suitableGrid span,html[data-theme="dark"] .detailReason,html[data-theme="dark"] .featureList div{background:#211e29;border-color:#393342;color:#bdb7c7}
+html[data-theme="dark"] .detailReason p,html[data-theme="dark"] .serviceDetailGrid li,html[data-theme="dark"] .relatedCard p,html[data-theme="dark"] .relatedCard span{color:#aaa5b2}
+html[data-theme="dark"] .relatedCard strong{color:#f3f1f7}
+html[data-theme="dark"] .serviceBottom a:first-child{background:#24212b;color:#eeeaf3}
+html[data-theme="dark"] .serviceBottom .serviceOutbound{background:#7055e8!important;border-color:#7055e8!important;color:#fff!important}
+html[data-theme="dark"] .serviceBottom .affiliateDisclosure{color:#aaa5b2!important}
 
 /* 튜토리얼과 공통 모달 */
 html[data-theme="dark"] .hubThemeToggle{background:#211e29;border-color:#3a3545;color:#eeeaf3}
 html[data-theme="dark"] .hubTutorial{background:#1b1921;border-color:#393342;color:#eeeaf3}
 html[data-theme="dark"] .hubTutorial h2{color:#f4f1f8}
-html[data-theme="dark"] .hubTutorialDescription,
-html[data-theme="dark"] .hubTutorialAction span{color:#aaa5b2}
+html[data-theme="dark"] .hubTutorialDescription,html[data-theme="dark"] .hubTutorialAction span{color:#aaa5b2}
 html[data-theme="dark"] .hubTutorialAction{background:#25212d}
 html[data-theme="dark"] .hubTutorialOptOut{background:#211e29;border-color:#3a3545;color:#eeeaf3}
 html[data-theme="dark"] .hubTutorialHelp{background:#211e29;border-color:#3a3545;color:#b5a9ff}
-html[data-theme="dark"] .modalBackdrop,
-html[data-theme="dark"] .hubTutorialBackdrop{background:rgba(5,4,8,.7)}
+html[data-theme="dark"] .modalBackdrop,html[data-theme="dark"] .hubTutorialBackdrop{background:rgba(5,4,8,.7)}
 
 @media(max-width:560px){.hubThemeToggle{right:14px;bottom:62px;min-height:38px;padding:0 12px;font-size:11px}}

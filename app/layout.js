@@ -2,14 +2,21 @@ import "./globals.css";
 import "./responsive.css";
 import "./home-typography.css";
 import "./readable-ui.css";
+import "./components/adsense.css";
+import Script from "next/script";
 import HubTutorial from "./components/hub-tutorial";
 import HubTheme from "./components/hub-theme";
+
+// AdSense Publisher ID는 Cloudflare Pages/Workers 빌드 환경변수로 넣습니다.
+// 아직 ID가 없으면 광고 스크립트 자체를 로드하지 않아 승인 전 상태를 유지합니다.
+const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim();
 
 export const metadata = {
   title: "HUB — 목적에 맞는 AI·개발 서비스 찾기",
   description: "만들고 싶은 목적을 선택하면 필요한 AI·개발 서비스를 빠르게 비교하고 추천받을 수 있습니다.",
   metadataBase: new URL("https://hub.carpick.workers.dev"),
-  icons: { icon: "/icon.svg", shortcut: "/icon.svg", apple: "/icon.svg" }
+  icons: { icon: "/icon.svg", shortcut: "/icon.svg", apple: "/icon.svg" },
+  robots: { index: true, follow: true }
 };
 
 export const viewport = {
@@ -26,6 +33,14 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="/illustrations.css" />
       </head>
       <body>
+        {adsenseClient && (
+          <Script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+          />
+        )}
         {children}
         {/* 모든 페이지에서 사용자가 화면 테마를 바꿀 수 있게 공통 토글을 표시합니다. */}
         <HubTheme />

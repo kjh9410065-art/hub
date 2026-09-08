@@ -1,0 +1,59 @@
+/* 추천 카드 2차 폴리시 레이어입니다.
+   기존 반응형 규칙보다 뒤에서 적용되어 카드 내부 정보 계층만 다듬습니다.
+   화면 크기별 카드 높이를 고정하지 않고 콘텐츠 흐름을 유지합니다. */
+
+.recommendReason{
+  display:flex;
+  align-items:baseline;
+  gap:6px;
+  min-width:0;
+}
+
+.recommendReasonLabel{
+  flex:0 0 auto;
+  color:#6650d9;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:-.1px;
+}
+
+.recommendReason > span:last-child{
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+
+/* 추천 카드의 핵심 정보는 한 번에 읽히고, 긴 서비스명은 자연스럽게 줄바꿈됩니다. */
+.serviceTitleRow{padding-right:2px}
+.serviceBest{overflow-wrap:anywhere}
+.tagList{max-width:100%}
+
+/* 터치 환경에서는 버튼을 너무 작게 만들지 않으면서 카드 전체 높이는 억제합니다. */
+@media(max-width:430px) and (orientation:portrait){
+  .recommendReason{margin-top:7px;padding:6px 7px;font-size:7px;line-height:1.45}
+  .recommendReasonLabel{font-size:6px}
+  .serviceActions{margin-top:10px}
+}
+
+/* Flip/Fold 세로 화면에서는 가로 공간이 넓어져도 카드가 과도하게 늘어나지 않게 합니다. */
+@media(min-width:431px) and (max-width:900px) and (orientation:portrait){
+  .serviceCard{padding:13px}
+  .recommendReason{max-width:100%;font-size:8px}
+  .recommendReasonLabel{font-size:7px}
+}
+
+/* 가로 화면에서는 서비스 카드 두 열 배치를 유지하면서 내부 여백을 더 압축합니다. */
+@media(max-width:900px) and (orientation:landscape){
+  .recommendReason{margin-top:6px;padding:6px 7px;font-size:7px;line-height:1.4}
+  .recommendReasonLabel{font-size:6px}
+  .serviceActions{margin-top:9px}
+}
+
+/* 넓은 태블릿·PC에서는 카드가 지나치게 납작해지지 않도록 읽기 여백을 조금 회복합니다. */
+@media(min-width:901px){
+  .recommendReason{line-height:1.5}
+}
+
+/* 모션 감소 설정을 사용하는 방문자에게는 카드 이동 효과를 제거합니다. */
+@media(prefers-reduced-motion:reduce){
+  .taskCard{transition:none}
+}

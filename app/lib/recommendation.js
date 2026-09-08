@@ -50,7 +50,17 @@ const goalProfiles = {
 const difficultyWeight = { easy: 5, medium: 3, hard: 1 };
 const difficultyMap = { "쉬움": "easy", "보통": "medium", "어려움": "hard" };
 const priceWeight = { "저렴": 5, "중간": 2, "높음": 0 };
-const featureMap = { 이미지: "image", 영상: "video", 음성: "voice", 챗봇: "text", 검색: "search", 텍스트: "text" };
+
+// 추천 필터의 한글 이름을 내부 기능 키로 변환합니다.
+// 챗봇은 텍스트 처리와 다른 개념이므로 반드시 chat으로 매핑합니다.
+const featureMap = {
+  이미지: "image",
+  영상: "video",
+  음성: "voice",
+  챗봇: "chat",
+  검색: "search",
+  텍스트: "text"
+};
 
 const featureLabels = {
   text: "텍스트 처리",
@@ -169,7 +179,14 @@ export function scoreService(service, { goal = "shorts", budget = "any", skill =
   // 7. 핵심 기능 필터는 결과를 확실하게 갈라놓도록 강한 가중치를 줍니다.
   if (feature !== "all") {
     const featureKey = featureMap[feature];
-    if (featureKey && service.features?.[featureKey]) {
+
+    // 챗봇처럼 uses에만 정의된 기능도 정상적으로 필터링할 수 있도록
+    // features뿐 아니라 uses도 함께 확인합니다.
+    const featureSupported =
+      featureKey &&
+      (service.features?.[featureKey] || service.uses?.includes(featureKey));
+
+    if (featureSupported) {
       score += 11;
       addReason(reasons, `${feature} 기능 지원`);
     } else {

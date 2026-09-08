@@ -4,7 +4,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { catalog, categoryGroups, matchesCategory } from "../lib/catalog";
-import { getOutboundUrl, hasAffiliateLink } from "../lib/affiliate-programs";
+import { getOutboundUrl, hasAffiliateLink, trackOutboundClick } from "../lib/affiliate-programs";
 import "./catalog.css";
 
 const filters = categoryGroups.map((group) => [group.id, group.label]);
@@ -60,6 +60,9 @@ export default function CatalogPage() {
   const resetFilters = () => { setQuery(""); setCategory("all"); setFeature("전체"); setOnlyFree(false); setOnlyApi(false); setSort("recommended"); };
   const activeCategory = filters.find(([id]) => id === category)?.[1] || "전체";
 
+  // 외부 서비스로 이동하기 전에 서비스·유입 위치를 기록합니다.
+  const openService = (service, source) => trackOutboundClick(service, source);
+
   return <main className="catalogPage">
     <header className="header catalogHeader"><Link className="logo" href="/">HUB</Link><nav><Link href="/recommend">추천받기</Link><Link href="/tools">무료 도구</Link><Link href="/compare">비교하기</Link></nav></header>
     <section className="catalogHero">
@@ -74,12 +77,16 @@ export default function CatalogPage() {
       </div>
       <div className="catalogState"><span>{activeCategory}</span><span>{feature}</span>{onlyFree && <span>무료</span>}{onlyApi && <span>API</span>}<b>{list.length}개 결과</b>{(query || category !== "all" || feature !== "전체" || onlyFree || onlyApi) && <button type="button" onClick={resetFilters}>필터 초기화</button>}</div>
       <div className="catalogGrid">
-        {list.map((s) => <article className="catalogCard" key={s.id}>
-          <div className="catalogTop"><img src={s.icon} alt=""/><div><strong>{s.name}</strong><small>{s.category}</small></div><button type="button" className={`catalogFavorite ${favorites.includes(s.id) ? "active" : ""}`} onClick={() => toggleFavorite(s.id)}>{favorites.includes(s.id) ? "즐겨찾기됨" : "즐겨찾기"}</button></div>
-          <p>{s.bestFor}</p><div className="catalogMeta"><span>{s.price}</span><span>{s.difficulty}</span><span>{s.free ? "무료 시작" : "유료 중심"}</span>{s.api && <span>API</span>}</div>
-          <div className="catalogTags">{(s.tags || []).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
-          <div className="catalogActions"><Link href={`/services/${s.id}`}>상세 보기</Link><a href={getOutboundUrl(s)} target="_blank" rel={hasAffiliateLink(s) ? "nofollow sponsored noopener noreferrer" : "noreferrer"}>{hasAffiliateLink(s) ? "서비스 시작하기" : "공식 사이트"}</a><button type="button" onClick={() => toggleCompare(s.id)}>{compare.includes(s.id) ? "비교 선택됨" : "비교하기"}</button></div>
-        </article>)}
+        {list.map((s) => {
+          const affiliate = hasAffiliateLink(s);
+          return <article className={`catalogCard ${affiliate ? "affiliateCard" : ""}`} key={s.id}>
+            <div className="catalogTop"><img src={s.icon} alt=""/><div><strong>{s.name}</strong><small>{s.category}</small></div><button type="button" className={`catalogFavorite ${favorites.includes(s.id) ? "active" : ""}`} onClick={() => toggleFavorite(s.id)}>{favorites.includes(s.id) ? "즐겨찾기됨" : "즐겨찾기"}</button></div>
+            <p>{s.bestFor}</p><div className="catalogMeta"><span>{s.price}</span><span>{s.difficulty}</span><span>{s.free ? "무료 시작" : "유료 중심"}</span>{s.api && <span>API</span>}</div>
+            <div className="catalogTags">{(s.tags || []).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
+            <div className="catalogActions"><Link href={`/services/${s.id}`}>상세 보기</Link><a className={affiliate ? "affiliateCatalogLink" : ""} href={getOutboundUrl(s)} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => openService(s, "catalog")}>{affiliate ? "서비스 시작하기" : "공식 사이트"}</a><button type="button" onClick={() => toggleCompare(s.id)}>{compare.includes(s.id) ? "비교 선택됨" : "비교하기"}</button></div>
+            {affiliate && <p className="affiliateCatalogDisclosure">제휴 링크를 통해 가입하면 HUB가 제휴 수수료를 받을 수 있습니다.</p>}
+          </article>;
+        })}
       </div>
       {list.length === 0 && <div className="emptyCatalog"><b>조건에 맞는 서비스가 없습니다.</b><p>검색어 또는 필터를 바꿔보세요.</p><button type="button" onClick={resetFilters}>필터 초기화</button></div>}
     </section>

@@ -7,7 +7,8 @@ import { rankServices } from "./lib/recommendation";
 import { matchesSearch } from "./lib/search";
 import "./home.css";
 
-// 목적 카드에는 운영체제별 이모지가 아니라 HUB 전용 SVG 일러스트만 사용합니다.
+// 목적 카드에는 운영체제별 문자가 아니라 HUB 전용 SVG 일러스트만 사용합니다.
+// 각 목적은 추천 페이지의 같은 task 파라미터로 연결되어 홈과 추천 흐름이 이어집니다.
 const tasks = [
   { id: "shorts", icon: "/illustrations/task-short.svg", title: "쇼츠 만들기", desc: "이미지·영상·음성까지 한 번에" },
   { id: "image", icon: "/illustrations/task-image-new.svg", title: "AI 이미지 만들기", desc: "생성·편집·상품 이미지" },
@@ -17,7 +18,7 @@ const tasks = [
   { id: "api", icon: "/illustrations/task-api-new.svg", title: "개발용 API 찾기", desc: "검색·크롤링·AI 인프라" }
 ];
 
-const categories = categoryGroups.map((group) => [group.id, group.label]);
+const categories = categoryGroups.filter((group) => group.id !== "all");
 const featureFilters = ["전체", "텍스트", "이미지", "영상", "음성", "검색", "API"];
 
 function serviceSupports(service, feature) {
@@ -25,6 +26,10 @@ function serviceSupports(service, feature) {
   if (feature === "API") return Boolean(service.api);
   const key = { 텍스트: "text", 이미지: "image", 영상: "video", 음성: "voice", 검색: "search" }[feature];
   return Boolean(key && service.features?.[key]);
+}
+
+function getCategoryCount(categoryId) {
+  return catalog.filter((service) => matchesCategory(service, categoryId)).length;
 }
 
 export default function HomePage() {
@@ -37,6 +42,7 @@ export default function HomePage() {
   const [favorites, setFavorites] = useState([]);
   const [compare, setCompare] = useState([]);
 
+  // 브라우저에 저장된 즐겨찾기와 비교 목록을 불러옵니다.
   useEffect(() => {
     try {
       const storedFavorites = JSON.parse(localStorage.getItem("hub-favorites") || "[]");
@@ -49,6 +55,7 @@ export default function HomePage() {
     }
   }, []);
 
+  // 추천과 비교 상태를 다음 방문에도 유지합니다.
   useEffect(() => { localStorage.setItem("hub-favorites", JSON.stringify(favorites)); }, [favorites]);
   useEffect(() => { localStorage.setItem("hub-compare", JSON.stringify(compare)); }, [compare]);
 
@@ -59,18 +66,26 @@ export default function HomePage() {
     feature: feature === "전체" ? "all" : feature
   }), [selectedTask, onlyFree, feature]);
 
-  const results = useMemo(() => {
-    return ranked.filter((service) => {
-      if (!matchesCategory(service, category)) return false;
-      if (!serviceSupports(service, feature)) return false;
-      if (onlyFree && !service.free) return false;
-      if (onlyApi && !service.api) return false;
-      return matchesSearch(service, query);
-    });
-  }, [ranked, query, category, feature, onlyFree, onlyApi]);
+  // 검색과 필터를 적용한 결과를 만들고, 홈에서는 상위 5개를 먼저 보여줍니다.
+  const results = useMemo(() => ranked.filter((service) => {
+    if (!matchesCategory(service, category)) return false;
+    if (!serviceSupports(service, feature)) return false;
+    if (onlyFree && !service.free) return false;
+    if (onlyApi && !service.api) return false;
+    return matchesSearch(service, query);
+  }), [ranked, query, category, feature, onlyFree, onlyApi]);
 
-  const toggleFavorite = (id) => setFavorites((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
-  const toggleCompare = (id) => setCompare((current) => current.includes(id) ? current.filter((item) => item !== id) : current.length >= 4 ? current : [...current, id]);
+  const visibleResults = results.slice(0, 5);
+  const activeTask = tasks.find((task) => task.id === selectedTask) || tasks[0];
+
+  const toggleFavorite = (id) => {
+    setFavorites((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
+  };
+
+  const toggleCompare = (id) => {
+    setCompare((current) => current.includes(id) ? current.filter((item) => item !== id) : current.length >= 4 ? current : [...current, id]);
+  };
+
   const resetFilters = () => {
     setQuery("");
     setCategory("all");
@@ -78,13 +93,11 @@ export default function HomePage() {
     setOnlyFree(false);
     setOnlyApi(false);
   };
-  const activeTask = tasks.find((task) => task.id === selectedTask) || tasks[0];
-  const activeCategory = categories.find(([id]) => id === category)?.[1] || "전체";
 
   return (
     <main className="homePage">
       <header className="homeHeader">
-        <Link className="brand" href="/">HUB</Link>
+        <Link className="brand" href="/" aria-label="HUB 홈">HUB</Link>
         <nav className="topNav" aria-label="주요 메뉴">
           <Link href="/recommend">추천</Link>
           <Link href="/catalog">전체 서비스</Link>
@@ -93,49 +106,122 @@ export default function HomePage() {
         </nav>
       </header>
 
-      <section className="heroSection">
-        <div className="heroCopy">
-          <p className="eyebrow">AI SERVICE HUB</p>
-          <h1>무엇을 만들고 싶으세요?</h1>
-          <p className="heroLead">목적을 고르면 지금 쓸 만한 AI·개발 서비스를 먼저 찾아드립니다.</p>
-          <div className="heroActions"><Link href="/recommend" className="primaryButton">맞춤 추천 받기</Link><Link href="/catalog" className="secondaryButton">전체 카탈로그 보기</Link></div>
+      <section className="stepSection stepOne">
+        <div className="stepHeading">
+          <p className="sectionKicker">STEP 01</p>
+          <h1>무엇을 만들고 있나요?</h1>
+          <p>목적에 맞는 AI 서비스를 먼저 추천해드려요.</p>
         </div>
-        <div className="heroStat"><strong>{catalog.length}</strong><span>서비스를 한곳에서 비교</span></div>
-      </section>
-
-      <section className="taskSection">
-        <div className="sectionHeading"><div><p className="sectionKicker">START HERE</p><h2>만들고 싶은 것을 선택하세요</h2></div><span>{activeTask.title}</span></div>
-        <div className="taskGrid">{tasks.map((task) => <button key={task.id} type="button" className={`taskCard ${selectedTask === task.id ? "isActive" : ""}`} onClick={() => setSelectedTask(task.id)}><img src={task.icon} alt="" className="taskIllustration" /><span className="taskTitle">{task.title}</span><span className="taskDesc">{task.desc}</span></button>)}</div>
-      </section>
-
-      <section className="searchSection">
-        <div className="searchBox"><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="서비스 이름, 기능, 용도로 검색" aria-label="서비스 검색" />{query && <button type="button" onClick={() => setQuery("")}>지우기</button>}</div>
-        <div className="searchHint">예: 쇼츠, 상품사진, TTS, 챗봇, 크롤링, 무료 API</div>
-        <div className="filterRow">
-          <div className="filterGroup" aria-label="카테고리 필터">{categories.map(([id, label]) => <button key={id} type="button" className={category === id ? "active" : ""} onClick={() => setCategory(id)}>{label}</button>)}</div>
-          <div className="filterGroup featureGroup" aria-label="기능 필터">{featureFilters.map((item) => <button key={item} type="button" className={feature === item ? "active" : ""} onClick={() => setFeature(item)}>{item}</button>)}</div>
-          <label className="checkFilter"><input type="checkbox" checked={onlyFree} onChange={(event) => setOnlyFree(event.target.checked)} /> 무료 우선</label>
-          <label className="checkFilter"><input type="checkbox" checked={onlyApi} onChange={(event) => setOnlyApi(event.target.checked)} /> API 제공</label>
+        <div className="taskList">
+          {tasks.map((task) => (
+            <button key={task.id} type="button" className={`taskCard ${selectedTask === task.id ? "isActive" : ""}`} onClick={() => setSelectedTask(task.id)}>
+              <img src={task.icon} alt="" className="taskIllustration" />
+              <span className="taskCopy"><strong>{task.title}</strong><small>{task.desc}</small></span>
+              <span className="taskChevron" aria-hidden="true">›</span>
+            </button>
+          ))}
         </div>
-        <div className="activeFilters"><span>{activeCategory}</span><span>{feature}</span>{onlyFree && <span>무료</span>}{onlyApi && <span>API</span>}{query && <span>검색: {query}</span>}<b>{results.length}개 결과</b>{(query || category !== "all" || feature !== "전체" || onlyFree || onlyApi) && <button type="button" onClick={resetFilters}>필터 초기화</button>}</div>
       </section>
 
-      <section className="resultSection">
-        <div className="resultHeading"><div><p className="sectionKicker">RECOMMENDED</p><h2>{activeTask.title}에 맞는 서비스</h2></div><span>{results.length}개 결과</span></div>
-        {results.length === 0 ? <div className="emptyState"><strong>조건에 맞는 서비스가 없습니다.</strong><p>검색어를 짧게 입력하거나 필터를 조금 완화해보세요.</p><button type="button" onClick={resetFilters}>필터 초기화</button></div> : <div className="serviceGrid">{results.map((service, index) => {
-          const isFavorite = favorites.includes(service.id);
-          const isCompared = compare.includes(service.id);
-          return <article className={`serviceCard ${index === 0 && !query ? "topMatch" : ""}`} key={service.id}>
-            <div className="cardTop"><div className="serviceIconWrap"><img src={service.icon} alt="" className="serviceIconImage" /></div><div className="cardBadges">{index === 0 && !query && <span className="matchBadge">TOP MATCH</span>}{service.free && <span>무료 사용 가능</span>}{service.api && <span>API</span>}</div><button type="button" className={`favoriteButton ${isFavorite ? "isFavorite" : ""}`} onClick={() => toggleFavorite(service.id)} aria-label={isFavorite ? "즐겨찾기 해제" : "즐겨찾기 추가"}>{isFavorite ? "즐겨찾기됨" : "즐겨찾기"}</button></div>
-            <Link href={`/services/${service.id}`} className="serviceName">{service.name}</Link><p className="serviceCategory">{service.category} · {service.difficulty || "보통"}</p><p className="serviceBest">{service.bestFor}</p>
-            <div className="tagList">{(service.tags || []).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
-            <div className="cardBottom"><Link href={`/services/${service.id}`} className="detailLink">자세히 보기</Link><button type="button" className={`compareButton ${isCompared ? "selected" : ""}`} onClick={() => toggleCompare(service.id)}>{isCompared ? "비교함에서 제거" : "비교하기"}</button></div>
-          </article>;
-        })}</div>}
+      <section className="stepSection recommendationStep">
+        <div className="stepHeading compactHeading">
+          <p className="sectionKicker">STEP 02 · RECOMMEND</p>
+          <h2>{activeTask.title}에 맞는 서비스</h2>
+          <p>조건을 바꾸면 추천 순위도 바로 달라집니다.</p>
+        </div>
+
+        <div className="recommendTabs" role="tablist" aria-label="추천 정렬">
+          <button type="button" className="active">추천순</button>
+          <label><input type="checkbox" checked={onlyFree} onChange={(event) => setOnlyFree(event.target.checked)} /> 무료 우선</label>
+          <label><input type="checkbox" checked={onlyApi} onChange={(event) => setOnlyApi(event.target.checked)} /> API 제공</label>
+          <Link href={`/recommend?task=${selectedTask}`}>조건 더 고르기</Link>
+        </div>
+
+        <div className="searchBox compactSearch">
+          <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="서비스 이름, 기능, 용도로 검색" aria-label="서비스 검색" />
+          {query && <button type="button" onClick={() => setQuery("")}>지우기</button>}
+        </div>
+
+        <div className="featureFilters" aria-label="기능 필터">
+          {featureFilters.map((item) => <button key={item} type="button" className={feature === item ? "active" : ""} onClick={() => setFeature(item)}>{item}</button>)}
+        </div>
+
+        <div className="resultMeta">
+          <span>{results.length}개 서비스 중 상위 {Math.min(5, results.length)}개</span>
+          {(query || category !== "all" || feature !== "전체" || onlyFree || onlyApi) && <button type="button" onClick={resetFilters}>필터 초기화</button>}
+        </div>
+
+        {visibleResults.length === 0 ? (
+          <div className="emptyState"><strong>조건에 맞는 서비스가 없습니다.</strong><p>검색어나 필터를 조금 완화해보세요.</p><button type="button" onClick={resetFilters}>필터 초기화</button></div>
+        ) : (
+          <div className="serviceList">
+            {visibleResults.map((service, index) => {
+              const isFavorite = favorites.includes(service.id);
+              const isCompared = compare.includes(service.id);
+              return (
+                <article className={`serviceCard ${index === 0 ? "topMatch" : ""}`} key={service.id}>
+                  <div className="serviceMain">
+                    <div className="serviceIconWrap"><img src={service.icon} alt="" className="serviceIconImage" /></div>
+                    <div className="serviceInfo">
+                      <div className="serviceTitleRow">
+                        <Link href={`/services/${service.id}`} className="serviceName">{service.name}</Link>
+                        {index === 0 && <span className="matchBadge">추천</span>}
+                        {service.free && <span className="freeBadge">무료 시작</span>}
+                      </div>
+                      <p className="serviceBest">{service.bestFor}</p>
+                      <div className="tagList">{(service.tags || []).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
+                    </div>
+                    <button type="button" className={`favoriteButton ${isFavorite ? "isFavorite" : ""}`} onClick={() => toggleFavorite(service.id)} aria-label={isFavorite ? "즐겨찾기 해제" : "즐겨찾기 추가"}>{isFavorite ? "저장됨" : "저장"}</button>
+                  </div>
+                  <div className="serviceActions">
+                    <Link href={`/services/${service.id}`} className="detailButton">자세히 보기</Link>
+                    <button type="button" className={`compareButton ${isCompared ? "selected" : ""}`} onClick={() => toggleCompare(service.id)}>{isCompared ? "비교함에서 제거" : "비교하기"}</button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
+        <Link className="moreLink" href={`/recommend?task=${selectedTask}`}>조건을 더 고르고 전체 추천 보기</Link>
+      </section>
+
+      <section className="stepSection categoryStep">
+        <div className="stepHeading compactHeading">
+          <p className="sectionKicker">STEP 03</p>
+          <h2>서비스를 한눈에 둘러보세요.</h2>
+          <p>인기 있는 AI 서비스를 카테고리별로 확인하세요.</p>
+        </div>
+        <div className="categoryList">
+          {categories.map((group) => (
+            <Link key={group.id} href={`/catalog?category=${group.id}`} className="categoryCard">
+              <img src={tasks.find((task) => task.id === ({ llm: "chat", image: "image", video: "video", voice: "voice", search: "api", developer: "api", infra: "api", design: "image" }[group.id] || "api"))?.icon || "/icon.svg"} alt="" />
+              <span>{group.label}</span>
+              <b>{getCategoryCount(group.id)}개</b>
+              <i aria-hidden="true">›</i>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="stepSection compareStep">
+        <div className="stepHeading compactHeading">
+          <p className="sectionKicker">STEP 04</p>
+          <h2>서비스를 고르기 전에<br />비교부터 해보세요.</h2>
+          <p>최대 4개의 서비스를 한 번에 비교해서 나에게 가장 잘 맞는 서비스를 찾아보세요.</p>
+        </div>
+        <Link href="/compare" className="compareCta">
+          <span className="compareCtaIcon" aria-hidden="true">+</span>
+          <span><strong>서비스 비교하기</strong><small>최대 4개의 서비스를 한 번에 비교</small></span>
+          <b aria-hidden="true">›</b>
+        </Link>
       </section>
 
       {compare.length > 0 && <div className="compareBar"><div><strong>비교함</strong><span>{compare.length}/4개 선택</span></div><div className="compareBarActions"><button type="button" onClick={() => setCompare([])}>전체 해제</button><Link href="/compare">비교 화면 열기</Link></div></div>}
-      <footer className="homeFooter"><div><strong>HUB</strong><span>목적에 맞는 AI·개발 서비스 탐색</span></div><div className="footerLinks"><Link href="/recommend">추천</Link><Link href="/catalog">카탈로그</Link><Link href="/tools">무료 도구</Link><Link href="/compare">비교</Link></div></footer>
+
+      <footer className="homeFooter">
+        <div><strong>HUB</strong><span>목적에 맞는 AI·개발 서비스 탐색</span></div>
+        <div className="footerLinks"><Link href="/recommend">추천</Link><Link href="/catalog">카탈로그</Link><Link href="/tools">무료 도구</Link><Link href="/compare">비교</Link></div>
+      </footer>
     </main>
   );
 }

@@ -2,6 +2,7 @@ import "./globals.css";
 import "./responsive.css";
 import "./home-typography.css";
 import "./readable-ui.css";
+import HubTutorial from "./components/hub-tutorial";
 
 export const metadata = {
   title: "HUB — 목적에 맞는 AI·개발 서비스 찾기",
@@ -29,7 +30,11 @@ export default function RootLayout({ children }) {
         {/* HUB 전용 SVG 일러스트 스타일을 공통으로 연결합니다. */}
         <link rel="stylesheet" href="/illustrations.css" />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        {/* 모든 페이지에서 같은 튜토리얼을 사용할 수 있도록 공통 레이아웃에 연결합니다. */}
+        <HubTutorial />
+      </body>
     </html>
   );
 }

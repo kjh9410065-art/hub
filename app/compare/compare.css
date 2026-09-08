@@ -63,3 +63,12 @@
   .matrixScore strong{font-size:15px}
   .matrixScore small{font-size:10px}
 }
+
+/* 1위 배너를 긴 가로 띠가 아닌 작고 균형 잡힌 카드로 바꿉니다. */
+.compareWinner{width:min(360px,100%);min-height:180px;aspect-ratio:1.25/1;box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;margin-left:0}
+.compareWinner>b{align-self:flex-end;font-size:15px;padding:10px 14px}
+.scoreNotice{margin:-10px 0 22px;color:#8a8492;font-size:11px;line-height:1.5}
+@media(max-width:760px){
+  .compareWinner{width:100%;min-height:150px;aspect-ratio:auto;margin-bottom:9px}
+  .scoreNotice{margin:-3px 0 14px;font-size:9px}
+}

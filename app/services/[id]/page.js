@@ -39,6 +39,19 @@ export default async function ServiceDetail({ params }) {
     ["search", "검색"]
   ];
 
+  // 같은 목적이나 카테고리를 가진 서비스를 함께 보여줘 상세 페이지에서 바로 대안을 찾을 수 있게 합니다.
+  const related = catalog
+    .filter((item) => item.id !== service.id)
+    .map((item) => {
+      const categoryMatch = item.category === service.category ? 3 : 0;
+      const useMatch = (item.uses || []).filter((use) => (service.uses || []).includes(use)).length;
+      const featureMatch = Object.keys(service.features || {}).filter((key) => service.features?.[key] && item.features?.[key]).length;
+      return { item, score: categoryMatch + useMatch * 2 + featureMatch };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .map(({ item }) => item);
+
   return (
     <main className="serviceDetail">
       <header className="header serviceHeader">
@@ -87,6 +100,18 @@ export default async function ServiceDetail({ params }) {
             ))}
           </div>
         </article>
+      </section>
+
+      <section className="relatedSection">
+        <div className="relatedHeading"><div><div className="eyebrow">ALTERNATIVES</div><h2>함께 살펴볼 서비스</h2></div><Link href="/catalog">전체 보기</Link></div>
+        <div className="relatedGrid">
+          {related.map((item) => (
+            <Link className="relatedCard" href={`/services/${item.id}`} key={item.id}>
+              <img src={item.icon} alt="" />
+              <div><strong>{item.name}</strong><span>{item.category}</span><p>{item.bestFor}</p></div>
+            </Link>
+          ))}
+        </div>
       </section>
 
       <section className="serviceBottom">

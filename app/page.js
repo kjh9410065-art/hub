@@ -121,7 +121,7 @@ export default function HomePage() {
         </div>
         <div className="taskList">
           {tasks.map((task) => (
-            <button key={task.id} type="button" className={`taskCard ${selectedTask === task.id ? "isActive" : ""}`} onClick={() => setSelectedTask(task.id)}>
+            <button key={task.id} type="button" className={`taskCard ${selectedTask === task.id ? "isActive" : ""}`} onClick={() => setSelectedTask(task.id)} aria-pressed={selectedTask === task.id}>
               <img src={task.icon} alt="" className="taskIllustration" />
               <span className="taskCopy"><strong>{task.title}</strong><small>{task.desc}</small></span>
               <span className="taskChevron" aria-hidden="true">›</span>
@@ -134,12 +134,12 @@ export default function HomePage() {
         <div className="stepHeading compactHeading">
           <p className="sectionKicker">STEP 02 · RECOMMEND</p>
           <h2>{activeTask.title}에 맞는 서비스</h2>
-          <p>조건을 바꾸면 추천 순위와 추천 이유가 바로 달라집니다.</p>
+          <p>목적과 기능을 함께 계산해 지금 조건에 맞는 순서로 보여드려요.</p>
         </div>
 
         <div className="recommendTabs" role="tablist" aria-label="추천 정렬">
-          <button type="button" className="active">추천순</button>
-          <label><input type="checkbox" checked={onlyFree} onChange={(event) => setOnlyFree(event.target.checked)} /> 무료 우선</label>
+          <button type="button" className="active" aria-selected="true">추천순</button>
+          <label><input type="checkbox" checked={onlyFree} onChange={(event) => setOnlyFree(event.target.checked)} /> 무료만</label>
           <label><input type="checkbox" checked={onlyApi} onChange={(event) => setOnlyApi(event.target.checked)} /> API 제공</label>
           <Link href={`/recommend?task=${selectedTask}`}>조건 더 고르기</Link>
         </div>
@@ -150,7 +150,7 @@ export default function HomePage() {
         </div>
 
         <div className="featureFilters" aria-label="기능 필터">
-          {featureFilters.map((item) => <button key={item} type="button" className={feature === item ? "active" : ""} onClick={() => setFeature(item)}>{item}</button>)}
+          {featureFilters.map((item) => <button key={item} type="button" className={feature === item ? "active" : ""} onClick={() => setFeature(item)} aria-pressed={feature === item}>{item}</button>)}
         </div>
 
         <div className="resultMeta">
@@ -178,7 +178,10 @@ export default function HomePage() {
                       </div>
                       <p className="serviceBest">{service.bestFor}</p>
                       <div className="tagList">{(service.tags || []).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
-                      <p className="recommendReason">{reasons.join(" · ")}</p>
+                      <div className="recommendReason" aria-label="추천 이유">
+                        <span className="recommendReasonLabel">추천 이유</span>
+                        <span>{reasons.slice(0, 2).join(" · ")}</span>
+                      </div>
                     </div>
                     <button type="button" className={`favoriteButton ${isFavorite ? "isFavorite" : ""}`} onClick={() => toggleFavorite(service.id)} aria-label={isFavorite ? "즐겨찾기 해제" : "즐겨찾기 추가"}>{isFavorite ? "저장됨" : "저장"}</button>
                   </div>

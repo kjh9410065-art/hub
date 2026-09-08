@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- 운영체제별 이모지 대신 HUB 자체 브랜드를 보여주는 단순한 벡터 아이콘입니다. -->
+  <rect width="64" height="64" rx="18" fill="#6854d9"/>
+  <path d="M16 17v30M48 17v30M16 32h32" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+  <path d="M25 17v30M39 17v30" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".82"/>
+</svg>

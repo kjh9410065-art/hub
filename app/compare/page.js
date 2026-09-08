@@ -40,7 +40,8 @@ function StarRating({ score, size = "normal" }) {
   const rating = getStarRating(score);
   const stars = Array.from({ length: 5 }, (_, index) => {
     const value = index + 1;
-    const type = rating >= value ? "filled" : rating >= value - 0.5 ? "half" : "empty";
+    // 'empty'라는 클래스명은 전역 다크모드의 .empty 카드 규칙과 충돌하므로 사용하지 않습니다.
+    const type = rating >= value ? "filled" : rating >= value - 0.5 ? "half" : "emptyStar";
     return <span className={`ratingStar ${type}`} key={value} aria-hidden="true">★</span>;
   });
 

@@ -4,6 +4,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { catalog, categoryGroups, matchesCategory } from "../lib/catalog";
+import { getOutboundUrl, hasAffiliateLink } from "../lib/affiliate-programs";
 import "./catalog.css";
 
 const filters = categoryGroups.map((group) => [group.id, group.label]);
@@ -77,7 +78,7 @@ export default function CatalogPage() {
           <div className="catalogTop"><img src={s.icon} alt=""/><div><strong>{s.name}</strong><small>{s.category}</small></div><button type="button" className={`catalogFavorite ${favorites.includes(s.id) ? "active" : ""}`} onClick={() => toggleFavorite(s.id)}>{favorites.includes(s.id) ? "즐겨찾기됨" : "즐겨찾기"}</button></div>
           <p>{s.bestFor}</p><div className="catalogMeta"><span>{s.price}</span><span>{s.difficulty}</span><span>{s.free ? "무료 시작" : "유료 중심"}</span>{s.api && <span>API</span>}</div>
           <div className="catalogTags">{(s.tags || []).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
-          <div className="catalogActions"><Link href={`/services/${s.id}`}>상세 보기</Link><a href={s.url} target="_blank" rel="noreferrer">공식 사이트</a><button type="button" onClick={() => toggleCompare(s.id)}>{compare.includes(s.id) ? "비교 선택됨" : "비교하기"}</button></div>
+          <div className="catalogActions"><Link href={`/services/${s.id}`}>상세 보기</Link><a href={getOutboundUrl(s)} target="_blank" rel={hasAffiliateLink(s) ? "nofollow sponsored noopener noreferrer" : "noreferrer"}>{hasAffiliateLink(s) ? "서비스 시작하기" : "공식 사이트"}</a><button type="button" onClick={() => toggleCompare(s.id)}>{compare.includes(s.id) ? "비교 선택됨" : "비교하기"}</button></div>
         </article>)}
       </div>
       {list.length === 0 && <div className="emptyCatalog"><b>조건에 맞는 서비스가 없습니다.</b><p>검색어 또는 필터를 바꿔보세요.</p><button type="button" onClick={resetFilters}>필터 초기화</button></div>}

@@ -11,6 +11,14 @@ export const metadata = {
   }
 };
 
+// 모바일 브라우저가 실제 화면 폭을 기준으로 레이아웃을 계산하도록 설정합니다.
+// viewport-fit=cover와 CSS의 safe-area 환경 변수를 함께 사용해 노치·둥근 모서리·폴더블 화면에서도 콘텐츠가 잘리지 않게 합니다.
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover"
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">

@@ -4,6 +4,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { catalog, categoryGroups, matchesCategory } from "../lib/catalog";
+import { rankSearchResults } from "../lib/search";
 import { getOutboundUrl, hasAffiliateLink, trackOutboundClick } from "../lib/affiliate-programs";
 import "./catalog.css";
 
@@ -16,6 +17,11 @@ function readStoredList(key) {
     const value = JSON.parse(localStorage.getItem(key) || "[]");
     return Array.isArray(value) ? value : [];
   } catch { return []; }
+}
+
+function serviceSupportsFeature(service, feature) {
+  // 데이터가 features 또는 uses 중 한쪽에만 있어도 기능 필터에 포함합니다.
+  return Boolean(service.features?.[feature] || service.uses?.includes(feature));
 }
 
 export default function CatalogPage() {
@@ -36,26 +42,26 @@ export default function CatalogPage() {
   useEffect(() => { localStorage.setItem("hub-compare", JSON.stringify(compare)); }, [compare]);
 
   const list = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    const filtered = catalog.filter((service) => {
-      const text = [service.name, service.category, service.bestFor, service.caveat, ...(service.tags || []), ...(service.strengths || []), ...(service.uses || [])].join(" ").toLowerCase();
-      if (q && !text.includes(q)) return false;
+    // 검색어가 있으면 홈과 완전히 같은 검색 엔진으로 먼저 관련도를 계산합니다.
+    const searched = rankSearchResults(catalog, query);
+
+    const filtered = searched.filter((service) => {
       if (!matchesCategory(service, category)) return false;
-
-      // 서비스 데이터가 features 또는 uses 중 한쪽에만 기능을 정의해도 필터에 잡히게 합니다.
-      if (feature !== "전체" && !(service.features?.[feature] || service.uses?.includes(feature))) return false;
-
+      if (feature !== "전체" && !serviceSupportsFeature(service, feature)) return false;
       if (onlyFree && !service.free) return false;
       if (onlyApi && !service.api) return false;
       return true;
     });
 
-    return filtered.sort((a, b) => {
+    // 정렬을 직접 선택하지 않았다면 검색 관련도(또는 원래 카탈로그 순서)를 유지합니다.
+    if (sort === "recommended") return filtered;
+
+    return [...filtered].sort((a, b) => {
       if (sort === "name") return a.name.localeCompare(b.name);
       if (sort === "easy") return (a.difficulty === "쉬움" ? 0 : 1) - (b.difficulty === "쉬움" ? 0 : 1);
       if (sort === "free") return Number(b.free) - Number(a.free) || Number(b.api) - Number(a.api);
       if (sort === "api") return Number(b.api) - Number(a.api) || Number(b.free) - Number(a.free);
-      return Number(b.free) - Number(a.free) || Number(b.api) - Number(a.api);
+      return 0;
     });
   }, [query, category, feature, onlyFree, onlyApi, sort]);
 

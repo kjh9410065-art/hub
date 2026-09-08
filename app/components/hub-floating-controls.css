@@ -1,16 +1,17 @@
-/* 모바일에서 고정 비교 바와 공통 플로팅 버튼이 겹치지 않도록 위치를 계단식으로 분리합니다. */
+/* 모바일에서 고정 비교 바와 공통 플로팅 버튼이 겹치지 않도록 충분한 간격을 확보합니다. */
 @media (max-width: 760px) {
   .hubTutorialHelp {
-    bottom: 82px !important;
+    bottom: 170px !important;
   }
 
   .hubThemeToggle {
-    bottom: 132px !important;
+    bottom: 220px !important;
   }
 
   /* 하단 고정 비교 바가 마지막 콘텐츠를 가리지 않도록 스크롤 여유 공간을 확보합니다. */
   .homePage,
-  .catalogPage {
-    padding-bottom: 170px !important;
+  .catalogPage,
+  .recommendPage {
+    padding-bottom: 240px !important;
   }
 }

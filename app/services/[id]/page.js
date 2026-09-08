@@ -1,6 +1,7 @@
-/* 서비스별 상세 화면: 전체 카탈로그의 동일한 데이터를 사용합니다. */
+/* 서비스 상세 화면: 서비스 선택에 필요한 정보와 대안을 한 화면에서 보여줍니다. */
 import Link from "next/link";
 import { catalog, catalogMap } from "../../lib/catalog";
+import { scoreService } from "../../lib/recommendation";
 import "./service.css";
 
 export function generateStaticParams() {
@@ -12,13 +13,26 @@ export async function generateMetadata({ params }) {
   const service = catalogMap[id];
   if (!service) return { title: "서비스를 찾을 수 없습니다. | HUB" };
   return {
-    title: `${service.name} | HUB`,
-    description: `${service.name}의 주요 기능, 비용, 난이도와 추천 용도를 확인하세요.`
+    title: `${service.name} — 기능·비용·추천 용도 | HUB`,
+    description: `${service.name}의 주요 기능, 비용, 난이도, API 제공 여부와 어떤 작업에 잘 맞는지 확인하세요.`
   };
 }
 
+function getPrimaryGoal(service) {
+  const goals = [
+    ["shorts", "쇼츠 제작"],
+    ["image", "AI 이미지"],
+    ["video", "AI 영상"],
+    ["voice", "AI 음성"],
+    ["chat", "AI 챗봇"],
+    ["api", "개발용 API"]
+  ];
+  return goals
+    .map(([id, label]) => ({ id, label, score: scoreService(service, { goal: id }).score }))
+    .sort((a, b) => b.score - a.score)[0];
+}
+
 export default async function ServiceDetail({ params }) {
-  // 최신 Next.js의 비동기 params 형태에 맞춰 정적 상세 페이지에서도 안전하게 ID를 읽습니다.
   const { id } = await params;
   const service = catalogMap[id];
 
@@ -38,8 +52,10 @@ export default async function ServiceDetail({ params }) {
     ["voice", "음성"],
     ["search", "검색"]
   ];
+  const primaryGoal = getPrimaryGoal(service);
+  const primaryResult = scoreService(service, { goal: primaryGoal.id });
 
-  // 같은 목적이나 카테고리를 가진 서비스를 함께 보여줘 상세 페이지에서 바로 대안을 찾을 수 있게 합니다.
+  // 같은 목적과 기능을 공유하는 서비스를 계산해 상세 페이지의 대안으로 보여줍니다.
   const related = catalog
     .filter((item) => item.id !== service.id)
     .map((item) => {
@@ -51,6 +67,15 @@ export default async function ServiceDetail({ params }) {
     .sort((a, b) => b.score - a.score)
     .slice(0, 3)
     .map(({ item }) => item);
+
+  const suitableFor = service.uses?.map((use) => ({
+    shorts: "쇼츠",
+    image: "이미지",
+    video: "영상",
+    voice: "음성",
+    chat: "챗봇",
+    api: "API"
+  }[use])).filter(Boolean).slice(0, 5) || [];
 
   return (
     <main className="serviceDetail">
@@ -77,6 +102,25 @@ export default async function ServiceDetail({ params }) {
           <span>{service.difficulty}</span>
           <span>{service.free ? "무료 시작 가능" : "무료 시작 정보 없음"}</span>
           <span>{service.api ? "API 제공" : "API 없음"}</span>
+        </div>
+      </section>
+
+      <section className="serviceVerdict">
+        <div>
+          <div className="eyebrow">HUB QUICK VERDICT</div>
+          <h2>{primaryGoal.label} 목적에 특히 잘 맞습니다.</h2>
+          <p>{service.bestFor}. {service.api ? "개발 단계에서 API로 연결하기에도 적합합니다." : "개발용 API가 핵심이라면 API 제공 서비스를 함께 비교하는 것이 좋습니다."}</p>
+        </div>
+        <div className="verdictScore"><strong>{primaryResult.score}</strong><span>추천 기준점</span></div>
+      </section>
+
+      <section className="suitableSection">
+        <div className="sectionTitle"><div><div className="eyebrow">GOOD FOR</div><h2>이럴 때 먼저 살펴보세요</h2></div></div>
+        <div className="suitableGrid">
+          {suitableFor.map((item) => <span key={item}>{item} 제작</span>)}
+          {service.free && <span>비용을 아끼며 테스트</span>}
+          {service.difficulty === "쉬움" && <span>처음 시작하는 경우</span>}
+          {service.api && <span>서비스에 API 연결</span>}
         </div>
       </section>
 
@@ -114,8 +158,17 @@ export default async function ServiceDetail({ params }) {
         </div>
       </section>
 
+      <section className="serviceGuideLinks">
+        <div><div className="eyebrow">NEXT STEP</div><h2>더 비교해보고 결정하세요.</h2><p>목적별 추천과 전체 서비스 비교에서 다른 선택지를 확인할 수 있습니다.</p></div>
+        <div className="guideLinkGrid">
+          <Link href={`/recommend?goal=${primaryGoal.id}`}>내 조건으로 추천받기</Link>
+          <Link href="/compare">서비스 비교하기</Link>
+          <Link href="/guides">선택 가이드 보기</Link>
+        </div>
+      </section>
+
       <section className="serviceBottom">
-        <Link href="/recommend">내 조건으로 다시 추천받기</Link>
+        <Link href="/recommend">맞춤 추천 다시 받기</Link>
         <a href={service.url} target="_blank" rel="noreferrer">공식 사이트 방문</a>
       </section>
     </main>

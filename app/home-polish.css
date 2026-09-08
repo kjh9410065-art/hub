@@ -75,3 +75,28 @@ html[data-theme="dark"] .compareBarActions a{background:#7055e8 !important;color
 html[data-theme="dark"] .homeFooter{border-color:#302c39 !important}
 html[data-theme="dark"] .homeFooter strong{color:#f3f1f7 !important}
 html[data-theme="dark"] .homeFooter span,html[data-theme="dark"] .footerLinks a{color:#85808f !important}
+
+/* PC 이미지 크기 안전장치
+   서비스 SVG 원본 크기가 커도 홈에서는 아이콘 박스를 절대 벗어나지 않게 고정합니다. */
+.homePage .taskIllustration,
+.homePage .serviceIconImage,
+.homePage .categoryCard img{
+  display:block !important;
+  object-fit:contain !important;
+  max-width:100% !important;
+  max-height:100% !important;
+}
+
+@media(min-width:761px){
+  /* PC에서는 전체 콘텐츠 폭을 줄여 카드와 일러스트가 과도하게 커 보이지 않게 합니다. */
+  .homePage .stepSection{width:min(980px,calc(100% - 64px)) !important}
+  .homePage .homeFooter{width:min(980px,calc(100% - 64px)) !important}
+  .homePage .taskIllustration{width:40px !important;height:40px !important;flex-basis:40px !important}
+  .homePage .serviceIconImage{width:28px !important;height:28px !important}
+  .homePage .categoryCard img{width:30px !important;height:30px !important}
+  .homePage .taskCard{min-height:74px !important;padding:11px 14px !important}
+  .homePage .taskCopy strong{font-size:14px !important}
+  .homePage .taskCopy small{font-size:9px !important}
+  .homePage .stepHeading h1{font-size:40px !important}
+  .homePage .stepHeading h2{font-size:30px !important}
+}

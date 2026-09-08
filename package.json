@@ -1,11 +1,12 @@
 {
   "name": "hub-mvp",
-  "version": "0.5.0",
+  "version": "0.7.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "deploy": "npx wrangler deploy"
   },
   "dependencies": {
     "next": "^16.3.3",

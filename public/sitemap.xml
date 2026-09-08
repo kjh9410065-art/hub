@@ -9,6 +9,8 @@
   <url><loc>https://hub.carpick.workers.dev/guides/image</loc></url>
   <url><loc>https://hub.carpick.workers.dev/guides/chat</loc></url>
   <url><loc>https://hub.carpick.workers.dev/guides/voice</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools</loc></url>
+  <url><loc>https://hub.carpick.workers.dev/tools/ai-cost-calculator</loc></url>
   <url><loc>https://hub.carpick.workers.dev/services/openai</loc></url>
   <url><loc>https://hub.carpick.workers.dev/services/gemini</loc></url>
   <url><loc>https://hub.carpick.workers.dev/services/claude</loc></url>
@@ -31,7 +33,6 @@
   <url><loc>https://hub.carpick.workers.dev/services/pika</loc></url>
   <url><loc>https://hub.carpick.workers.dev/services/suno</loc></url>
   <url><loc>https://hub.carpick.workers.dev/services/canva</loc></url>
-  <url><loc>https://hub.carpick.workers.dev/tools</loc></url>
   <url><loc>https://hub.carpick.workers.dev/tools/cost</loc></url>
   <url><loc>https://hub.carpick.workers.dev/tools/token</loc></url>
   <url><loc>https://hub.carpick.workers.dev/tools/prompt</loc></url>

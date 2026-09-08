@@ -30,6 +30,23 @@ function findWinner(services, predicate, fallbackService) {
   return services.filter(predicate).sort((a, b) => b.score - a.score)[0] || fallbackService;
 }
 
+function getStarRating(score) {
+  // 내부 추천 점수를 사용자에게는 0~5점, 0.5점 단위의 별점으로만 보여줍니다.
+  const normalized = Math.max(0, Math.min(5, Number(score || 0) / 10));
+  return Math.round(normalized * 2) / 2;
+}
+
+function StarRating({ score, size = "normal" }) {
+  const rating = getStarRating(score);
+  const stars = Array.from({ length: 5 }, (_, index) => {
+    const value = index + 1;
+    const type = rating >= value ? "filled" : rating >= value - 0.5 ? "half" : "empty";
+    return <span className={`ratingStar ${type}`} key={value} aria-hidden="true">★</span>;
+  });
+
+  return <div className={`starRating ${size}`} role="img" aria-label={`HUB 추천 별점 ${rating.toFixed(1)}점 / 5점`}>{stars}</div>;
+}
+
 export default function Compare() {
   const [selected, setSelected] = useState([]);
   const [goal, setGoal] = useState("shorts");
@@ -52,8 +69,7 @@ export default function Compare() {
     const services = selected.map((id) => catalogMap[id]).filter(Boolean);
     const scored = rankServices(services, { goal, budget: "any", skill: "any", feature: "all" });
 
-    // 선택된 서비스끼리 0~100으로 강제 정규화하면 실제 점수 차이가 과장됩니다.
-    // 내부 추천 엔진의 원점수를 그대로 사용해 비교 기준을 숨기지 않습니다.
+    // 내부 추천 엔진의 원점수는 계산에만 사용하고 화면에는 별점으로 변환해 보여줍니다.
     return scored.map((item) => ({
       ...item.service,
       score: item.score,
@@ -65,30 +81,10 @@ export default function Compare() {
   const winners = useMemo(() => {
     const top = ranked[0];
     return [
-      {
-        key: "goal",
-        label: "목적 적합도",
-        description: "현재 선택한 제작 목적을 기준으로 주요 기능, 추천 용도, API 지원 여부 등을 종합해 가장 높은 HUB 기준 점수를 받은 서비스입니다.",
-        service: top
-      },
-      {
-        key: "free",
-        label: "무료 시작",
-        description: "무료로 시작할 수 있는 후보만 놓고 비교했을 때 현재 목적에 가장 잘 맞는 서비스입니다. 무료 범위와 실제 사용 조건은 서비스 정책에 따라 달라질 수 있습니다.",
-        service: findWinner(ranked, (item) => item.free, top)
-      },
-      {
-        key: "api",
-        label: "API 활용",
-        description: "API를 제공하는 후보 중 현재 목적에 대한 적합도가 가장 높은 서비스입니다. 자동화나 직접 연동이 필요한 경우 특히 확인할 가치가 있습니다.",
-        service: findWinner(ranked, (item) => item.api, top)
-      },
-      {
-        key: "easy",
-        label: "쉬운 시작",
-        description: "사용 난이도가 '쉬움'으로 분류된 후보 중 현재 목적 점수가 가장 높은 서비스입니다. 처음 사용하는 경우 설정 부담을 줄이는 데 초점을 둔 결과입니다.",
-        service: findWinner(ranked, (item) => item.difficulty === "쉬움", top)
-      }
+      { key: "goal", label: "목적 적합도", description: "현재 선택한 제작 목적을 기준으로 주요 기능, 추천 용도, API 지원 여부 등을 종합해 가장 높은 HUB 기준 추천 결과를 받은 서비스입니다.", service: top },
+      { key: "free", label: "무료 시작", description: "무료로 시작할 수 있는 후보만 놓고 비교했을 때 현재 목적에 가장 잘 맞는 서비스입니다. 무료 범위와 실제 사용 조건은 서비스 정책에 따라 달라질 수 있습니다.", service: findWinner(ranked, (item) => item.free, top) },
+      { key: "api", label: "API 활용", description: "API를 제공하는 후보 중 현재 목적에 대한 적합도가 가장 높은 서비스입니다. 자동화나 직접 연동이 필요한 경우 특히 확인할 가치가 있습니다.", service: findWinner(ranked, (item) => item.api, top) },
+      { key: "easy", label: "쉬운 시작", description: "사용 난이도가 '쉬움'으로 분류된 후보 중 현재 목적 점수가 가장 높은 서비스입니다. 처음 사용하는 경우 설정 부담을 줄이는 데 초점을 둔 결과입니다.", service: findWinner(ranked, (item) => item.difficulty === "쉬움", top) }
     ];
   }, [ranked]);
 
@@ -151,15 +147,22 @@ export default function Compare() {
         </div>
 
         <div className="compareWinner">
-          <div><span className="compareWinnerKicker">현재 목적 기준 1위</span><strong>{ranked[0]?.name || "비교할 서비스가 없습니다."}</strong><p>{ranked[0]?.reasons?.slice(0, 3).join(" · ") || "서비스를 선택하면 목적별 비교 이유가 표시됩니다."}</p></div>
-          {ranked[0] && <b>{ranked[0].score}점</b>}
+          <div className="compareWinnerService">
+            {ranked[0] && <div className="compareWinnerIcon"><img src={ranked[0].icon} alt="" /></div>}
+            <div><span className="compareWinnerKicker">현재 목적 기준 1위</span><strong>{ranked[0]?.name || "비교할 서비스가 없습니다."}</strong><StarRating score={ranked[0]?.score} size="large" /><p>{ranked[0]?.reasons?.slice(0, 3).join(" · ") || "서비스를 선택하면 목적별 비교 이유가 표시됩니다."}</p></div>
+          </div>
+          {ranked[0] && <Link href={`/services/${ranked[0].id}`}>상세 정보 보기</Link>}
         </div>
-        <p className="scoreNotice">HUB 기준 점수 · 선택한 목적과 서비스 데이터로 계산한 내부 추천 점수입니다. 객관적인 시장 평가 점수는 아닙니다.</p>
+        <p className="scoreNotice">HUB 추천 별점 · 선택한 목적과 서비스 데이터를 기반으로 계산한 내부 추천 결과입니다. 객관적인 시장 평가 점수는 아닙니다.</p>
 
         <section className="decisionGrid" aria-label="조건별 비교 결과">
           <div className="decisionSectionIntro"><span>비교 결과</span><strong>어떤 조건에서 누가 앞서는지</strong><p>4가지 조건을 각각 보여줍니다. 한 서비스가 여러 조건에서 1위일 수 있습니다.</p></div>
           {winners.map((winner) => <article className={`decisionCard ${winner.service?.id === ranked[0]?.id ? "primary" : ""}`} key={winner.key}>
-            <span>{winner.label}</span><strong>{winner.service?.name || "없음"}</strong><p>{winner.description}</p>{winner.service && <Link href={`/services/${winner.service.id}`}>상세 정보 보기</Link>}
+            <span>{winner.label}</span>
+            <div className="decisionServiceHead">{winner.service?.icon && <div className="decisionServiceIcon"><img src={winner.service.icon} alt="" /></div>}<strong>{winner.service?.name || "없음"}</strong></div>
+            {winner.service && <StarRating score={winner.service.score} />}
+            <p>{winner.description}</p>
+            {winner.service && <Link href={`/services/${winner.service.id}`}>상세 정보 보기</Link>}
           </article>)}
         </section>
 
@@ -167,7 +170,7 @@ export default function Compare() {
           <div className="snapshotIntro"><span>QUICK SNAPSHOT</span><strong>4개 서비스를 한눈에 비교</strong><p>점수보다 실제 조건과 기능 차이를 먼저 확인하세요.</p></div>
           <div className="snapshotGrid">
             {ranked.map((service, index) => <article className={index === 0 ? "snapshotCard winner" : "snapshotCard"} key={service.id}>
-              <div className="snapshotTop"><img src={service.icon} alt="" /><div><strong>{service.name}</strong><small>{service.category}</small></div><b>{service.score}점</b></div>
+              <div className="snapshotTop"><img src={service.icon} alt="" /><div><strong>{service.name}</strong><small>{service.category}</small></div><StarRating score={service.score} /></div>
               <div className="snapshotBadges"><span>{service.price}</span><span>{service.free ? "무료 시작" : "유료 시작"}</span><span>{service.api ? "API" : "API 없음"}</span></div>
               <div className="snapshotFeatures">{service.supportedFeatures.length ? service.supportedFeatures.map((feature) => <span key={feature}>{feature}</span>) : <span>주요 기능 정보 확인 필요</span>}</div>
               <p>{service.reasons?.slice(0, 3).join(" · ") || service.bestFor}</p>
@@ -177,14 +180,14 @@ export default function Compare() {
 
         <div className="compareDesktop">
           <div className="compareMatrixHead"><div className="matrixLabel">비교 항목</div>{ranked.map((service) => <div className="matrixService" key={service.id}><img src={service.icon} alt=""/><strong>{service.name}</strong><button type="button" onClick={() => remove(service.id)} aria-label={`${service.name} 제거`}>제거</button></div>)}</div>
-          <div className="compareMatrixRow compareScoreRow"><div className="matrixLabel">HUB 기준 점수</div>{ranked.map((service) => <div key={service.id} className="matrixScore"><strong>{service.score}점</strong><small>{service.reasons?.[0] || "목적과 기능을 비교 중"}</small></div>)}</div>
+          <div className="compareMatrixRow compareScoreRow"><div className="matrixLabel">HUB 추천 별점</div>{ranked.map((service) => <div key={service.id} className="matrixScore"><StarRating score={service.score}/><small>내부 추천 결과</small></div>)}</div>
           {rows.map(([key, label]) => <div className="compareMatrixRow" key={key}><div className="matrixLabel">{label}</div>{ranked.map((service) => <div key={service.id} className={key === "bestFor" ? "matrixStrong" : ""}>{featureValue(service, key)}</div>)}</div>)}
         </div>
 
         <div className="compareMobile">
           {ranked.map((service, index) => <article className={`mobileCompareCard ${index === 0 ? "featured" : ""}`} key={service.id}>
             <header><div className="mobileServiceIcon"><img src={service.icon} alt="" /></div><div><strong>{service.name}</strong><small>{service.category}</small></div><button type="button" onClick={() => remove(service.id)} aria-label={`${service.name} 제거`}>제거</button></header>
-            <div className="mobileScore"><span>{index === 0 ? "현재 목적 추천 1위" : "HUB 기준 점수"}</span><b>{service.score}점</b></div>
+            <div className="mobileScore"><span>{index === 0 ? "현재 목적 추천 1위" : "HUB 추천 별점"}</span><StarRating score={service.score} size="large" /></div>
             <div className="mobileSnapshotBadges">{service.supportedFeatures.map((feature) => <span key={feature}>{feature}</span>)}<span>{service.api ? "API 제공" : "API 없음"}</span><span>{service.free ? "무료 시작" : "유료 시작"}</span></div>
             <p className="mobileCompareReason">{service.reasons?.slice(0, 3).join(" · ") || "현재 목적과 주요 기능을 기준으로 비교했습니다."}</p>
             <dl>{rows.slice(0, 9).map(([key, label]) => <div key={key}><dt>{label}</dt><dd>{featureValue(service, key)}</dd></div>)}</dl>

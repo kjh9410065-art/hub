@@ -3,6 +3,7 @@ import Link from "next/link";
 import { catalog, catalogMap } from "../../lib/catalog";
 import { scoreService } from "../../lib/recommendation";
 import { getAffiliateDisclosure, getOutboundUrl, hasAffiliateLink } from "../../lib/affiliate-programs";
+import HubOutboundLink from "../../components/hub-outbound-link";
 import "./service.css";
 
 export function generateStaticParams() {
@@ -172,7 +173,15 @@ export default async function ServiceDetail({ params }) {
 
       <section className={`serviceBottom ${affiliateReady ? "affiliateBottom" : ""}`}>
         <Link href="/recommend">맞춤 추천 다시 받기</Link>
-        <a className="serviceOutbound" href={outboundUrl} target="_blank" rel="nofollow sponsored noopener noreferrer">{affiliateReady ? "서비스 시작하기" : "공식 사이트 방문"}</a>
+        <HubOutboundLink
+          service={service}
+          href={outboundUrl}
+          className="serviceOutbound"
+          source="service-detail"
+          rel="nofollow sponsored noopener noreferrer"
+        >
+          {affiliateReady ? "서비스 시작하기" : "공식 사이트 방문"}
+        </HubOutboundLink>
         {affiliateReady && <p className="affiliateDisclosure">{getAffiliateDisclosure(service)}</p>}
       </section>
     </main>

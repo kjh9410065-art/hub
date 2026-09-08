@@ -15,8 +15,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
+          # package-lock.json 없이도 검증할 수 있도록 npm 캐시 옵션을 사용하지 않습니다.
           node-version: 20
-          cache: npm
       - name: Install dependencies
         run: npm install
       - name: Build Next.js export

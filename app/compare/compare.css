@@ -10,3 +10,56 @@
 @media(max-width:760px){
 .compareModern{padding:0 14px 80px}.compareModern .header{height:62px}.compareModern .header nav{display:none}.compareHero{padding-top:35px}.compareHero h1{font-size:35px;letter-spacing:-2px}.compareHero p{line-height:1.6}.compareGoalBox{padding:15px;border-radius:17px}.compareGoalBoxPrimary{margin-bottom:18px}.compareGoalHeading{display:block;margin-bottom:11px}.compareGoalHeading strong{display:block;font-size:14px}.compareGoalHeading span{display:block;margin-top:5px;font-size:9px}.compareGoalTabs{grid-template-columns:repeat(3,1fr);gap:6px}.compareGoalTabs button{height:40px;padding:0 4px;font-size:10px}.compareStartHeading{margin-top:3px}.compareStartHeading strong{font-size:20px}.compareStartHeading p{font-size:10px}.compareCandidateGrid{grid-template-columns:1fr;gap:9px}.compareCandidate{padding:14px;border-radius:15px}.compareCandidateTop strong{font-size:16px}.compareCandidate>p{min-height:0;font-size:9px}.compareCandidate>button{height:40px;font-size:11px}.compareStartActions{flex-direction:column}.compareStartActions a{padding:12px}.compareToolbar{align-items:stretch;flex-direction:column;margin-top:16px}.toolbarActions{width:100%}.toolbarActions a,.toolbarActions button{flex:1;text-align:center}.compareWinner{margin-bottom:13px;padding:13px 14px}.compareWinner strong{font-size:14px}.compareWinner p{font-size:8px}.compareWinner>b{font-size:11px;padding:8px 10px}.decisionGrid{grid-template-columns:1fr 1fr;gap:8px;margin-bottom:13px}.decisionSectionIntro{grid-column:1/-1}.decisionSectionIntro>strong{font-size:16px}.decisionSectionIntro>p{font-size:9px}.decisionCard{padding:12px;border-radius:13px}.decisionCard>span{font-size:9px}.decisionCard>strong{font-size:13px}.decisionCard>p{font-size:9px;min-height:0}.decisionCard>a{font-size:10px}.comparisonSnapshot{padding:13px;border-radius:17px;margin-bottom:13px}.snapshotGrid{grid-template-columns:1fr 1fr;gap:7px}.snapshotCard{padding:10px;border-radius:12px}.snapshotTop{gap:6px}.snapshotTop img{width:29px;height:29px}.snapshotTop strong{font-size:10px}.snapshotTop small{font-size:7px}.snapshotTop>b{font-size:9px}.snapshotBadges,.snapshotFeatures{margin-top:7px}.snapshotBadges span,.snapshotFeatures span{font-size:6px;padding:4px 5px}.snapshotCard p{font-size:7px;min-height:0;margin-top:7px}.snapshotIntro>strong{font-size:16px}.snapshotIntro>p{font-size:8px}.compareDesktop{display:none}.compareMobile{display:flex;flex-direction:column;gap:12px}.mobileCompareCard{background:#fff;border:1px solid #e5e1ec;border-radius:18px;padding:17px;box-shadow:0 8px 25px rgba(40,30,80,.05)}.mobileCompareCard.featured{border-color:#bdb1f0;box-shadow:0 10px 28px rgba(104,84,217,.08)}.mobileCompareCard header{display:flex;align-items:center;gap:11px}.mobileServiceIcon{width:46px;height:46px;border-radius:14px;background:#f1eeff;display:grid;place-items:center;flex:none}.mobileServiceIcon img{width:30px;height:30px;object-fit:contain}.mobileCompareCard header>div:nth-child(2){flex:1;min-width:0}.mobileCompareCard header strong{display:block;font-size:17px;overflow-wrap:anywhere}.mobileCompareCard header small{display:block;color:#8b8694;font-size:10px;margin-top:3px}.mobileCompareCard header button{border:0;background:#f4f2f7;border-radius:8px;padding:7px 8px;color:#888;font-size:8px;cursor:pointer}.mobileScore{display:flex;justify-content:space-between;align-items:center;margin:13px 0 8px;padding:10px 11px;background:#faf9fe;border-radius:10px}.mobileScore span{font-size:9px;color:#888}.mobileScore b{font-size:12px;color:#6955d9}.mobileSnapshotBadges{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 6px}.mobileSnapshotBadges span{padding:4px 6px;border-radius:6px;background:#eeeaff;color:#6850d5;font-size:7px;font-weight:800}.mobileCompareReason{margin:0 0 5px;padding:8px 9px;border-left:2px solid #d9d0ff;border-radius:7px;background:#fbfaff;color:#777282;font-size:8px;line-height:1.5}.mobileCompareCard dl{margin:0}.mobileCompareCard dl>div{display:flex;justify-content:space-between;gap:18px;padding:10px 0;border-bottom:1px solid #f0edf4}.mobileCompareCard dt{font-size:10px;color:#999}.mobileCompareCard dd{margin:0;text-align:right;font-size:11px;font-weight:750;color:#4e4958}.mobileCompareCard>a{display:block;text-align:center;margin-top:13px;padding:11px;background:#19191d;color:#fff;border-radius:10px;font-size:11px;font-weight:850;text-decoration:none}}
 @media(max-width:380px){.compareModern{padding-left:11px;padding-right:11px}.mobileCompareCard{padding:14px}.compareHero h1{font-size:31px}.toolbarActions{gap:6px}.toolbarActions a,.toolbarActions button{padding:9px 7px;font-size:11px}.compareGoalTabs button{font-size:9px}.compareCandidateTop>span{display:none}.snapshotGrid{grid-template-columns:1fr}.snapshotCard{padding:11px}}
+
+/* 비교 결과 가독성 보정: 정보량은 유지하되 작은 글씨와 과도한 분할을 줄입니다. */
+@media(min-width:761px){
+  .compareToolbar{margin-top:24px;margin-bottom:22px}
+  .compareToolbar b{font-size:18px}
+  .compareToolbar span{font-size:13px}
+  .toolbarActions a,.toolbarActions button{min-height:42px;padding:0 15px;font-size:13px}
+  .compareWinner{padding:18px 20px;margin-bottom:22px}
+  .compareWinnerKicker{font-size:9px}
+  .compareWinner strong{font-size:19px}
+  .compareWinner p{font-size:11px}
+  .compareWinner>b{padding:11px 15px;font-size:15px}
+
+  /* 조건별 결과는 4개를 억지로 한 줄에 넣지 않고 2열로 만들어 카드 내용을 읽기 쉽게 합니다. */
+  .decisionGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:24px}
+  .decisionSectionIntro{padding-bottom:6px}
+  .decisionSectionIntro>span{font-size:11px}
+  .decisionSectionIntro>strong{font-size:22px}
+  .decisionSectionIntro>p{font-size:12px}
+  .decisionCard{padding:18px;border-radius:17px;min-height:132px}
+  .decisionCard>span{font-size:11px}
+  .decisionCard>strong{font-size:18px;margin-top:8px}
+  .decisionCard>p{font-size:11px;line-height:1.6;min-height:38px}
+  .decisionCard>a{font-size:11px}
+
+  /* 스냅샷은 비교의 핵심 영역이므로 카드 안의 텍스트를 지나치게 작게 만들지 않습니다. */
+  .comparisonSnapshot{padding:20px;margin-bottom:24px}
+  .snapshotIntro{margin-bottom:16px}
+  .snapshotIntro>span{font-size:10px}
+  .snapshotIntro>strong{font-size:21px}
+  .snapshotIntro>p{font-size:11px}
+  .snapshotGrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .snapshotCard{padding:16px;border-radius:16px;min-height:156px}
+  .snapshotTop{gap:10px}
+  .snapshotTop img{width:38px;height:38px}
+  .snapshotTop strong{font-size:14px}
+  .snapshotTop small{font-size:9px}
+  .snapshotTop>b{font-size:13px}
+  .snapshotBadges,.snapshotFeatures{gap:5px;margin-top:11px}
+  .snapshotBadges span,.snapshotFeatures span{font-size:9px;padding:5px 7px}
+  .snapshotCard p{font-size:10px;line-height:1.55;min-height:32px;margin-top:11px}
+
+  /* 실제 비교표도 행 간격과 글자 크기를 키워 값의 위치를 쉽게 찾도록 합니다. */
+  .compareDesktop{border-radius:20px}
+  .compareMatrixHead,.compareMatrixRow{grid-template-columns:170px repeat(4,minmax(175px,1fr))}
+  .compareMatrixHead>div,.compareMatrixRow>div{padding:18px 17px;font-size:13px;line-height:1.65}
+  .matrixLabel{font-size:12px!important}
+  .matrixService{font-size:14px}
+  .matrixService img{width:34px;height:34px;flex-basis:34px}
+  .matrixService button{padding:6px 8px;font-size:10px}
+  .matrixScore strong{font-size:15px}
+  .matrixScore small{font-size:10px}
+}

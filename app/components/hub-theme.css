@@ -1,0 +1,28 @@
+/* HUB 다크 모드: 기존 레이아웃은 유지하고 배경·카드·텍스트 대비만 어둡게 전환합니다. */
+.hubThemeToggle{position:fixed;right:18px;bottom:72px;z-index:79;min-height:40px;padding:0 14px;border:1px solid #dfdbe8;border-radius:999px;background:#fff;color:#514b5c;box-shadow:0 8px 24px rgba(40,30,80,.1);font-size:12px;font-weight:800;cursor:pointer}
+.hubThemeToggle:hover{transform:translateY(-1px)}
+html[data-theme="dark"] body{background:#111016;color:#f3f1f7}
+html[data-theme="dark"] .header{color:#f3f1f7}
+html[data-theme="dark"] nav{color:#aaa5b5}
+html[data-theme="dark"] nav a:hover{color:#a99aff}
+html[data-theme="dark"] .hero{background:linear-gradient(135deg,#1b1921,#211d31);border-color:#302b3d}
+html[data-theme="dark"] .hero p,html[data-theme="dark"] .sectionSub,html[data-theme="dark"] .guideHero p{color:#aaa5b2}
+html[data-theme="dark"] .searchBox,html[data-theme="dark"] .taskCard,html[data-theme="dark"] .serviceCard,html[data-theme="dark"] .miniCard,html[data-theme="dark"] .recommendNote,html[data-theme="dark"] .modal,html[data-theme="dark"] .toolPanel,html[data-theme="dark"] .callout,html[data-theme="dark"] .sourceBox,html[data-theme="dark"] .calculatorCard,html[data-theme="dark"] .empty{background:#1a1820;border-color:#302c39;color:#eeeaf3}
+html[data-theme="dark"] .searchBox input,html[data-theme="dark"] .toolTextarea,html[data-theme="dark"] .calcField input,html[data-theme="dark"] .calcField select{color:#eeeaf3;background:#141219;border-color:#373241}
+html[data-theme="dark"] .taskText small,html[data-theme="dark"] .serviceCard p,html[data-theme="dark"] .bestFor span,html[data-theme="dark"] .bestFor b,html[data-theme="dark"] .tags span,html[data-theme="dark"] .recommendNote,html[data-theme="dark"] .modal p,html[data-theme="dark"] .sectionSub{color:#aaa5b2}
+html[data-theme="dark"] .serviceIcon,html[data-theme="dark"] .modalIcon,html[data-theme="dark"] .bestFor,html[data-theme="dark"] .recommendNote,html[data-theme="dark"] .toolStats>div,html[data-theme="dark"] .calcResult,html[data-theme="dark"] .resultList>div,html[data-theme="dark"] .statGrid>div{background:#211e29}
+html[data-theme="dark"] .tags span{background:#28242f}
+html[data-theme="dark"] .serviceActions button,html[data-theme="dark"] .modalActions>button,html[data-theme="dark"] .toolActions button,html[data-theme="dark"] .calcResult button{background:#24212b;border-color:#3a3545;color:#e7e3ed}
+html[data-theme="dark"] .serviceActions a,html[data-theme="dark"] .modalLink,html[data-theme="dark"] .primaryLink{background:#f3f0fa;color:#17151b}
+html[data-theme="dark"] footer{border-color:#302c39;color:#85808f}
+html[data-theme="dark"] footer b{color:#f3f1f7}
+html[data-theme="dark"] .hubThemeToggle{background:#211e29;border-color:#3a3545;color:#eeeaf3}
+html[data-theme="dark"] .hubTutorial{background:#1b1921;border-color:#393342;color:#eeeaf3}
+html[data-theme="dark"] .hubTutorial h2{color:#f4f1f8}
+html[data-theme="dark"] .hubTutorialDescription,html[data-theme="dark"] .hubTutorialAction span{color:#aaa5b2}
+html[data-theme="dark"] .hubTutorialAction{background:#25212d}
+html[data-theme="dark"] .hubTutorialNever{background:#211e29;border-color:#3a3545;color:#eeeaf3}
+html[data-theme="dark"] .hubTutorialHelp{background:#211e29;border-color:#3a3545;color:#b5a9ff}
+html[data-theme="dark"] .modalBackdrop,html[data-theme="dark"] .hubTutorialBackdrop{background:rgba(5,4,8,.7)}
+
+@media(max-width:560px){.hubThemeToggle{right:14px;bottom:62px;min-height:38px;padding:0 12px;font-size:11px}}

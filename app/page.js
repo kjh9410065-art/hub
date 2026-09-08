@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { catalog, categoryGroups, matchesCategory } from "./lib/catalog";
 import { rankServices } from "./lib/recommendation";
+import { matchesSearch } from "./lib/search";
 import "./home.css";
 
 // 목적 카드에는 운영체제별 이모지가 아니라 HUB 전용 SVG 일러스트만 사용합니다.
@@ -24,10 +25,6 @@ function serviceSupports(service, feature) {
   if (feature === "API") return Boolean(service.api);
   const key = { 텍스트: "text", 이미지: "image", 영상: "video", 음성: "voice", 검색: "search" }[feature];
   return Boolean(key && service.features?.[key]);
-}
-
-function searchable(service) {
-  return [service.name, service.category, service.bestFor, service.caveat, ...(service.tags || []), ...(service.uses || []), ...(service.strengths || [])].filter(Boolean).join(" ").toLowerCase();
 }
 
 export default function HomePage() {
@@ -57,19 +54,18 @@ export default function HomePage() {
 
   const ranked = useMemo(() => rankServices(catalog, {
     goal: selectedTask,
-    budget: "any",
+    budget: onlyFree ? "free" : "any",
     skill: "any",
     feature: feature === "전체" ? "all" : feature
-  }), [selectedTask, feature]);
+  }), [selectedTask, onlyFree, feature]);
 
   const results = useMemo(() => {
-    const needle = query.trim().toLowerCase();
     return ranked.filter((service) => {
       if (!matchesCategory(service, category)) return false;
       if (!serviceSupports(service, feature)) return false;
       if (onlyFree && !service.free) return false;
       if (onlyApi && !service.api) return false;
-      return !needle || searchable(service).includes(needle);
+      return matchesSearch(service, query);
     });
   }, [ranked, query, category, feature, onlyFree, onlyApi]);
 
@@ -114,18 +110,19 @@ export default function HomePage() {
 
       <section className="searchSection">
         <div className="searchBox"><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="서비스 이름, 기능, 용도로 검색" aria-label="서비스 검색" />{query && <button type="button" onClick={() => setQuery("")}>지우기</button>}</div>
+        <div className="searchHint">예: 쇼츠, 상품사진, TTS, 챗봇, 크롤링, 무료 API</div>
         <div className="filterRow">
           <div className="filterGroup" aria-label="카테고리 필터">{categories.map(([id, label]) => <button key={id} type="button" className={category === id ? "active" : ""} onClick={() => setCategory(id)}>{label}</button>)}</div>
           <div className="filterGroup featureGroup" aria-label="기능 필터">{featureFilters.map((item) => <button key={item} type="button" className={feature === item ? "active" : ""} onClick={() => setFeature(item)}>{item}</button>)}</div>
           <label className="checkFilter"><input type="checkbox" checked={onlyFree} onChange={(event) => setOnlyFree(event.target.checked)} /> 무료 우선</label>
           <label className="checkFilter"><input type="checkbox" checked={onlyApi} onChange={(event) => setOnlyApi(event.target.checked)} /> API 제공</label>
         </div>
-        <div className="activeFilters"><span>{activeCategory}</span><span>{feature}</span>{onlyFree && <span>무료</span>}{onlyApi && <span>API</span>}<b>{results.length}개 결과</b>{(query || category !== "all" || feature !== "전체" || onlyFree || onlyApi) && <button type="button" onClick={resetFilters}>필터 초기화</button>}</div>
+        <div className="activeFilters"><span>{activeCategory}</span><span>{feature}</span>{onlyFree && <span>무료</span>}{onlyApi && <span>API</span>}{query && <span>검색: {query}</span>}<b>{results.length}개 결과</b>{(query || category !== "all" || feature !== "전체" || onlyFree || onlyApi) && <button type="button" onClick={resetFilters}>필터 초기화</button>}</div>
       </section>
 
       <section className="resultSection">
         <div className="resultHeading"><div><p className="sectionKicker">RECOMMENDED</p><h2>{activeTask.title}에 맞는 서비스</h2></div><span>{results.length}개 결과</span></div>
-        {results.length === 0 ? <div className="emptyState"><strong>조건에 맞는 서비스가 없습니다.</strong><p>필터를 조금 완화하거나 전체 카탈로그에서 다시 찾아보세요.</p><button type="button" onClick={resetFilters}>필터 초기화</button></div> : <div className="serviceGrid">{results.map((service, index) => {
+        {results.length === 0 ? <div className="emptyState"><strong>조건에 맞는 서비스가 없습니다.</strong><p>검색어를 짧게 입력하거나 필터를 조금 완화해보세요.</p><button type="button" onClick={resetFilters}>필터 초기화</button></div> : <div className="serviceGrid">{results.map((service, index) => {
           const isFavorite = favorites.includes(service.id);
           const isCompared = compare.includes(service.id);
           return <article className={`serviceCard ${index === 0 && !query ? "topMatch" : ""}`} key={service.id}>

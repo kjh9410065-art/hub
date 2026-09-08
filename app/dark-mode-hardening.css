@@ -331,3 +331,54 @@ html[data-theme="dark"] .hubTutorialSkip,
 html[data-theme="dark"] .hubTutorialClose {
   border-color: #3a3545 !important;
 }
+
+/* 모든 다크모드 카드/패널/컨트롤의 외곽선을 HUB 대표 보라색으로 통일합니다. */
+html[data-theme="dark"] .homePage [class*="Card"],
+html[data-theme="dark"] .recommendPage [class*="Card"],
+html[data-theme="dark"] .catalogPage [class*="Card"],
+html[data-theme="dark"] .serviceDetail [class*="Card"],
+html[data-theme="dark"] .comparePage [class*="Card"],
+html[data-theme="dark"] .homePage [class*="Hero"],
+html[data-theme="dark"] .recommendPage [class*="Hero"],
+html[data-theme="dark"] .catalogPage [class*="Hero"],
+html[data-theme="dark"] .serviceDetail [class*="Hero"],
+html[data-theme="dark"] .comparePage [class*="Hero"],
+html[data-theme="dark"] .homePage [class*="Panel"],
+html[data-theme="dark"] .recommendPage [class*="Panel"],
+html[data-theme="dark"] .catalogPage [class*="Panel"],
+html[data-theme="dark"] .serviceDetail [class*="Panel"],
+html[data-theme="dark"] .comparePage [class*="Panel"],
+html[data-theme="dark"] .homePage [class*="Search"],
+html[data-theme="dark"] .recommendPage [class*="Search"],
+html[data-theme="dark"] .catalogPage [class*="Search"],
+html[data-theme="dark"] .serviceDetail [class*="Search"],
+html[data-theme="dark"] .comparePage [class*="Search"],
+html[data-theme="dark"] .homePage [class*="Bar"],
+html[data-theme="dark"] .recommendPage [class*="Bar"],
+html[data-theme="dark"] .catalogPage [class*="Bar"],
+html[data-theme="dark"] .serviceDetail [class*="Bar"],
+html[data-theme="dark"] .comparePage [class*="Bar"] {
+  border-color: #7659d6 !important;
+}
+
+/* 카드 안의 보조 버튼과 필터도 같은 외곽선 규칙을 사용합니다. */
+html[data-theme="dark"] .homePage button,
+html[data-theme="dark"] .homePage a,
+html[data-theme="dark"] .recommendPage button,
+html[data-theme="dark"] .recommendPage a,
+html[data-theme="dark"] .catalogPage button,
+html[data-theme="dark"] .catalogPage a,
+html[data-theme="dark"] .serviceDetail button,
+html[data-theme="dark"] .serviceDetail a,
+html[data-theme="dark"] .comparePage button,
+html[data-theme="dark"] .comparePage a {
+  border-color: #7659d6 !important;
+}
+
+/* 별점의 emptyStar는 일반 카드 .empty와 분리된 전용 클래스입니다. */
+html[data-theme="dark"] .ratingStar.emptyStar {
+  background: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: #5e586d !important;
+}

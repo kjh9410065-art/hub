@@ -55,16 +55,22 @@ export default function HomePage() {
     }
   }, []);
 
-  // 추천과 비교 상태를 다음 방문에도 유지합니다.
+  // 추천 결과와 비교 상태는 다음 방문에도 유지합니다.
   useEffect(() => { localStorage.setItem("hub-favorites", JSON.stringify(favorites)); }, [favorites]);
   useEffect(() => { localStorage.setItem("hub-compare", JSON.stringify(compare)); }, [compare]);
 
+  // 추천 엔진은 점수와 이유를 함께 반환하므로 홈 화면에서 서비스 객체를 꺼내 사용합니다.
+  // 기존처럼 래퍼 객체를 그대로 필터링하면 서비스 이름과 기능 정보가 사라지는 문제가 있어 이 단계에서 정규화합니다.
   const ranked = useMemo(() => rankServices(catalog, {
     goal: selectedTask,
     budget: onlyFree ? "free" : "any",
     skill: "any",
     feature: feature === "전체" ? "all" : feature
-  }), [selectedTask, onlyFree, feature]);
+  }).map((item) => ({
+    ...item.service,
+    recommendationScore: item.score,
+    recommendationReasons: item.reasons || []
+  })), [selectedTask, onlyFree, feature]);
 
   // 검색과 필터를 적용한 결과를 만들고, 홈에서는 상위 5개를 먼저 보여줍니다.
   const results = useMemo(() => ranked.filter((service) => {
@@ -127,7 +133,7 @@ export default function HomePage() {
         <div className="stepHeading compactHeading">
           <p className="sectionKicker">STEP 02 · RECOMMEND</p>
           <h2>{activeTask.title}에 맞는 서비스</h2>
-          <p>조건을 바꾸면 추천 순위도 바로 달라집니다.</p>
+          <p>조건을 바꾸면 추천 순위와 추천 이유가 바로 달라집니다.</p>
         </div>
 
         <div className="recommendTabs" role="tablist" aria-label="추천 정렬">
@@ -158,6 +164,7 @@ export default function HomePage() {
             {visibleResults.map((service, index) => {
               const isFavorite = favorites.includes(service.id);
               const isCompared = compare.includes(service.id);
+              const reasons = service.recommendationReasons?.length ? service.recommendationReasons : [service.bestFor];
               return (
                 <article className={`serviceCard ${index === 0 ? "topMatch" : ""}`} key={service.id}>
                   <div className="serviceMain">
@@ -170,6 +177,7 @@ export default function HomePage() {
                       </div>
                       <p className="serviceBest">{service.bestFor}</p>
                       <div className="tagList">{(service.tags || []).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
+                      <p className="recommendReason">{reasons.join(" · ")}</p>
                     </div>
                     <button type="button" className={`favoriteButton ${isFavorite ? "isFavorite" : ""}`} onClick={() => toggleFavorite(service.id)} aria-label={isFavorite ? "즐겨찾기 해제" : "즐겨찾기 추가"}>{isFavorite ? "저장됨" : "저장"}</button>
                   </div>

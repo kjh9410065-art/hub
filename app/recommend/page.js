@@ -1,4 +1,4 @@
-/* HUB 1.7 추천 화면: 목적, 예산, 난이도, 핵심 기능을 함께 반영합니다. */
+/* HUB 1.8 추천 화면: 목적, 예산, 난이도, 핵심 기능을 함께 반영합니다. */
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -7,7 +7,7 @@ import "./recommend-next.css";
 import { catalog, catalogMap } from "../lib/catalog";
 import { rankServices } from "../lib/recommendation";
 
-// 목적 카드는 운영체제별 이모지가 아니라 HUB 전용 SVG 일러스트를 사용합니다.
+// 목적 카드에는 운영체제별 이모지가 아니라 HUB 전용 SVG 일러스트를 사용합니다.
 const goals = [
   ["shorts", "/illustrations/task-short.svg", "쇼츠 만들기", "이미지·영상·음성을 조합해 콘텐츠 제작"],
   ["image", "/illustrations/task-image-new.svg", "AI 이미지 만들기", "생성·편집·상품 이미지 제작"],
@@ -36,8 +36,9 @@ export default function RecommendPage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const task = params.get("task");
-    if (goals.some((item) => item[0] === task)) setGoal(task);
+    // guide/service 페이지에서 /recommend?goal=video 형태로 넘어와도 바로 해당 목적을 선택합니다.
+    const requestedGoal = params.get("goal") || params.get("task");
+    if (goals.some((item) => item[0] === requestedGoal)) setGoal(requestedGoal);
     setCompare(readCompare());
   }, []);
 
@@ -72,7 +73,7 @@ export default function RecommendPage() {
 
   return <main className="recommendPage"><div className="recommendShell">
     <header className="recommendTop"><a className="recommendBrand" href="/">HUB</a><nav className="recommendNav" aria-label="주요 메뉴"><a href="/catalog">서비스 찾기</a><a href="/tools">무료 도구</a><a href="/compare">비교</a><a className="recommendBack" href="/">홈으로</a></nav></header>
-    <section className="recommendIntro"><div className="eyebrow">HUB 1.7 · PERSONAL RECOMMEND</div><h1>조건까지 반영해서<br/><span>{selectedGoal[2]}</span>을 찾아보세요.</h1><p>{selectedGoal[3]}</p></section>
+    <section className="recommendIntro"><div className="eyebrow">HUB 1.8 · PERSONAL RECOMMEND</div><h1>조건까지 반영해서<br/><span>{selectedGoal[2]}</span>을 찾아보세요.</h1><p>{selectedGoal[3]}</p></section>
     <section className="conditionGrid">
       <div className="conditionCard"><h2>01. 만들고 싶은 것</h2><div className="choiceGrid">{goals.map(([id, icon, label]) => <button className={`choice ${goal === id ? "active" : ""}`} key={id} onClick={() => setGoal(id)}><img src={icon} alt=""/><span>{label}</span></button>)}</div></div>
       <div className="conditionCard"><h2>02. 예산</h2><div className="choiceGrid">{budgetOptions.map(([id, label]) => <button className={`choice ${budget === id ? "active" : ""}`} key={id} onClick={() => setBudget(id)}>{label}</button>)}</div></div>

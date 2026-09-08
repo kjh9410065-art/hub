@@ -1,0 +1,162 @@
+/* 첫 방문 튜토리얼은 기존 HUB 화면을 가리지 않도록 짧고 가벼운 모달로 구성합니다. */
+.hubTutorialHelp {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 80;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid rgba(92, 72, 170, .18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .96);
+  color: #51409a;
+  box-shadow: 0 10px 30px rgba(47, 36, 88, .12);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.hubTutorialHelp:hover { transform: translateY(-1px); }
+
+.hubTutorialBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgba(24, 19, 42, .52);
+  backdrop-filter: blur(5px);
+}
+
+.hubTutorial {
+  position: relative;
+  width: min(520px, 100%);
+  padding: 30px;
+  border: 1px solid rgba(94, 72, 172, .14);
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: 0 28px 80px rgba(30, 20, 60, .22);
+}
+
+.hubTutorialClose {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 0;
+  background: transparent;
+  color: #777183;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hubTutorialProgress {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  margin: 0 52px 28px 0;
+}
+
+.hubTutorialProgress span {
+  height: 4px;
+  border-radius: 999px;
+  background: #ebe8f4;
+}
+
+.hubTutorialProgress span.active { background: #7659d6; }
+
+.hubTutorialStepNumber {
+  margin-bottom: 7px;
+  color: #7659d6;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.hubTutorialLabel {
+  margin-bottom: 12px;
+  color: #80798e;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.hubTutorial h2 {
+  margin: 0;
+  color: #211c2d;
+  font-size: clamp(22px, 4vw, 30px);
+  line-height: 1.25;
+  letter-spacing: -.035em;
+}
+
+.hubTutorialDescription {
+  margin: 14px 0 0;
+  color: #5f596a;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.hubTutorialAction {
+  display: grid;
+  gap: 6px;
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 16px;
+  background: #f7f5fc;
+}
+
+.hubTutorialAction strong {
+  color: #49378d;
+  font-size: 12px;
+}
+
+.hubTutorialAction span {
+  color: #4e4859;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.hubTutorialFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.hubTutorialSkip,
+.hubTutorialNext {
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.hubTutorialSkip {
+  border: 0;
+  background: transparent;
+  color: #777183;
+}
+
+.hubTutorialNext {
+  min-width: 104px;
+  border: 1px solid #6c51c4;
+  background: #6c51c4;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(108, 81, 196, .18);
+}
+
+@media (max-width: 560px) {
+  .hubTutorialBackdrop { padding: 14px; align-items: end; }
+  .hubTutorial { padding: 25px 20px 20px; border-radius: 22px; }
+  .hubTutorialProgress { margin-right: 48px; margin-bottom: 22px; }
+  .hubTutorial h2 { font-size: 22px; }
+  .hubTutorialDescription { font-size: 13px; }
+  .hubTutorialAction span { font-size: 12px; }
+  .hubTutorialHelp { right: 14px; bottom: 14px; min-height: 40px; }
+}

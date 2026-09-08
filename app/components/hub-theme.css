@@ -1,24 +1,19 @@
 /* HUB 다크 모드: 공통 페이지와 홈 화면 전체가 같은 어두운 색 체계를 사용하도록 합니다. */
 .hubThemeToggle{position:fixed;right:18px;bottom:72px;z-index:79;min-height:40px;padding:0 14px;border:1px solid #dfdbe8;border-radius:999px;background:#fff;color:#514b5c;box-shadow:0 8px 24px rgba(40,30,80,.1);font-size:12px;font-weight:800;cursor:pointer}
 .hubThemeToggle:hover{transform:translateY(-1px)}
-
 html[data-theme="dark"],html[data-theme="dark"] body,html[data-theme="dark"] .homePage,html[data-theme="dark"] .catalogPage,html[data-theme="dark"] .serviceDetail{background:#0d0c11;color:#f3f1f7}
 html[data-theme="dark"] body{min-height:100vh}
 html[data-theme="dark"] .page,html[data-theme="dark"] .homePage,html[data-theme="dark"] .catalogPage,html[data-theme="dark"] .recommendPage,html[data-theme="dark"] .serviceDetail,html[data-theme="dark"] .comparePage,html[data-theme="dark"] .servicePage{color:#f3f1f7}
-
-/* 헤더 */
 html[data-theme="dark"] .homeHeader,html[data-theme="dark"] .header,html[data-theme="dark"] .recommendTop{background:rgba(13,12,17,.92);color:#f3f1f7;border-color:#302c39}
 html[data-theme="dark"] .brand,html[data-theme="dark"] .logo,html[data-theme="dark"] .recommendBrand{color:#f3f1f7}
 html[data-theme="dark"] nav,html[data-theme="dark"] .recommendNav{color:#aaa5b5}
 html[data-theme="dark"] nav a,html[data-theme="dark"] .topNav a{color:#aaa5b5}
 html[data-theme="dark"] nav a:hover,html[data-theme="dark"] .recommendNav a:hover{color:#a99aff}
-
-/* 제목과 설명 */
 html[data-theme="dark"] h1,html[data-theme="dark"] h2,html[data-theme="dark"] h3,html[data-theme="dark"] h4,html[data-theme="dark"] strong,html[data-theme="dark"] b{color:#f3f1f7}
 html[data-theme="dark"] .sectionKicker,html[data-theme="dark"] .eyebrow{color:#9b86ff}
 html[data-theme="dark"] .stepHeading>p:last-child,html[data-theme="dark"] .sectionSub,html[data-theme="dark"] .hero p,html[data-theme="dark"] .guideHero p,html[data-theme="dark"] .catalogHero p,html[data-theme="dark"] .serviceVerdict p,html[data-theme="dark"] .serviceGuideLinks p{color:#aaa5b2}
 
-/* 홈 */
+/* 홈 기본 카드 */
 html[data-theme="dark"] .hero{background:linear-gradient(135deg,#18161d,#211c30);border-color:#302b3d}
 html[data-theme="dark"] .searchBox,html[data-theme="dark"] .taskCard,html[data-theme="dark"] .serviceCard,html[data-theme="dark"] .miniCard,html[data-theme="dark"] .recommendNote,html[data-theme="dark"] .modal,html[data-theme="dark"] .toolPanel,html[data-theme="dark"] .callout,html[data-theme="dark"] .sourceBox,html[data-theme="dark"] .calculatorCard,html[data-theme="dark"] .empty,html[data-theme="dark"] .emptyState{background:#18161d;border-color:#302c39;color:#eeeaf3}
 html[data-theme="dark"] .taskCard:hover,html[data-theme="dark"] .taskCard.isActive{border-color:#7864d9;box-shadow:0 8px 24px rgba(0,0,0,.22)}
@@ -35,6 +30,42 @@ html[data-theme="dark"] .favoriteButton.isFavorite{background:#30285a;border-col
 html[data-theme="dark"] .compareButton{background:#24212b;border-color:#4a4555;color:#eeeaf3}
 html[data-theme="dark"] .matchBadge{background:#30285a;color:#c8bdff}
 html[data-theme="dark"] .freeBadge{background:#173529;color:#75d7a9}
+
+/* 홈 추천 필터: 다크모드에서 흰색 토글이 튀지 않도록 별도 지정합니다. */
+html[data-theme="dark"] .recommendTabs button,html[data-theme="dark"] .recommendTabs label,html[data-theme="dark"] .recommendTabs a{background:#211e29;border-color:#393342;color:#bdb7c7}
+html[data-theme="dark"] .recommendTabs button.active{background:#7055e8;border-color:#7055e8;color:#fff}
+html[data-theme="dark"] .recommendTabs label:has(input:checked){background:#30285a;border-color:#5c4ab0;color:#c8bdff}
+html[data-theme="dark"] .recommendTabs a{color:#b9aaff}
+html[data-theme="dark"] .featureFilters button{background:#211e29;border-color:#393342;color:#aaa5b5}
+html[data-theme="dark"] .featureFilters button.active{background:#30285a;border-color:#5c4ab0;color:#c8bdff}
+html[data-theme="dark"] .resultMeta{color:#898392}
+html[data-theme="dark"] .resultMeta button,html[data-theme="dark"] .moreLink{color:#a99aff}
+html[data-theme="dark"] .serviceMetaRow span{background:#28242f;color:#aaa5b5}
+html[data-theme="dark"] .serviceMetaRow span.isPositive{background:#173529;color:#75d7a9}
+html[data-theme="dark"] .serviceMetaRow span.isApi{background:#30285a;color:#c8bdff}
+html[data-theme="dark"] .recommendReason{background:#211e29;border-color:#393342;border-left-color:#7055e8;color:#aaa5b5}
+html[data-theme="dark"] .recommendReasonLabel{color:#b9aaff}
+html[data-theme="dark"] .emptyState{background:#18161d;border-color:#393342}
+
+/* STEP 03 카테고리: 밝은 카드 배경을 완전히 제거합니다. */
+html[data-theme="dark"] .categoryCard{background:#18161d;border-color:#302c39;color:#eeeaf3;box-shadow:0 5px 18px rgba(0,0,0,.16)}
+html[data-theme="dark"] .categoryCard:hover{background:#211e29;border-color:#5a4b99}
+html[data-theme="dark"] .categoryCard img{background:#28242f}
+html[data-theme="dark"] .categoryCard span{color:#f3f1f7}
+html[data-theme="dark"] .categoryCard b{background:#28242f;color:#aaa5b5}
+html[data-theme="dark"] .categoryCard i{color:#aaa5b5}
+
+/* STEP 04 비교 CTA */
+html[data-theme="dark"] .compareCta{background:linear-gradient(135deg,#18161d,#211c30);border-color:#4a3e75;color:#f3f1f7}
+html[data-theme="dark"] .compareCtaIcon{background:#30285a;color:#c8bdff}
+html[data-theme="dark"] .compareCta small{color:#aaa5b5}
+html[data-theme="dark"] .compareCta>b{color:#b9aaff}
+html[data-theme="dark"] .compareBar{background:rgba(24,22,29,.97);border-color:#3a3545;color:#eeeaf3}
+html[data-theme="dark"] .compareBar span{color:#aaa5b5}
+html[data-theme="dark"] .compareBarActions button{background:#28242f;color:#bdb7c7}
+html[data-theme="dark"] .compareBarActions a{background:#7055e8;color:#fff}
+html[data-theme="dark"] .homeFooter{border-color:#302c39}
+html[data-theme="dark"] .homeFooter span,html[data-theme="dark"] .footerLinks a{color:#85808f}
 
 /* 카탈로그 */
 html[data-theme="dark"] .catalogHero{background:linear-gradient(135deg,#18161d,#211c30);border-color:#302b3d;box-shadow:0 20px 55px rgba(0,0,0,.22)}

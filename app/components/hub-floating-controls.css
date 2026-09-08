@@ -87,7 +87,7 @@ html[data-theme="dark"] .comparePage .decisionCard.primary {
   background: #211e29 !important;
 }
 
-/* 별점은 밝은 모드와 다크 모드 모두 HUB 골드 한 색으로 통일합니다. */
+/* 별점은 채워진 부분만 골드, 깎인(빈) 부분은 밝은/어두운 모드 모두 회색으로 통일합니다. */
 .comparePage .ratingStar.filled,
 .comparePage .compareWinner .ratingStar.filled {
   color: #f5b72e !important;
@@ -95,13 +95,13 @@ html[data-theme="dark"] .comparePage .decisionCard.primary {
 
 .comparePage .ratingStar.emptyStar,
 .comparePage .ratingStar.empty {
-  color: #f5b72e !important;
-  opacity: .35;
+  color: #b8b4bf !important;
+  opacity: 1;
 }
 
 .comparePage .ratingStar.half,
 .comparePage .compareWinner .ratingStar.half {
-  background: linear-gradient(90deg,#f5b72e 50%,rgba(245,183,46,.35) 50%) !important;
+  background: linear-gradient(90deg,#f5b72e 50%,#b8b4bf 50%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
@@ -114,13 +114,13 @@ html[data-theme="dark"] .comparePage .compareWinner .ratingStar.filled {
 
 html[data-theme="dark"] .comparePage .ratingStar.emptyStar,
 html[data-theme="dark"] .comparePage .ratingStar.empty {
-  color: #f5b72e !important;
-  opacity: .35;
+  color: #77727f !important;
+  opacity: 1;
 }
 
 html[data-theme="dark"] .comparePage .ratingStar.half,
 html[data-theme="dark"] .comparePage .compareWinner .ratingStar.half {
-  background: linear-gradient(90deg,#f5b72e 50%,rgba(245,183,46,.35) 50%) !important;
+  background: linear-gradient(90deg,#f5b72e 50%,#77727f 50%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;

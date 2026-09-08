@@ -31,7 +31,6 @@
   .compareWinner .ratingStar.filled { color: #f5b72e; }
   .compareWinner .ratingStar.empty { color: #ddd9e5; }
   .compareWinner .ratingStar.half { background: linear-gradient(90deg,#f5b72e 50%,#ddd9e5 50%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-
   .scoreNotice { font-size: 13px; line-height: 1.65; margin-top: 12px; }
   .decisionGrid { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; margin-bottom: 24px; }
   .decisionSectionIntro { padding-bottom: 7px; }
@@ -66,7 +65,6 @@
   .matrixScore .ratingStar { font-size: 18px; }
   .matrixScore small { font-size: 11px; line-height: 1.55; }
 }
-
 @media (min-width: 761px) and (max-width: 1050px) {
   .compareWinner { grid-template-columns: 1fr 1.25fr; }
   .compareWinnerActions { grid-column: 1 / -1; border-left: 0; border-top: 1px solid #e5defb; padding: 16px 0 0; flex-direction: row; align-items: center; gap: 18px; }
@@ -74,7 +72,6 @@
   .compareWinnerActionLinks { flex-direction: row; flex: 1; margin-top: 0; }
   .decisionGrid { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
-
 @media (max-width: 760px) {
   .compareWinner { width: 100%; min-height: 0; padding: 18px; display: flex; flex-direction: column; gap: 16px; }
   .compareWinnerIdentity { display: flex; align-items: center; gap: 11px; padding: 0 0 14px; border-right: 0; border-bottom: 1px solid #e5defb; }
@@ -124,3 +121,37 @@
   .mobileCompareCard dd { font-size: 12px; }
   .mobileScore .starRating { margin-left: auto; }
 }
+
+/* 다크모드: 비교 화면의 새 1위 카드와 별점 영역이 흰색으로 튀지 않도록 동일한 테마를 적용합니다. */
+html[data-theme="dark"] .compareWinner {
+  background: linear-gradient(135deg,#18161d 0%,#211c30 100%) !important;
+  border-color: #4a3e75 !important;
+  box-shadow: 0 12px 35px rgba(0,0,0,.24) !important;
+}
+html[data-theme="dark"] .compareWinnerIdentity { border-color: #393342 !important; }
+html[data-theme="dark"] .compareWinnerIcon,
+html[data-theme="dark"] .decisionServiceIcon { background: #30285a !important; }
+html[data-theme="dark"] .compareWinnerIdentity small,
+html[data-theme="dark"] .compareWinnerActionLinks span,
+html[data-theme="dark"] .compareWinnerReason > p,
+html[data-theme="dark"] .compareWinnerReason li,
+html[data-theme="dark"] .decisionCard > p { color: #aaa5b2 !important; }
+html[data-theme="dark"] .compareWinnerFeatures span { background: #30285a !important; color: #c8bdff !important; }
+html[data-theme="dark"] .compareWinnerReason > span,
+html[data-theme="dark"] .compareWinnerKicker,
+html[data-theme="dark"] .decisionCard > span,
+html[data-theme="dark"] .decisionCard > a { color: #b9aaff !important; }
+html[data-theme="dark"] .compareWinnerActions { border-color: #393342 !important; }
+html[data-theme="dark"] .compareWinnerActionLinks span::before { background: #30285a !important; }
+html[data-theme="dark"] .compareWinnerActions > a { background: #7055e8 !important; color: #fff !important; }
+html[data-theme="dark"] .ratingStar.empty { color: #4b4656 !important; }
+html[data-theme="dark"] .ratingStar.half { background: linear-gradient(90deg,#f5b72e 50%,#4b4656 50%) !important; -webkit-background-clip:text !important; background-clip:text !important; -webkit-text-fill-color:transparent !important; }
+html[data-theme="dark"] .scoreNotice { color: #85808f !important; }
+html[data-theme="dark"] .comparisonSnapshot { background: #15131b !important; border-color: #302c39 !important; }
+html[data-theme="dark"] .snapshotCard { background: #18161d !important; border-color: #302c39 !important; }
+html[data-theme="dark"] .snapshotCard.winner { border-color: #4a3e75 !important; }
+html[data-theme="dark"] .snapshotTop small,
+html[data-theme="dark"] .snapshotCard p { color: #aaa5b2 !important; }
+html[data-theme="dark"] .snapshotBadges span { background: #211e29 !important; color: #aaa5b5 !important; }
+html[data-theme="dark"] .snapshotFeatures span { background: #30285a !important; color: #c8bdff !important; }
+html[data-theme="dark"] .compareWinnerActionLinks span::after { color: #b9aaff !important; }

@@ -4,12 +4,12 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { catalog, categoryGroups, matchesCategory } from "../lib/catalog";
-import { rankSearchResults } from "../lib/search";
+import { getSearchSuggestions, rankSearchResults } from "../lib/search";
 import { getOutboundUrl, hasAffiliateLink, trackOutboundClick } from "../lib/affiliate-programs";
 import "./catalog.css";
 
 const filters = categoryGroups.map((group) => [group.id, group.label]);
-// 기능 필터는 추천 엔진과 동일한 내부 키를 사용해 화면 간 결과가 어긋나지 않게 합니다.
+// 기능 필터는 추천 엔진과 동일한 내부 키를 사용합니다.
 const featureFilters = [["전체", "전체"], ["image", "이미지"], ["video", "영상"], ["voice", "음성"], ["chat", "챗봇"], ["search", "검색"], ["text", "텍스트"]];
 
 function readStoredList(key) {
@@ -20,7 +20,7 @@ function readStoredList(key) {
 }
 
 function serviceSupportsFeature(service, feature) {
-  // 데이터가 features 또는 uses 중 한쪽에만 있어도 기능 필터에 포함합니다.
+  // features 또는 uses 중 한쪽에만 기능이 정의돼 있어도 필터에 포함합니다.
   return Boolean(service.features?.[feature] || service.uses?.includes(feature));
 }
 
@@ -42,9 +42,7 @@ export default function CatalogPage() {
   useEffect(() => { localStorage.setItem("hub-compare", JSON.stringify(compare)); }, [compare]);
 
   const list = useMemo(() => {
-    // 검색어가 있으면 홈과 완전히 같은 검색 엔진으로 먼저 관련도를 계산합니다.
     const searched = rankSearchResults(catalog, query);
-
     const filtered = searched.filter((service) => {
       if (!matchesCategory(service, category)) return false;
       if (feature !== "전체" && !serviceSupportsFeature(service, feature)) return false;
@@ -52,10 +50,7 @@ export default function CatalogPage() {
       if (onlyApi && !service.api) return false;
       return true;
     });
-
-    // 정렬을 직접 선택하지 않았다면 검색 관련도(또는 원래 카탈로그 순서)를 유지합니다.
     if (sort === "recommended") return filtered;
-
     return [...filtered].sort((a, b) => {
       if (sort === "name") return a.name.localeCompare(b.name);
       if (sort === "easy") return (a.difficulty === "쉬움" ? 0 : 1) - (b.difficulty === "쉬움" ? 0 : 1);
@@ -65,12 +60,16 @@ export default function CatalogPage() {
     });
   }, [query, category, feature, onlyFree, onlyApi, sort]);
 
+  // 검색 결과가 0개라면 검색 의도에 가까운 서비스를 최대 3개 제안합니다.
+  const suggestions = useMemo(() => {
+    if (!query.trim() || list.length > 0) return [];
+    return getSearchSuggestions(catalog, query, 3);
+  }, [query, list]);
+
   const toggleFavorite = (id) => setFavorites((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
   const toggleCompare = (id) => setCompare((current) => current.includes(id) ? current.filter((item) => item !== id) : current.length >= 4 ? current : [...current, id]);
   const resetFilters = () => { setQuery(""); setCategory("all"); setFeature("전체"); setOnlyFree(false); setOnlyApi(false); setSort("recommended"); };
   const activeCategory = filters.find(([id]) => id === category)?.[1] || "전체";
-
-  // 외부 서비스로 이동하기 전에 서비스·유입 위치를 기록합니다.
   const openService = (service, source) => trackOutboundClick(service, source);
 
   return <main className="catalogPage">
@@ -86,7 +85,7 @@ export default function CatalogPage() {
         <div className="catalogOptions"><label><input type="checkbox" checked={onlyFree} onChange={(e) => setOnlyFree(e.target.checked)}/> 무료 시작</label><label><input type="checkbox" checked={onlyApi} onChange={(e) => setOnlyApi(e.target.checked)}/> API 제공</label><select value={sort} onChange={(e) => setSort(e.target.value)} aria-label="정렬 방식"><option value="recommended">추천순</option><option value="free">무료 우선</option><option value="api">API 우선</option><option value="easy">쉬운 서비스 우선</option><option value="name">이름순</option></select></div>
       </div>
       <div className="catalogState"><span>{activeCategory}</span><span>{feature}</span>{onlyFree && <span>무료</span>}{onlyApi && <span>API</span>}<b>{list.length}개 결과</b>{(query || category !== "all" || feature !== "전체" || onlyFree || onlyApi) && <button type="button" onClick={resetFilters}>필터 초기화</button>}</div>
-      <div className="catalogGrid">
+      {list.length > 0 && <div className="catalogGrid">
         {list.map((s) => {
           const affiliate = hasAffiliateLink(s);
           return <article className={`catalogCard ${affiliate ? "affiliateCard" : ""}`} key={s.id}>
@@ -97,8 +96,8 @@ export default function CatalogPage() {
             {affiliate && <p className="affiliateCatalogDisclosure">제휴 링크를 통해 가입하면 HUB가 제휴 수수료를 받을 수 있습니다.</p>}
           </article>;
         })}
-      </div>
-      {list.length === 0 && <div className="emptyCatalog"><b>조건에 맞는 서비스가 없습니다.</b><p>검색어 또는 필터를 바꿔보세요.</p><button type="button" onClick={resetFilters}>필터 초기화</button></div>}
+      </div>}
+      {list.length === 0 && <div className="emptyCatalog"><b>{query.trim() ? "검색 결과가 없습니다." : "조건에 맞는 서비스가 없습니다."}</b><p>{query.trim() ? "입력한 목적과 가까운 서비스를 대신 찾아봤어요." : "검색어 또는 필터를 바꿔보세요."}</p>{suggestions.length > 0 && <div className="searchSuggestions"><strong>이런 서비스를 찾아보세요</strong><div>{suggestions.map((service) => <Link key={service.id} href={`/services/${service.id}`} className="searchSuggestionCard"><img src={service.icon} alt=""/><span><b>{service.name}</b><small>{service.bestFor}</small></span><i aria-hidden="true">›</i></Link>)}</div></div>}<button type="button" onClick={resetFilters}>필터 초기화</button></div>}
     </section>
     {compare.length > 0 && <div className="catalogCompareBar"><strong>비교함 {compare.length}/4</strong><span>{compare.map((id) => catalog.find((s) => s.id === id)?.name).filter(Boolean).join(" · ")}</span><Link href="/compare">비교 화면 열기</Link></div>}
   </main>;

@@ -8,28 +8,8 @@ import { rankServices } from "../lib/recommendation";
 import "./compare.css";
 
 const fallback = catalog.slice(0, 4).map((service) => service.id);
-const goals = [
-  ["shorts", "쇼츠 제작"],
-  ["image", "이미지 제작"],
-  ["video", "영상 제작"],
-  ["voice", "음성 제작"],
-  ["chat", "AI 챗봇"],
-  ["api", "개발용 API"]
-];
-const rows = [
-  ["category", "분류"],
-  ["price", "비용 부담"],
-  ["free", "무료 시작"],
-  ["difficulty", "개발 난이도"],
-  ["api", "API"],
-  ["image", "이미지"],
-  ["video", "영상"],
-  ["voice", "음성"],
-  ["search", "검색"],
-  ["bestFor", "추천 용도"],
-  ["strengths", "강점"],
-  ["caveat", "주의할 점"]
-];
+const goals = [["shorts", "쇼츠 제작"], ["image", "이미지 제작"], ["video", "영상 제작"], ["voice", "음성 제작"], ["chat", "AI 챗봇"], ["api", "개발용 API"]];
+const rows = [["category", "분류"], ["price", "비용 부담"], ["free", "무료 시작"], ["difficulty", "개발 난이도"], ["api", "API"], ["image", "이미지"], ["video", "영상"], ["voice", "음성"], ["search", "검색"], ["bestFor", "추천 용도"], ["strengths", "강점"], ["caveat", "주의할 점"]];
 
 function featureValue(service, key) {
   if (["image", "video", "voice", "search"].includes(key)) return service.features?.[key] ? "지원" : "미지원";
@@ -50,13 +30,10 @@ export default function Compare() {
   useEffect(() => {
     try {
       const raw = JSON.parse(localStorage.getItem("hub-compare") || "[]");
-      setSelected(raw.filter((id) => catalogMap[id]).slice(0, 4));
-    } catch {
-      setSelected([]);
-    }
+      setSelected([...new Set(raw)].filter((id) => catalogMap[id]).slice(0, 4));
+    } catch { setSelected([]); }
   }, []);
 
-  // 선택한 서비스만 현재 목적에 맞춰 다시 점수화합니다.
   const ranked = useMemo(() => {
     const ids = selected.length ? selected : fallback;
     const services = ids.map((id) => catalogMap[id]).filter(Boolean);
@@ -65,13 +42,7 @@ export default function Compare() {
     const max = Math.max(...scores, 0);
     const min = Math.min(...scores, 0);
     const range = max - min;
-
-    return scored.map((item) => ({
-      ...item.service,
-      score: item.score,
-      reasons: item.reasons || [],
-      relativeScore: range ? Math.round(((item.score - min) / range) * 100) : 100
-    }));
+    return scored.map((item) => ({ ...item.service, score: item.score, reasons: item.reasons || [], relativeScore: range ? Math.round(((item.score - min) / range) * 100) : 100 }));
   }, [selected, goal]);
 
   const winners = useMemo(() => {
@@ -84,6 +55,18 @@ export default function Compare() {
     ];
   }, [ranked]);
 
+  // 같은 서비스가 여러 조건에서 1위를 차지하면 하나의 카드로 합칩니다.
+  // 비교 대상 자체는 아래 비교표와 모바일 카드에서 각각 한 번씩만 보여줍니다.
+  const uniqueWinnerGroups = useMemo(() => {
+    const groups = new Map();
+    winners.forEach((winner) => {
+      if (!winner.service) return;
+      const current = groups.get(winner.service.id) || [];
+      groups.set(winner.service.id, [...current, winner.label]);
+    });
+    return [...groups.entries()].map(([serviceId, labels]) => ({ service: ranked.find((item) => item.id === serviceId), labels }));
+  }, [winners, ranked]);
+
   const remove = (id) => {
     const next = selected.filter((item) => item !== id);
     setSelected(next);
@@ -95,6 +78,8 @@ export default function Compare() {
     localStorage.removeItem("hub-compare");
   };
 
+  const comparisonTitle = ranked.length > 1 ? ranked.map((service) => service.name).join(" vs ") : ranked[0]?.name || "서비스 비교";
+
   return <main className="page comparePage compareModern">
     <header className="header">
       <Link className="logo" href="/">HUB</Link>
@@ -104,22 +89,17 @@ export default function Compare() {
     <section className="guideHero compareHero">
       <div className="eyebrow">SERVICE COMPARE · HUB 2.0</div>
       <h1>선택지를 한눈에,<br /><span>내 목적에 맞게 비교하세요.</span></h1>
-      <p>최대 4개 서비스를 같은 목적 기준으로 다시 평가해 어떤 선택지가 더 잘 맞는지 확인합니다.</p>
+      <p><strong>{comparisonTitle}</strong>을 현재 선택한 목적 기준으로 비교합니다. 비용, 무료 시작, 기능, 난이도까지 한 번에 확인할 수 있습니다.</p>
     </section>
 
     <section className="section compareSection">
       <div className="compareGoalBox">
-        <div className="compareGoalHeading">
-          <strong>무엇을 만들려고 하나요?</strong>
-          <span>목적을 바꾸면 비교 점수와 추천 이유도 함께 바뀝니다.</span>
-        </div>
-        <div className="compareGoalTabs" role="tablist" aria-label="비교 목적">
-          {goals.map(([id, label]) => <button type="button" key={id} className={goal === id ? "active" : ""} onClick={() => setGoal(id)} aria-selected={goal === id}>{label}</button>)}
-        </div>
+        <div className="compareGoalHeading"><strong>무엇을 만들려고 하나요?</strong><span>목적을 바꾸면 비교 점수와 추천 이유도 함께 바뀝니다.</span></div>
+        <div className="compareGoalTabs" role="tablist" aria-label="비교 목적">{goals.map(([id, label]) => <button type="button" key={id} className={goal === id ? "active" : ""} onClick={() => setGoal(id)} aria-selected={goal === id}>{label}</button>)}</div>
       </div>
 
       <div className="compareToolbar">
-        <div><b>{ranked.length}개 서비스</b><span>{selected.length ? "선택한 서비스" : "기본 비교 목록"}</span></div>
+        <div><b>{ranked.length}개 서비스 비교</b><span>{selected.length ? ranked.map((service) => service.name).join(" · ") : "기본 비교 목록"}</span></div>
         <div className="toolbarActions"><Link href="/recommend">서비스 더 고르기</Link>{selected.length > 0 && <button type="button" onClick={clear}>전체 해제</button>}</div>
       </div>
 
@@ -128,12 +108,10 @@ export default function Compare() {
         {ranked[0] && <b>{ranked[0].relativeScore}점</b>}
       </div>
 
-      <section className="decisionGrid" aria-label="조건별 추천">
-        {winners.map((winner) => <article className={`decisionCard ${winner.key === "goal" ? "primary" : ""}`} key={winner.key}>
-          <span>{winner.label}</span>
-          <strong>{winner.service?.name || "없음"}</strong>
-          <p>{winner.description}</p>
-          {winner.service && <Link href={`/services/${winner.service.id}`}>상세 보기</Link>}
+      <section className="decisionGrid" aria-label="조건별 비교 결과">
+        <div className="decisionSectionIntro"><span>비교 결과</span><strong>어떤 조건에서 누가 앞서는지</strong><p>같은 서비스가 여러 조건에서 1위를 하면 한 번만 표시합니다.</p></div>
+        {uniqueWinnerGroups.map((group) => <article className={`decisionCard ${group.service?.id === ranked[0]?.id ? "primary" : ""}`} key={group.service?.id}>
+          <span>{group.labels.join(" · ")}</span><strong>{group.service?.name || "없음"}</strong><p>{group.service?.bestFor || "현재 목적과 주요 기능을 기준으로 비교합니다."}</p>{group.service && <Link href={`/services/${group.service.id}`}>상세 보기</Link>}
         </article>)}
       </section>
 

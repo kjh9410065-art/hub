@@ -1,29 +1,80 @@
-/* HUB 홈 4차 UI 폴리시
-   추천 카드와 STEP 03/04의 시각적 밀도를 정리해 한 화면의 흐름이 자연스럽게 이어지도록 합니다. */
+/* HUB 홈 5차 UI 폴리시
+   이번 단계는 '카드 몇 px 조정'이 아니라 섹션의 리듬과 정보 구조 자체를 정리합니다.
+   특히 STEP 03의 어색한 마지막 줄과 STEP 02 카드의 반복감을 줄입니다. */
 
-/* 추천 카드: 정보의 우선순위를 명확하게 정리합니다. */
+/* --------------------------------------------------------------------------
+   STEP 02 추천 카드
+   카드 하나하나가 같은 박스처럼 보이지 않도록 제목 → 핵심정보 → 이유 → 행동
+   순서가 명확하게 읽히게 합니다.
+   -------------------------------------------------------------------------- */
+.serviceList{gap:12px}
 .serviceCard{
+  position:relative;
+  padding:16px 16px 13px;
+  border-radius:18px;
+  border:1px solid #e4e0eb;
   background:#fff;
-  border-color:#e4e0eb;
-  box-shadow:0 6px 18px rgba(39,31,82,.035);
+  box-shadow:0 7px 24px rgba(39,31,82,.045);
+  transition:transform .18s,border-color .18s,box-shadow .18s;
+}
+.serviceCard:hover{
+  transform:translateY(-2px);
+  border-color:#d0c5f4;
+  box-shadow:0 13px 30px rgba(65,49,130,.085);
 }
 .serviceCard.topMatch{
-  border-color:#cfc3ff;
-  box-shadow:0 8px 24px rgba(104,84,217,.075);
+  border-color:#bfb0f3;
+  box-shadow:0 11px 30px rgba(104,84,217,.10);
 }
-.serviceTitleRow{gap:5px;padding-right:2px}
-.serviceName{font-size:15px;letter-spacing:-.4px}
-.serviceBest{margin-top:5px;color:#6f6b78}
+.serviceMain{gap:12px}
+.serviceIconWrap{
+  width:46px;
+  height:46px;
+  flex-basis:46px;
+  border-radius:13px;
+  background:#f3f0fb;
+  border-color:#e3def1;
+}
+.serviceIconImage{width:31px;height:31px}
+.serviceInfo{padding-right:48px}
+.serviceTitleRow{gap:5px}
+.serviceName{font-size:15px;font-weight:950}
+.serviceBest{margin-top:5px;font-size:9px;color:#77727f}
 
-/* 검색/추천 이유를 한 줄 박스로 만들지 않고 짧은 정보 행처럼 보여줍니다. */
+.serviceMetaRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  margin-top:8px;
+}
+.serviceMetaRow span{
+  padding:4px 6px;
+  border-radius:6px;
+  background:#f5f3f9;
+  color:#77717f;
+  font-size:7px;
+  font-weight:850;
+}
+.serviceMetaRow span.isPositive{background:#e8f8f0;color:#218f64}
+.serviceMetaRow span.isApi{background:#eeeaff;color:#6048d1}
+
+.tagList{gap:4px;margin-top:7px}
+.tagList span{
+  padding:4px 6px;
+  border-radius:6px;
+  background:#f7f5fa;
+  color:#85808e;
+  font-size:7px;
+}
+
 .recommendReason{
   display:flex;
   align-items:flex-start;
   gap:7px;
-  margin-top:9px;
+  margin-top:8px;
   padding:8px 9px;
   border:1px solid #eeeaf6;
-  border-left:2px solid #a998ef;
+  border-left:2px solid #9f8be9;
   border-radius:9px;
   background:#faf9fd;
   color:#716d7b;
@@ -31,124 +82,172 @@
   line-height:1.5;
 }
 .recommendReasonLabel{
-  flex:0 0 auto;
-  color:#654dd7;
+  flex:none;
+  color:#634bd3;
   font-size:7px;
-  font-weight:900;
+  font-weight:950;
 }
 .recommendReason>span:last-child{min-width:0;overflow-wrap:anywhere}
 
-/* 카드 안에 비용/API 상태를 짧게 표시합니다. */
-.serviceMetaRow{
-  display:flex;
-  flex-wrap:wrap;
-  gap:4px;
-  margin-top:7px;
+.favoriteButton{
+  padding:6px 7px;
+  border-radius:8px;
+  background:#faf9fc;
 }
-.serviceMetaRow span{
-  padding:4px 6px;
-  border-radius:6px;
-  background:#f5f3f9;
-  color:#77727f;
-  font-size:7px;
-  font-weight:800;
-}
-.serviceMetaRow span.isPositive{
-  background:#eaf9f2;
-  color:#239568;
-}
-.serviceMetaRow span.isApi{
-  background:#efecff;
-  color:#644bd5;
-}
+.favoriteButton.isFavorite{background:#f0edff}
+.serviceActions{gap:7px;margin-top:12px!important}
+.detailButton,.compareButton{height:34px;border-radius:9px;font-size:9px}
+.detailButton{border-color:#ddd8e7;background:#fff}
+.compareButton{border-color:#28262f;background:#28262f}
+.compareButton.selected{background:#7055e8;border-color:#7055e8}
 
-/* STEP 03: 카테고리를 단순한 흰색 목록보다 탐색 메뉴처럼 보이게 합니다. */
-.categoryStep{padding-top:56px}
-.categoryStep .stepHeading{margin-bottom:13px}
+/* --------------------------------------------------------------------------
+   STEP 03 카테고리
+   기존 3열은 8개 카테고리가 3+3+2로 끊겨 마지막 줄이 어색했습니다.
+   넓은 화면에서는 4열로 바꿔 4+4로 정리합니다.
+   -------------------------------------------------------------------------- */
+.categoryStep{padding-top:48px}
+.categoryStep .stepHeading{margin-bottom:14px}
 .categoryList{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:7px;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
 }
 .categoryCard{
-  min-height:52px;
-  padding:0 12px;
-  border:1px solid #e7e3ed;
-  border-radius:13px;
+  position:relative;
+  min-height:56px;
+  padding:9px 10px;
+  display:grid;
+  grid-template-columns:30px minmax(0,1fr) auto;
+  grid-template-rows:1fr auto;
+  column-gap:8px;
+  row-gap:2px;
+  border:1px solid #e4e0eb;
+  border-radius:14px;
   background:#fff;
-  box-shadow:0 4px 13px rgba(39,31,82,.025);
+  box-shadow:0 5px 16px rgba(39,31,82,.035);
   transition:transform .16s,border-color .16s,box-shadow .16s;
 }
 .categoryCard:hover{
-  transform:translateY(-1px);
-  border-color:#cfc5f6;
-  box-shadow:0 7px 18px rgba(70,54,130,.06);
+  transform:translateY(-2px);
+  border-color:#c9bef0;
+  box-shadow:0 10px 22px rgba(70,54,130,.075);
 }
 .categoryCard img{
-  width:26px;
-  height:26px;
-  padding:3px;
-  border-radius:8px;
-  background:#f3f1fa;
+  grid-row:1/-1;
+  width:30px;
+  height:30px;
+  align-self:center;
+  padding:4px;
+  border-radius:9px;
+  background:#f2effa;
 }
-.categoryCard span{font-size:10px;font-weight:900;letter-spacing:-.2px}
-.categoryCard b{padding:4px 6px;font-size:7px;background:#f2effa;color:#706a82}
-.categoryCard i{font-size:17px}
+.categoryCard span{
+  align-self:end;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:-.25px;
+}
+.categoryCard b{
+  align-self:end;
+  padding:3px 5px;
+  border-radius:999px;
+  background:#f2effa;
+  color:#706985;
+  font-size:6px;
+  font-weight:850;
+}
+.categoryCard i{
+  grid-column:2/4;
+  justify-self:end;
+  align-self:start;
+  font-size:14px;
+  line-height:1;
+  color:#8a8498;
+}
 
-/* STEP 04는 앞 단계와 지나치게 떨어져 보이지 않게 간격을 압축합니다. */
-.compareStep{padding-top:48px}
-.compareStep .stepHeading{margin-bottom:13px}
+/* --------------------------------------------------------------------------
+   STEP 04
+   STEP 03과 자연스럽게 이어지도록 큰 공백을 줄이고 CTA를 '다음 행동'처럼 만듭니다.
+   -------------------------------------------------------------------------- */
+.compareStep{padding-top:40px}
+.compareStep .stepHeading{margin-bottom:12px}
 .compareCta{
-  min-height:66px;
-  border-radius:14px;
-  box-shadow:0 7px 20px rgba(104,84,217,.055);
+  min-height:62px;
+  padding:10px 13px;
+  border-radius:15px;
+  border-color:#d2c8f6;
+  box-shadow:0 8px 22px rgba(104,84,217,.065);
 }
-.compareCtaIcon{width:36px;height:36px;flex-basis:36px;border-radius:10px;font-size:20px}
+.compareCtaIcon{width:35px;height:35px;flex-basis:35px;border-radius:10px;font-size:20px}
 .compareCta strong{font-size:11px}
 .compareCta small{font-size:8px}
+.compareCta>b{font-size:20px}
+.homeFooter{margin-top:34px}
 
-/* 홈 하단은 STEP 04와 자연스럽게 연결되도록 여백을 줄입니다. */
-.homeFooter{margin-top:42px}
-
-/* 일반폰 */
-@media(max-width:430px) and (orientation:portrait){
+/* 모바일 */
+@media(max-width:760px){
+  .serviceList{gap:9px}
+  .serviceCard{padding:13px 12px 11px;border-radius:15px}
+  .serviceMain{gap:9px}
+  .serviceIconWrap{width:40px;height:40px;flex-basis:40px;border-radius:11px}
+  .serviceIconImage{width:27px;height:27px}
+  .serviceInfo{padding-right:40px}
   .serviceName{font-size:13px}
   .serviceBest{font-size:8px}
   .serviceMetaRow{gap:3px;margin-top:6px}
   .serviceMetaRow span{padding:3px 5px;font-size:6px}
+  .tagList{margin-top:6px}
+  .tagList span{padding:3px 5px;font-size:6px}
   .recommendReason{margin-top:6px;padding:6px 7px;font-size:7px}
   .recommendReasonLabel{font-size:6px}
-  .categoryStep{padding-top:46px}
+  .serviceActions{margin-top:9px!important;gap:6px}
+  .detailButton,.compareButton{height:33px;font-size:8px}
+
+  /* 모바일은 2열로 고정해 카테고리 탐색 속도를 높입니다. */
+  .categoryStep{padding-top:40px}
   .categoryList{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
-  .categoryCard{min-height:42px;padding-inline:9px}
-  .categoryCard img{width:23px;height:23px}
+  .categoryCard{min-height:49px;padding:8px 8px;grid-template-columns:27px minmax(0,1fr) auto;column-gap:7px}
+  .categoryCard img{width:27px;height:27px}
   .categoryCard span{font-size:8px}
-  .categoryCard b{font-size:6px;padding:3px 5px}
-  .compareStep{padding-top:43px}
-  .compareCta{min-height:61px}
-  .homeFooter{margin-top:40px}
+  .categoryCard b{font-size:6px}
+  .categoryCard i{font-size:13px}
+  .compareStep{padding-top:35px}
+  .compareCta{min-height:59px}
+  .homeFooter{margin-top:34px}
 }
 
-/* Flip/Fold 가로 */
+@media(max-width:430px) and (orientation:portrait){
+  .categoryList{gap:6px}
+  .categoryCard{min-height:45px;padding:7px}
+  .categoryCard img{width:25px;height:25px}
+  .categoryCard span{font-size:7px}
+  .categoryCard b{padding:3px 4px;font-size:5px}
+  .categoryCard i{font-size:12px}
+  .compareStep{padding-top:32px}
+  .homeFooter{margin-top:30px}
+}
+
 @media(max-width:900px) and (orientation:landscape){
-  .serviceName{font-size:12px}
-  .serviceMetaRow{gap:3px;margin-top:5px}
-  .serviceMetaRow span{padding:3px 5px;font-size:6px}
-  .recommendReason{margin-top:5px;padding:5px 6px;font-size:7px}
-  .categoryStep{padding-top:42px}
-  .categoryList{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
-  .categoryCard{min-height:40px}
-  .categoryCard span{font-size:8px}
-  .compareStep{padding-top:39px}
+  .categoryStep{padding-top:38px}
+  .categoryList{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+  .categoryCard{min-height:45px;padding:7px}
+  .categoryCard img{width:25px;height:25px}
+  .categoryCard span{font-size:7px}
+  .categoryCard b{font-size:5px}
+  .categoryCard i{font-size:12px}
+  .compareStep{padding-top:32px}
 }
 
-/* 태블릿/PC */
 @media(min-width:901px){
-  .serviceMetaRow{margin-top:8px}
-  .categoryStep{padding-top:58px}
-  .compareStep{padding-top:50px}
+  .categoryStep{padding-top:48px}
+  .compareStep{padding-top:40px}
 }
 
 @media(prefers-reduced-motion:reduce){
-  .categoryCard{transition:none}
+  .serviceCard,.categoryCard{transition:none}
 }

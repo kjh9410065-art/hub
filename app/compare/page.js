@@ -11,7 +11,8 @@ const goals = [["shorts", "쇼츠 제작"], ["image", "이미지 제작"], ["vid
 const rows = [["category", "분류"], ["price", "비용 부담"], ["free", "무료 시작"], ["difficulty", "개발 난이도"], ["api", "API"], ["image", "이미지"], ["video", "영상"], ["voice", "음성"], ["search", "검색"], ["bestFor", "추천 용도"], ["strengths", "강점"], ["caveat", "주의할 점"]];
 
 function featureValue(service, key) {
-  if (["image", "video", "voice", "search"].includes(key)) return service.features?.[key] ? "지원" : "미지원";
+  // 기능은 features와 uses 중 한쪽에만 정의되어 있어도 지원으로 표시합니다.
+  if (["image", "video", "voice", "search"].includes(key)) return service.features?.[key] || service.uses?.includes(key) ? "지원" : "미지원";
   if (key === "free") return service.free ? "가능" : "없음";
   if (key === "api") return service.api ? "제공" : "확인 필요";
   if (key === "strengths") return service.strengths?.join(" · ") || "—";
@@ -46,9 +47,11 @@ export default function Compare() {
     const services = selected.map((id) => catalogMap[id]).filter(Boolean);
     const scored = rankServices(services, { goal, budget: "any", skill: "any", feature: "all" });
     const scores = scored.map((item) => item.score);
-    const max = Math.max(...scores, 0);
-    const min = Math.min(...scores, 0);
+    const max = Math.max(...scores);
+    const min = Math.min(...scores);
     const range = max - min;
+
+    // 선택된 서비스끼리의 실제 점수 범위만 사용해 상대점수가 왜곡되지 않도록 합니다.
     return scored.map((item) => ({
       ...item.service,
       score: item.score,

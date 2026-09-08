@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { catalog, catalogMap } from "../../lib/catalog";
 import { scoreService } from "../../lib/recommendation";
+import { getAffiliateDisclosure, getOutboundUrl, hasAffiliateLink } from "../../lib/affiliate-programs";
 import "./service.css";
 
 export function generateStaticParams() {
@@ -54,6 +55,8 @@ export default async function ServiceDetail({ params }) {
   ];
   const primaryGoal = getPrimaryGoal(service);
   const primaryResult = scoreService(service, { goal: primaryGoal.id });
+  const affiliateReady = hasAffiliateLink(service);
+  const outboundUrl = getOutboundUrl(service);
 
   // 같은 목적과 기능을 공유하는 서비스를 계산해 상세 페이지의 대안으로 보여줍니다.
   const related = catalog
@@ -167,9 +170,10 @@ export default async function ServiceDetail({ params }) {
         </div>
       </section>
 
-      <section className="serviceBottom">
+      <section className={`serviceBottom ${affiliateReady ? "affiliateBottom" : ""}`}>
         <Link href="/recommend">맞춤 추천 다시 받기</Link>
-        <a href={service.url} target="_blank" rel="noreferrer">공식 사이트 방문</a>
+        <a className="serviceOutbound" href={outboundUrl} target="_blank" rel="nofollow sponsored noopener noreferrer">{affiliateReady ? "서비스 시작하기" : "공식 사이트 방문"}</a>
+        {affiliateReady && <p className="affiliateDisclosure">{getAffiliateDisclosure(service)}</p>}
       </section>
     </main>
   );

@@ -8,8 +8,7 @@ import { catalog, catalogMap } from "../lib/catalog";
 import { rankServices } from "../lib/recommendation";
 import { rankSearchResults, scoreSearch } from "../lib/search";
 import { parseRecommendationIntent } from "../lib/recommendation-intent";
-import { getAffiliateDisclosure, getOutboundUrl, hasAffiliateLink } from "../lib/affiliate-programs";
-import HubTutorial from "../components/hub-tutorial";
+import { getAffiliateDisclosure, getOutboundUrl, hasAffiliateLink, trackOutboundClick } from "../lib/affiliate-programs";
 
 // 목적 카드에는 HUB 전용 SVG 일러스트만 사용합니다.
 const goals = [
@@ -102,6 +101,9 @@ export default function RecommendPage() {
   const top = results[0];
   const topHasAffiliate = top ? hasAffiliateLink(top) : false;
 
+  // 외부 서비스 이동 직전에 클릭 정보를 기록합니다.
+  const openService = (service, source) => trackOutboundClick(service, source);
+
   return <main className="recommendPage"><div className="recommendShell">
     <header className="recommendTop"><a className="recommendBrand" href="/">HUB</a><nav className="recommendNav" aria-label="주요 메뉴"><a href="/catalog">서비스 찾기</a><a href="/tools">무료 도구</a><a href="/compare">비교</a><a className="recommendBack" href="/">홈으로</a></nav></header>
 
@@ -139,18 +141,21 @@ export default function RecommendPage() {
         </div>
         <div className="topMatchActions">
           <a className="primaryAction" href={`/services/${top.id}`}>상세 보기</a>
-          <a className="secondaryAction" href={getOutboundUrl(top)} target="_blank" rel="nofollow sponsored noopener noreferrer">{topHasAffiliate ? "서비스 시작하기" : "공식 사이트"}</a>
+          <a className="secondaryAction" href={getOutboundUrl(top)} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => openService(top, "recommend-top")}>{topHasAffiliate ? "서비스 시작하기" : "공식 사이트"}</a>
         </div>
       </article>}
       <div className="resultHead resultHeadSub"><div><div className="eyebrow">ALTERNATIVES</div><h3>함께 비교해볼 후보</h3></div><span className="resultCount">{results.length}개 후보 분석</span></div>
-      <div className="resultGrid">{results.slice(1, 6).map((service) => <article className="resultCard" key={service.id}>
-        <div className="resultServiceTop"><img className="resultIcon" src={service.icon} alt=""/><div><div className="resultTitle">{service.name}</div><div className="resultCategory">{service.category}</div></div><div className="score">{service.score}<small>점</small></div></div>
-        <div className="reason"><b>추천 이유</b><br/>{service.reason}</div>
-        <div className="chips"><span className="good">{service.free ? "무료 시작 가능" : "유료 중심"}</span><span>비용 {service.price}</span><span>난이도 {service.difficulty}</span>{service.tags.slice(0, 2).map((tag) => <span key={tag}>{tag}</span>)}</div>
-        <div className="resultActions"><button type="button" className="compareBtn" onClick={() => toggleCompare(service.id)}>{compare.includes(service.id) ? "비교 선택됨" : "비교하기"}</button><a className="officialBtn" href={`/services/${service.id}`}>상세 보기</a>{hasAffiliateLink(service) && <a className="affiliateMiniBtn" href={getOutboundUrl(service)} target="_blank" rel="nofollow sponsored noopener noreferrer">시작하기</a>}</div>
-      </article>)}</div>
+      <div className="resultGrid">{results.slice(1, 6).map((service) => {
+        const affiliate = hasAffiliateLink(service);
+        return <article className={`resultCard ${affiliate ? "affiliateCandidate" : ""}`} key={service.id}>
+          <div className="resultServiceTop"><img className="resultIcon" src={service.icon} alt=""/><div><div className="resultTitle">{service.name}</div><div className="resultCategory">{service.category}</div></div><div className="score">{service.score}<small>점</small></div></div>
+          <div className="reason"><b>추천 이유</b><br/>{service.reason}</div>
+          <div className="chips"><span className="good">{service.free ? "무료 시작 가능" : "유료 중심"}</span><span>비용 {service.price}</span><span>난이도 {service.difficulty}</span>{service.tags.slice(0, 2).map((tag) => <span key={tag}>{tag}</span>)}</div>
+          <div className="resultActions"><button type="button" className="compareBtn" onClick={() => toggleCompare(service.id)}>{compare.includes(service.id) ? "비교 선택됨" : "비교하기"}</button><a className="officialBtn" href={`/services/${service.id}`}>상세 보기</a><a className={affiliate ? "affiliateMiniBtn" : "officialBtn"} href={getOutboundUrl(service)} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => openService(service, "recommend-candidate")}>{affiliate ? "서비스 시작하기" : "공식 사이트"}</a></div>
+          {affiliate && <p className="affiliateDisclosure miniDisclosure">{getAffiliateDisclosure(service)}</p>}
+        </article>;
+      })}</div>
     </section>
   </div>{compare.length > 0 && <div className="compareBar"><strong>{compare.length}/4 비교</strong><div className="compareNames">{compare.map((id) => <span className="compareName" key={id}>{catalogMap[id]?.name}</span>)}</div><a className="compareGo" href="/compare">비교하기</a></div>}
-  <HubTutorial />
   </main>;
 }

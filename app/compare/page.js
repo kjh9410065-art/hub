@@ -26,8 +26,10 @@ function getSupportedFeatures(service) {
   return Object.entries(featureLabels).filter(([key]) => key === "api" ? service.api : Boolean(service.features?.[key] || service.uses?.includes(key))).map(([, label]) => label);
 }
 
-function findWinner(services, predicate, fallbackService) {
-  return services.filter(predicate).sort((a, b) => b.score - a.score)[0] || fallbackService;
+function findWinner(services, predicate) {
+  // 조건을 만족하는 서비스가 실제로 있을 때만 1위로 표시합니다.
+  // 후보가 없으면 전체 1위를 억지로 승자로 표시하지 않아 잘못된 안내를 막습니다.
+  return services.filter(predicate).sort((a, b) => b.score - a.score)[0] || null;
 }
 
 function getStarRating(score) {
@@ -84,9 +86,9 @@ export default function Compare() {
     const top = ranked[0];
     return [
       { key: "goal", label: "목적 적합도", description: "현재 선택한 제작 목적을 기준으로 주요 기능, 추천 용도, API 지원 여부 등을 종합해 가장 높은 HUB 기준 추천 결과를 받은 서비스입니다.", service: top },
-      { key: "free", label: "무료 시작", description: "무료로 시작할 수 있는 후보만 놓고 비교했을 때 현재 목적에 가장 잘 맞는 서비스입니다. 무료 범위와 실제 사용 조건은 서비스 정책에 따라 달라질 수 있습니다.", service: findWinner(ranked, (item) => item.free, top) },
-      { key: "api", label: "API 활용", description: "API를 제공하는 후보 중 현재 목적에 대한 적합도가 가장 높은 서비스입니다. 자동화나 직접 연동이 필요한 경우 특히 확인할 가치가 있습니다.", service: findWinner(ranked, (item) => item.api, top) },
-      { key: "easy", label: "쉬운 시작", description: "사용 난이도가 '쉬움'으로 분류된 후보 중 현재 목적 점수가 가장 높은 서비스입니다. 처음 사용하는 경우 설정 부담을 줄이는 데 초점을 둔 결과입니다.", service: findWinner(ranked, (item) => item.difficulty === "쉬움", top) }
+      { key: "free", label: "무료 시작", description: "무료로 시작할 수 있는 후보만 놓고 비교했을 때 현재 목적에 가장 잘 맞는 서비스입니다. 무료 범위와 실제 사용 조건은 서비스 정책에 따라 달라질 수 있습니다.", service: findWinner(ranked, (item) => item.free) },
+      { key: "api", label: "API 활용", description: "API를 제공하는 후보 중 현재 목적에 대한 적합도가 가장 높은 서비스입니다. 자동화나 직접 연동이 필요한 경우 특히 확인할 가치가 있습니다.", service: findWinner(ranked, (item) => item.api) },
+      { key: "easy", label: "쉬운 시작", description: "사용 난이도가 '쉬움'으로 분류된 후보 중 현재 목적 점수가 가장 높은 서비스입니다. 처음 사용하는 경우 설정 부담을 줄이는 데 초점을 둔 결과입니다.", service: findWinner(ranked, (item) => item.difficulty === "쉬움") }
     ];
   }, [ranked]);
 
@@ -178,7 +180,7 @@ export default function Compare() {
           <div className="decisionSectionIntro"><span>비교 결과</span><strong>어떤 조건에서 누가 앞서는지</strong><p>4가지 조건을 각각 보여줍니다. 한 서비스가 여러 조건에서 1위일 수 있습니다.</p></div>
           {winners.map((winner) => <article className={`decisionCard ${winner.service?.id === ranked[0]?.id ? "primary" : ""}`} key={winner.key}>
             <span>{winner.label}</span>
-            <div className="decisionServiceHead">{winner.service?.icon && <div className="decisionServiceIcon"><img src={winner.service.icon} alt="" /></div>}<strong>{winner.service?.name || "없음"}</strong></div>
+            <div className="decisionServiceHead">{winner.service?.icon && <div className="decisionServiceIcon"><img src={winner.service.icon} alt="" /></div>}<strong>{winner.service?.name || "해당 후보 없음"}</strong></div>
             {winner.service && <StarRating score={winner.service.score} />}
             <p>{winner.description}</p>
             {winner.service && <Link href={`/services/${winner.service.id}`}>상세 정보 보기</Link>}

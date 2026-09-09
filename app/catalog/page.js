@@ -2,7 +2,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { catalog, categoryGroups, matchesCategory } from "../lib/catalog";
 import { getSearchSuggestions, rankSearchResults } from "../lib/search";
@@ -31,7 +30,6 @@ function getSupportedFeatures(service) {
 }
 
 export default function CatalogPage() {
-  const searchParams = useSearchParams();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
   const [feature, setFeature] = useState("전체");
@@ -41,13 +39,14 @@ export default function CatalogPage() {
   const [favorites, setFavorites] = useState([]);
   const [compare, setCompare] = useState([]);
 
-  // 홈의 STEP 03 카테고리 카드에서 넘어온 ?category= 값을 실제 카탈로그 필터에 반영합니다.
+  // 정적 export에서는 useSearchParams()가 빌드 시 Suspense 경계를 요구합니다.
+  // 대신 브라우저에서 마운트된 뒤 현재 URL을 읽어 카테고리 딥링크를 적용합니다.
   useEffect(() => {
-    const requestedCategory = searchParams.get("category");
+    const requestedCategory = new URLSearchParams(window.location.search).get("category");
     if (requestedCategory && categoryGroups.some((group) => group.id === requestedCategory)) {
       setCategory(requestedCategory);
     }
-  }, [searchParams]);
+  }, []);
 
   useEffect(() => {
     setFavorites(readStoredList("hub-favorites"));

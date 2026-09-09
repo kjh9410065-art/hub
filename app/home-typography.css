@@ -52,31 +52,32 @@
 .compareBar span{font-size:10px}
 .compareBarActions button,.compareBarActions a{font-size:10px}
 
-/* 좁은 일반폰: 글자 크기는 낮추되 10px 아래로 내려가지 않도록 합니다. */
+/* 좁은 일반폰: 핵심 정보는 한 단계 키워 화면에서 바로 읽히도록 합니다. */
 @media(max-width:430px) and (orientation:portrait){
-  .topNav a{font-size:10px}
-  .sectionKicker{font-size:10px}
-  .stepHeading>p:last-child{font-size:12px}
-  .taskCopy strong{font-size:14px}
-  .taskCopy small{font-size:10px}
-  .recommendTabs button,.recommendTabs label,.recommendTabs a{font-size:11px}
-  .searchBox input{font-size:12px}
-  .featureFilters button{font-size:10px}
-  .resultMeta{font-size:10px}
-  .resultMeta button{font-size:10px}
-  .serviceName{font-size:15px}
-  .matchBadge,.freeBadge{font-size:9px}
-  .serviceBest{font-size:11px}
+  .topNav a{font-size:11px}
+  .sectionKicker{font-size:11px}
+  .stepHeading>p:last-child{font-size:14px}
+  .taskCopy strong{font-size:15px}
+  .taskCopy small{font-size:11px}
+  .recommendTabs button,.recommendTabs label,.recommendTabs a{font-size:12px}
+  .searchBox input{font-size:13px}
+  .featureFilters button{font-size:11px}
+  .resultMeta{font-size:11px}
+  .resultMeta button{font-size:11px}
+  .serviceName{font-size:16px}
+  .matchBadge,.freeBadge{font-size:10px}
+  .serviceBest{font-size:12px}
   .tagList span{font-size:9px}
-  .recommendReason{font-size:10px}
+  .recommendReason{font-size:11px}
   .recommendReasonLabel{font-size:9px}
-  .favoriteButton{font-size:9px}
-  .detailButton,.compareButton{font-size:11px}
-  .categoryCard span{font-size:11px}
-  .categoryCard b{font-size:9px}
-  .compareCta strong{font-size:13px}
-  .compareCta small{font-size:10px}
-  .homeFooter span,.footerLinks a{font-size:9px}
+  .favoriteButton{font-size:10px}
+  .detailButton,.compareButton{font-size:12px}
+  .categoryCard span{font-size:14px}
+  .categoryCard b{font-size:11px}
+  .compareCta strong{font-size:15px}
+  .compareCta small{font-size:11px}
+  .homeFooter strong{font-size:14px}
+  .homeFooter span,.footerLinks a{font-size:10px}
 }
 
 /* Flip/Fold 세로: 넓어진 카드에서도 텍스트가 지나치게 작아 보이지 않도록 한 단계 올립니다. */

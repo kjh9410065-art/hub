@@ -37,9 +37,7 @@ html[data-theme="dark"] .comparePage .snapshotCard,
 html[data-theme="dark"] .comparePage .mobileCompareCard,
 html[data-theme="dark"] .comparePage .compareDesktop,
 html[data-theme="dark"] .comparePage .compareMatrixHead,
-html[data-theme="dark"] .comparePage .compareMatrixRow {
-  border-color: #7659d6 !important;
-}
+html[data-theme="dark"] .comparePage .compareMatrixRow { border-color: #7659d6 !important; }
 
 /* 보조 컨트롤도 같은 보라색 외곽선 규칙으로 통일합니다. */
 html[data-theme="dark"] .recommendPage .choice,
@@ -54,9 +52,7 @@ html[data-theme="dark"] .comparePage .compareGoalTabs button,
 html[data-theme="dark"] .comparePage .toolbarActions button,
 html[data-theme="dark"] .comparePage .mobileCompareCard header button,
 html[data-theme="dark"] .hubTutorialHelp,
-html[data-theme="dark"] .hubThemeToggle {
-  border-color: #7659d6 !important;
-}
+html[data-theme="dark"] .hubThemeToggle { border-color: #7659d6 !important; }
 
 /* 입력창도 같은 보라색 테두리를 사용합니다. */
 html[data-theme="dark"] .recommendPage input,
@@ -64,9 +60,7 @@ html[data-theme="dark"] .catalogPage input,
 html[data-theme="dark"] .catalogPage select,
 html[data-theme="dark"] .serviceDetail input,
 html[data-theme="dark"] .serviceDetail textarea,
-html[data-theme="dark"] .serviceDetail select {
-  border-color: #7659d6 !important;
-}
+html[data-theme="dark"] .serviceDetail select { border-color: #7659d6 !important; }
 
 /* 비교 결과 카드의 내부 색상을 상태에 따라 달라지지 않게 하나로 통일합니다. */
 .comparePage .decisionCard,
@@ -80,39 +74,38 @@ html[data-theme="dark"] .comparePage .decisionCard.primary { background: #211e29
 .comparePage .ratingStar.emptyStar,
 .comparePage .ratingStar.empty { color: #b8b4bf !important; opacity: 1; }
 .comparePage .ratingStar.half,
-.comparePage .compareWinner .ratingStar.half {
-  background: linear-gradient(90deg,#f5b72e 50%,#b8b4bf 50%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-}
+.comparePage .compareWinner .ratingStar.half { background: linear-gradient(90deg,#f5b72e 50%,#b8b4bf 50%) !important; -webkit-background-clip:text !important; background-clip:text !important; -webkit-text-fill-color:transparent !important; }
 html[data-theme="dark"] .comparePage .ratingStar.filled,
 html[data-theme="dark"] .comparePage .compareWinner .ratingStar.filled { color: #f5b72e !important; }
 html[data-theme="dark"] .comparePage .ratingStar.emptyStar,
 html[data-theme="dark"] .comparePage .ratingStar.empty { color: #77727f !important; opacity: 1; }
 html[data-theme="dark"] .comparePage .ratingStar.half,
-html[data-theme="dark"] .comparePage .compareWinner .ratingStar.half {
-  background: linear-gradient(90deg,#f5b72e 50%,#77727f 50%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-}
+html[data-theme="dark"] .comparePage .compareWinner .ratingStar.half { background: linear-gradient(90deg,#f5b72e 50%,#77727f 50%) !important; -webkit-background-clip:text !important; background-clip:text !important; -webkit-text-fill-color:transparent !important; }
 
-/* 밝은 모드에서는 추천 화면의 서비스 카드/주요 박스에 테두리를 없애서 더 깔끔하게 보이게 합니다.
-   다크모드의 보라색 테두리 규칙은 위의 dark 전용 규칙으로 그대로 유지합니다. */
+/* 밝은 모드에서는 추천 화면의 서비스 카드/주요 박스에 테두리를 없애서 더 깔끔하게 보이게 합니다. */
 html:not([data-theme="dark"]) .recommendPage .resultCard,
 html:not([data-theme="dark"]) .recommendPage .topMatch,
 html:not([data-theme="dark"]) .recommendPage .recommendCandidate,
 html:not([data-theme="dark"]) .recommendPage .recommendResult,
 html:not([data-theme="dark"]) .recommendPage .recommendSearch,
 html:not([data-theme="dark"]) .recommendPage .conditionCard,
-html:not([data-theme="dark"]) .recommendPage .compareBar {
-  border-color: transparent !important;
-}
+html:not([data-theme="dark"]) .recommendPage .compareBar { border-color: transparent !important; }
+
+/* 밝은 모드 홈 화면의 카드도 테두리 없이 배경과 그림자로만 구분합니다. */
+html:not([data-theme="dark"]) .homePage .taskCard,
+html:not([data-theme="dark"]) .homePage .serviceCard,
+html:not([data-theme="dark"]) .homePage .categoryCard,
+html:not([data-theme="dark"]) .homePage .miniCard,
+html:not([data-theme="dark"]) .homePage .searchBox,
+html:not([data-theme="dark"]) .homePage .featureFilters button,
+html:not([data-theme="dark"]) .homePage .compareCta,
+html:not([data-theme="dark"]) .homePage .compareBar { border-color: transparent !important; }
+
+/* 선택된 홈 카드도 라이트모드에서는 보더 대신 배경/그림자로 상태를 표현합니다. */
+html:not([data-theme="dark"]) .homePage .taskCard.isActive,
+html:not([data-theme="dark"]) .homePage .serviceCard.topMatch { border-color: transparent !important; }
 
 /* 밝은 모드의 추천 카드 그림자만 살짝 유지해 카드 영역은 구분되도록 합니다. */
 html:not([data-theme="dark"]) .recommendPage .resultCard,
 html:not([data-theme="dark"]) .recommendPage .topMatch,
-html:not([data-theme="dark"]) .recommendPage .recommendResult {
-  box-shadow: 0 8px 28px rgba(32,25,67,.045) !important;
-}
+html:not([data-theme="dark"]) .recommendPage .recommendResult { box-shadow: 0 8px 28px rgba(32,25,67,.045) !important; }

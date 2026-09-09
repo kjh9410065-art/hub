@@ -23,6 +23,24 @@ const budgetOptions = [["free", "무료 우선"], ["low", "저렴하게 시작"]
 const skillOptions = [["easy", "초보"], ["medium", "보통"], ["hard", "개발자"]];
 const featureOptions = [["all", "상관없음"], ["이미지", "이미지"], ["영상", "영상"], ["음성", "음성"], ["챗봇", "챗봇"], ["검색", "검색"]];
 
+// 추천 점수를 0~5점, 0.5점 단위의 별점으로 변환합니다.
+function getStarRating(score) {
+  const normalized = Math.max(0, Math.min(5, Number(score || 0) / 20));
+  return Math.round(normalized * 2) / 2;
+}
+
+// 숫자 점수 대신 별 5개로 추천 결과를 보여줍니다.
+function StarRating({ score }) {
+  const rating = getStarRating(score);
+  return <div className="recommendStarRating" role="img" aria-label={`HUB 추천 별점 ${rating.toFixed(1)}점 / 5점`}>
+    {Array.from({ length: 5 }, (_, index) => {
+      const value = index + 1;
+      const type = rating >= value ? "filled" : rating >= value - 0.5 ? "half" : "emptyStar";
+      return <span className={`recommendRatingStar ${type}`} key={value} aria-hidden="true">★</span>;
+    })}
+  </div>;
+}
+
 function readCompare() {
   try {
     const raw = JSON.parse(localStorage.getItem("hub-compare") || "[]");
@@ -148,7 +166,7 @@ export default function RecommendPage() {
       <div className="resultGrid">{results.slice(1, 6).map((service) => {
         const affiliate = hasAffiliateLink(service);
         return <article className={`resultCard ${affiliate ? "affiliateCandidate" : ""}`} key={service.id}>
-          <div className="resultServiceTop"><img className="resultIcon" src={service.icon} alt=""/><div><div className="resultTitle">{service.name}</div><div className="resultCategory">{service.category}</div></div><div className="score">{service.score}<small>점</small></div></div>
+          <div className="resultServiceTop"><img className="resultIcon" src={service.icon} alt=""/><div><div className="resultTitle">{service.name}</div><div className="resultCategory">{service.category}</div></div><div className="score"><StarRating score={service.score} /></div></div>
           <div className="reason"><b>추천 이유</b><br/>{service.reason}</div>
           <div className="chips"><span className="good">{service.free ? "무료 시작 가능" : "유료 중심"}</span><span>비용 {service.price}</span><span>난이도 {service.difficulty}</span>{service.tags.slice(0, 2).map((tag) => <span key={tag}>{tag}</span>)}</div>
           <div className="resultActions"><button type="button" className="compareBtn" onClick={() => toggleCompare(service.id)}>{compare.includes(service.id) ? "비교 선택됨" : "비교하기"}</button><a className="officialBtn" href={`/services/${service.id}`}>상세 보기</a><a className={affiliate ? "affiliateMiniBtn" : "officialBtn"} href={getOutboundUrl(service)} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => openService(service, "recommend-candidate")}>{affiliate ? "서비스 시작하기" : "공식 사이트"}</a></div>

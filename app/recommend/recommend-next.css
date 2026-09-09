@@ -25,7 +25,7 @@
   .recommendPage .hubThemeToggle{bottom:142px!important}
 }
 
-/* 모든 추천 서비스 카드와 내부 선택/이동 칸의 외곽선을 HUB 보라색으로 통일합니다. */
+/* 다크모드에서만 추천 영역 외곽선을 HUB 보라색으로 표시합니다. */
 .recommendPage .recommendResult,
 .recommendPage .resultCard,
 .recommendPage .recommendSearch,
@@ -35,11 +35,14 @@
 .recommendPage .resultCard .resultActions button,
 .recommendPage .resultCard .resultActions a,
 .recommendPage .topMatchActions a,
-.recommendPage .recommendResultGrid > article {
-  border-color:#7659d6 !important;
+.recommendPage .recommendResultGrid > article,
+.recommendPage .secondaryAction,
+.recommendPage .affiliateMiniBtn,
+.recommendPage .resultActions .officialBtn{
+  border-color:transparent !important;
 }
 
-/* 라이트/다크 모두 같은 보라색 테두리를 사용하되, 내부 배경과 글자 대비는 기존 테마를 유지합니다. */
+/* 다크모드에서는 같은 요소에 HUB 대표 보라색 테두리를 유지합니다. */
 html[data-theme="dark"] .recommendPage .recommendResult,
 html[data-theme="dark"] .recommendPage .resultCard,
 html[data-theme="dark"] .recommendPage .recommendSearch,
@@ -49,13 +52,9 @@ html[data-theme="dark"] .recommendPage .recommendSearchRow button,
 html[data-theme="dark"] .recommendPage .resultCard .resultActions button,
 html[data-theme="dark"] .recommendPage .resultCard .resultActions a,
 html[data-theme="dark"] .recommendPage .topMatchActions a,
-html[data-theme="dark"] .recommendPage .recommendResultGrid > article {
+html[data-theme="dark"] .recommendPage .recommendResultGrid > article,
+html[data-theme="dark"] .recommendPage .secondaryAction,
+html[data-theme="dark"] .recommendPage .affiliateMiniBtn,
+html[data-theme="dark"] .recommendPage .resultActions .officialBtn{
   border-color:#7659d6 !important;
-}
-
-/* 보라색 채움 버튼도 테두리만 다른 색으로 보이지 않게 동일한 보라색을 사용합니다. */
-.recommendPage .secondaryAction,
-.recommendPage .affiliateMiniBtn,
-.recommendPage .resultActions .officialBtn {
-  border:1px solid #7659d6 !important;
 }

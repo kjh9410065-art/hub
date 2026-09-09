@@ -2,7 +2,6 @@
 @media (max-width: 760px) {
   .hubTutorialHelp { bottom: 82px !important; }
   .hubThemeToggle { bottom: 132px !important; }
-  /* 하단 고정 비교 바가 마지막 콘텐츠를 가리지 않도록 스크롤 여유 공간을 확보합니다. */
   .homePage,
   .catalogPage { padding-bottom: 170px !important; }
 }
@@ -68,7 +67,7 @@ html[data-theme="dark"] .serviceDetail select { border-color: #7659d6 !important
 html[data-theme="dark"] .comparePage .decisionCard,
 html[data-theme="dark"] .comparePage .decisionCard.primary { background: #211e29 !important; }
 
-/* 별점은 채워진 부분만 골드, 깎인(빈) 부분은 밝은/어두운 모드 모두 회색으로 통일합니다. */
+/* 별점: 채워진 별은 골드, 깎인 부분은 회색입니다. */
 .comparePage .ratingStar.filled,
 .comparePage .compareWinner .ratingStar.filled { color: #f5b72e !important; }
 .comparePage .ratingStar.emptyStar,
@@ -82,14 +81,36 @@ html[data-theme="dark"] .comparePage .ratingStar.empty { color: #77727f !importa
 html[data-theme="dark"] .comparePage .ratingStar.half,
 html[data-theme="dark"] .comparePage .compareWinner .ratingStar.half { background: linear-gradient(90deg,#f5b72e 50%,#77727f 50%) !important; -webkit-background-clip:text !important; background-clip:text !important; -webkit-text-fill-color:transparent !important; }
 
-/* 밝은 모드에서는 추천 화면의 서비스 카드/주요 박스에 테두리를 없애서 더 깔끔하게 보이게 합니다. */
-html:not([data-theme="dark"]) .recommendPage .resultCard,
-html:not([data-theme="dark"]) .recommendPage .topMatch,
-html:not([data-theme="dark"]) .recommendPage .recommendCandidate,
-html:not([data-theme="dark"]) .recommendPage .recommendResult,
-html:not([data-theme="dark"]) .recommendPage .recommendSearch,
-html:not([data-theme="dark"]) .recommendPage .conditionCard,
-html:not([data-theme="dark"]) .recommendPage .compareBar { border-color: transparent !important; }
+/* 밝은 모드의 비교 페이지는 보라색 테두리를 사용하지 않습니다. */
+html:not([data-theme="dark"]) .comparePage .compareGoalBox,
+html:not([data-theme="dark"]) .comparePage .compareCandidate,
+html:not([data-theme="dark"]) .comparePage .compareCandidate.recommended,
+html:not([data-theme="dark"]) .comparePage .compareWinner,
+html:not([data-theme="dark"]) .comparePage .decisionCard,
+html:not([data-theme="dark"]) .comparePage .comparisonSnapshot,
+html:not([data-theme="dark"]) .comparePage .snapshotCard,
+html:not([data-theme="dark"]) .comparePage .mobileCompareCard,
+html:not([data-theme="dark"]) .comparePage .compareDesktop,
+html:not([data-theme="dark"]) .comparePage .compareMatrixHead,
+html:not([data-theme="dark"]) .comparePage .compareMatrixRow,
+html:not([data-theme="dark"]) .comparePage .compareStartActions a,
+html:not([data-theme="dark"]) .comparePage .toolbarActions a,
+html:not([data-theme="dark"]) .comparePage .toolbarActions button,
+html:not([data-theme="dark"]) .comparePage .compareBottomLink { border-color: transparent !important; }
+
+/* 밝은 모드에서 내부 구분선도 보라색이 아닌 중립색으로 통일합니다. */
+html:not([data-theme="dark"]) .comparePage .compareWinnerIdentity,
+html:not([data-theme="dark"]) .comparePage .compareWinnerActions { border-color: #e8e5ed !important; }
+
+/* 밝은 모드의 추천 후보 강조 배경은 유지하되 테두리는 제거합니다. */
+html:not([data-theme="dark"]) .comparePage .compareCandidate.recommended { border-color: transparent !important; }
+
+/* 밝은 모드 추천 카드의 그림자만으로 영역을 구분합니다. */
+html:not([data-theme="dark"]) .comparePage .compareCandidate,
+html:not([data-theme="dark"]) .comparePage .compareWinner,
+html:not([data-theme="dark"]) .comparePage .decisionCard,
+html:not([data-theme="dark"]) .comparePage .snapshotCard,
+html:not([data-theme="dark"]) .comparePage .mobileCompareCard { box-shadow: 0 8px 28px rgba(32,25,67,.045) !important; }
 
 /* 밝은 모드 홈 화면의 카드도 테두리 없이 배경과 그림자로만 구분합니다. */
 html:not([data-theme="dark"]) .homePage .taskCard,
@@ -100,12 +121,3 @@ html:not([data-theme="dark"]) .homePage .searchBox,
 html:not([data-theme="dark"]) .homePage .featureFilters button,
 html:not([data-theme="dark"]) .homePage .compareCta,
 html:not([data-theme="dark"]) .homePage .compareBar { border-color: transparent !important; }
-
-/* 선택된 홈 카드도 라이트모드에서는 보더 대신 배경/그림자로 상태를 표현합니다. */
-html:not([data-theme="dark"]) .homePage .taskCard.isActive,
-html:not([data-theme="dark"]) .homePage .serviceCard.topMatch { border-color: transparent !important; }
-
-/* 밝은 모드의 추천 카드 그림자만 살짝 유지해 카드 영역은 구분되도록 합니다. */
-html:not([data-theme="dark"]) .recommendPage .resultCard,
-html:not([data-theme="dark"]) .recommendPage .topMatch,
-html:not([data-theme="dark"]) .recommendPage .recommendResult { box-shadow: 0 8px 28px rgba(32,25,67,.045) !important; }

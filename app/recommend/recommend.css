@@ -21,3 +21,21 @@ html[data-theme="dark"] .recommendPage .compareBar{background:#211e29 !important
 .recommendPage .conditionCard,.recommendPage .recommendResult,.recommendPage .resultCard,.recommendPage .topMatch,.recommendPage .recommendSearch,.recommendPage .recommendIntentSearch,.recommendPage .recommendResultGrid > article{border:0 !important}
 .recommendPage .resultCard .resultActions .affiliateMiniBtn,.recommendPage .resultCard .resultActions .officialBtn{min-height:36px}
 html[data-theme="dark"] .recommendPage .conditionCard,html[data-theme="dark"] .recommendPage .recommendResult,html[data-theme="dark"] .recommendPage .resultCard,html[data-theme="dark"] .recommendPage .topMatch,html[data-theme="dark"] .recommendPage .recommendSearch,html[data-theme="dark"] .recommendPage .recommendIntentSearch,html[data-theme="dark"] .recommendPage .recommendResultGrid > article{border:1px solid #7659d6 !important}
+
+/* 모바일 최종 보정: 비교 버튼 글자를 아래로 살짝 내려 시각적 중앙에 맞춥니다. */
+@media(max-width:760px){
+  .recommendPage .compareGo{
+    transform:translateY(3px) !important;
+  }
+
+  /* 카드의 태그 묶음은 왼쪽에 뭉치지 않고 카드 폭을 따라 고르게 퍼집니다. */
+  .recommendPage .chips{
+    justify-content:space-between !important;
+    column-gap:12px !important;
+    row-gap:10px !important;
+    width:100% !important;
+  }
+  .recommendPage .chips span{
+    flex:0 0 auto !important;
+  }
+}

@@ -3,35 +3,34 @@
 @media(max-width:760px){.recommendPage{padding:18px 14px 86px}.recommendPage>*{max-width:none}.back{margin-bottom:24px;font-size:14px}.recommendHero{text-align:left;margin-bottom:24px;padding:0 2px}.recommendHero h1{font-size:31px;line-height:1.18;margin:11px 0}.recommendHero p{font-size:14px;line-height:1.55}.conditionCard{padding:16px;border-radius:18px}.conditionBlock+.conditionBlock{margin-top:18px;padding-top:18px}.conditionBlock label{font-size:14px;margin-bottom:10px}.choiceGrid{grid-template-columns:1fr 1fr;gap:8px}.choiceGrid button{padding:12px 10px;border-radius:13px}.choiceGrid button strong{font-size:13px}.choiceGrid button small{font-size:11px}.pills{gap:7px}.pills button{padding:9px 11px;font-size:13px}.results{margin-top:32px}.resultHead{display:block;margin-bottom:13px}.resultHead h2{font-size:21px;margin-top:6px}.resultHead em{display:block;margin-top:7px;font-size:11px}.resultCard{display:block;border-radius:18px;padding:17px;margin:10px 0}.rank{margin-bottom:10px}.resultTitle{gap:10px}.resultTitle h3{font-size:18px}.resultTitle>strong{font-size:21px}.resultMain p{font-size:13px;margin:10px 0}.chips{gap:5px}.chips span{font-size:10px;padding:6px 8px}.resultActions{margin-top:14px}.resultActions button{padding:12px}.recommendHero>span,.results .resultHead>div>span{font-size:10px}}
 @media(max-width:390px){.recommendPage{padding-left:12px;padding-right:12px}.choiceGrid{grid-template-columns:1fr}.recommendHero h1{font-size:28px}.resultCard{padding:15px}.pills button{padding:8px 10px}}
 
-/* 모바일 비교함: 얇은 막대 대신 충분한 높이와 큰 글씨로 선택 상태와 행동 버튼을 명확하게 보여줍니다. */
+/* 모바일 비교함: 선택 상태가 더 잘 보이도록 높이와 글씨를 넉넉하게 구성합니다. */
 @media(max-width:760px){
   .recommendPage .compareBar{
     position:fixed !important;
-    left:14px !important;
-    right:14px !important;
-    bottom:12px !important;
-    transform:none !important;
+    left:12px !important;
+    right:12px !important;
+    bottom:10px !important;
     z-index:70 !important;
-    min-height:82px !important;
+    min-height:94px !important;
     box-sizing:border-box !important;
-    padding:14px 16px !important;
+    padding:16px 18px !important;
     display:grid !important;
     grid-template-columns:minmax(0,1fr) auto !important;
     grid-template-rows:auto auto !important;
-    column-gap:12px !important;
-    row-gap:4px !important;
+    column-gap:14px !important;
+    row-gap:5px !important;
     align-items:center !important;
-    border-radius:20px !important;
+    border-radius:22px !important;
     background:#fff !important;
-    box-shadow:0 12px 34px rgba(40,30,80,.16) !important;
+    box-shadow:0 14px 38px rgba(40,30,80,.18) !important;
   }
-  .recommendPage .compareBar strong{font-size:16px !important;line-height:1.2 !important;color:#20202b !important;}
-  .recommendPage .compareNames{display:block !important;grid-column:1 !important;grid-row:2 !important;min-width:0 !important;overflow:hidden !important;white-space:nowrap !important;color:#777181 !important;font-size:11px !important;}
-  .recommendPage .compareName{font-size:11px !important;}
-  .recommendPage .compareGo{grid-column:2 !important;grid-row:1 / span 2 !important;display:flex !important;align-items:center !important;justify-content:center !important;min-width:112px !important;height:48px !important;padding:0 14px !important;border-radius:14px !important;background:#6049cf !important;color:#fff !important;font-size:14px !important;font-weight:900 !important;text-decoration:none !important;}
-  .recommendPage{padding-bottom:170px !important;}
+  .recommendPage .compareBar strong{font-size:18px !important;line-height:1.2 !important;color:#20202b !important;}
+  .recommendPage .compareNames{display:block !important;grid-column:1 !important;grid-row:2 !important;min-width:0 !important;overflow:hidden !important;white-space:nowrap !important;color:#777181 !important;font-size:12px !important;}
+  .recommendPage .compareName{font-size:12px !important;}
+  .recommendPage .compareGo{grid-column:2 !important;grid-row:1 / span 2 !important;display:flex !important;align-items:center !important;justify-content:center !important;min-width:124px !important;height:52px !important;padding:0 16px !important;border-radius:15px !important;background:#6049cf !important;color:#fff !important;font-size:15px !important;font-weight:900 !important;text-decoration:none !important;}
+  .recommendPage{padding-bottom:182px !important;}
 }
 
-html[data-theme="dark"] .recommendPage .compareBar{background:#211e29 !important;border:1px solid #7659d6 !important;color:#eeeaf3 !important;box-shadow:0 12px 34px rgba(0,0,0,.35) !important;}
+html[data-theme="dark"] .recommendPage .compareBar{background:#211e29 !important;border:1px solid #7659d6 !important;color:#eeeaf3 !important;box-shadow:0 14px 38px rgba(0,0,0,.38) !important;}
 html[data-theme="dark"] .recommendPage .compareBar strong{color:#eeeaf3 !important;}
 html[data-theme="dark"] .recommendPage .compareNames{color:#aaa5b2 !important;}

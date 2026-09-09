@@ -121,3 +121,14 @@ html:not([data-theme="dark"]) .homePage .searchBox,
 html:not([data-theme="dark"]) .homePage .featureFilters button,
 html:not([data-theme="dark"]) .homePage .compareCta,
 html:not([data-theme="dark"]) .homePage .compareBar { border-color: transparent !important; }
+
+/* 비교 화면 별점을 살짝 키워 카드 안에서 더 선명하게 보이게 합니다. */
+.comparePage .ratingStar { font-size: 22px !important; }
+.comparePage .compareWinner .ratingStar { font-size: 27px !important; }
+.comparePage .snapshotTop .ratingStar { font-size: 16px !important; }
+.comparePage .matrixScore .ratingStar { font-size: 19px !important; }
+
+@media (max-width: 760px) {
+  .comparePage .ratingStar { font-size: 21px !important; }
+  .comparePage .compareWinner .ratingStar { font-size: 23px !important; }
+}

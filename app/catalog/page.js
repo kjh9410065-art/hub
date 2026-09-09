@@ -8,6 +8,7 @@ import { getSearchSuggestions, rankSearchResults } from "../lib/search";
 import { getOutboundUrl, hasAffiliateLink, trackOutboundClick } from "../lib/affiliate-programs";
 import "./catalog.css";
 import "./compare-bar-size.css";
+import "./catalog-visual-cleanup.css";
 
 const filters = categoryGroups.map((group) => [group.id, group.label]);
 const featureFilters = [["전체", "전체"], ["image", "이미지"], ["video", "영상"], ["voice", "음성"], ["chat", "챗봇"], ["search", "검색"], ["text", "텍스트"]];

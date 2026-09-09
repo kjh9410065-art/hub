@@ -6,6 +6,7 @@ import "./components/adsense.css";
 import "./components/hub-floating-controls.css";
 import "./dark-mode-hardening.css";
 import "./light-mode-cleanup.css";
+import "./components/compare-bar-unified.css";
 import Script from "next/script";
 import HubTutorial from "./components/hub-tutorial";
 import HubTheme from "./components/hub-theme";

@@ -1,0 +1,101 @@
+/* 카탈로그 라이트모드의 외곽선을 전부 제거하고, 색·여백으로 UI를 구분합니다. */
+@media (min-width: 0px) {
+  html:not([data-theme="dark"]) .catalogPage .catalogHero,
+  html:not([data-theme="dark"]) .catalogPage .catalogSearch,
+  html:not([data-theme="dark"]) .catalogPage .filterScroll button,
+  html:not([data-theme="dark"]) .catalogPage .catalogOptions,
+  html:not([data-theme="dark"]) .catalogPage .catalogOptions label,
+  html:not([data-theme="dark"]) .catalogPage .catalogOptions select,
+  html:not([data-theme="dark"]) .catalogPage .catalogState span,
+  html:not([data-theme="dark"]) .catalogPage .catalogCard,
+  html:not([data-theme="dark"]) .catalogPage .catalogFavorite,
+  html:not([data-theme="dark"]) .catalogPage .catalogTags span,
+  html:not([data-theme="dark"]) .catalogPage .catalogActions a,
+  html:not([data-theme="dark"]) .catalogPage .catalogActions button,
+  html:not([data-theme="dark"]) .catalogPage .emptyCatalog,
+  html:not([data-theme="dark"]) .catalogPage .emptyCatalog button,
+  html:not([data-theme="dark"]) .catalogPage .searchSuggestionCard,
+  html:not([data-theme="dark"]) .catalogPage .catalogCompareBar {
+    border: 0 !important;
+    outline: 0;
+  }
+
+  /* 카드와 검색 영역은 그림자와 배경 대비만으로 구분합니다. */
+  html:not([data-theme="dark"]) .catalogPage .catalogHero,
+  html:not([data-theme="dark"]) .catalogPage .catalogSearch,
+  html:not([data-theme="dark"]) .catalogPage .catalogCard,
+  html:not([data-theme="dark"]) .catalogPage .searchSuggestionCard,
+  html:not([data-theme="dark"]) .catalogPage .catalogCompareBar {
+    box-shadow: 0 14px 38px rgba(42,31,80,.07);
+  }
+
+  /* 추천 카드 위의 장식선도 테두리처럼 보이지 않도록 제거합니다. */
+  html:not([data-theme="dark"]) .catalogPage .catalogTopResult:before {
+    display: none;
+  }
+
+  /* 선택된 필터는 보라색 배경으로만 상태를 표현합니다. */
+  html:not([data-theme="dark"]) .catalogPage .filterScroll button.active {
+    background: #6854d9 !important;
+    color: #fff !important;
+  }
+
+  /* 일반 필터는 흰 배경과 진한 글자로 충분한 대비를 확보합니다. */
+  html:not([data-theme="dark"]) .catalogPage .filterScroll button,
+  html:not([data-theme="dark"]) .catalogPage .catalogOptions label,
+  html:not([data-theme="dark"]) .catalogPage .catalogOptions select {
+    background: #fff;
+    color: #39343f;
+    box-shadow: 0 4px 14px rgba(42,31,80,.045);
+  }
+
+  /* 주요 행동 버튼은 어두운 색 또는 HUB 보라색으로 명확하게 구분합니다. */
+  html:not([data-theme="dark"]) .catalogPage .catalogActions a:first-child {
+    background: #242129 !important;
+    color: #fff !important;
+  }
+
+  html:not([data-theme="dark"]) .catalogPage .catalogActions a:last-child,
+  html:not([data-theme="dark"]) .catalogPage .catalogActions button {
+    background: #f0edff !important;
+    color: #4f3ab5 !important;
+    font-weight: 900;
+  }
+
+  html:not([data-theme="dark"]) .catalogPage .catalogActions a.affiliateCatalogLink {
+    background: #6854d9 !important;
+    color: #fff !important;
+  }
+
+  /* 즐겨찾기는 보조 버튼이므로 배경 대비를 높입니다. */
+  html:not([data-theme="dark"]) .catalogPage .catalogFavorite {
+    background: #f2eff9 !important;
+    color: #4e4858 !important;
+  }
+
+  html:not([data-theme="dark"]) .catalogPage .catalogFavorite.active {
+    background: #e9e3ff !important;
+    color: #6049cf !important;
+  }
+
+  /* 카탈로그 태그는 테두리 대신 아주 옅은 배경을 사용합니다. */
+  html:not([data-theme="dark"]) .catalogPage .catalogTags span {
+    background: #f5f3f8;
+    color: #625d68;
+  }
+
+  /* 비교함의 주요 이동 버튼도 충분한 대비를 유지합니다. */
+  html:not([data-theme="dark"]) .catalogPage .catalogCompareBar a {
+    background: #6854d9 !important;
+    color: #fff !important;
+  }
+
+  /* 키보드 포커스는 외곽선 대신 접근 가능한 그림자로 표시합니다. */
+  html:not([data-theme="dark"]) .catalogPage button:focus-visible,
+  html:not([data-theme="dark"]) .catalogPage a:focus-visible,
+  html:not([data-theme="dark"]) .catalogPage select:focus-visible,
+  html:not([data-theme="dark"]) .catalogPage input:focus-visible {
+    outline: 3px solid rgba(104,84,217,.28);
+    outline-offset: 2px;
+  }
+}

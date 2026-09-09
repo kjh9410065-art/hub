@@ -16,59 +16,31 @@
   .compareToolbar{margin-top:24px;margin-bottom:22px}
   .compareToolbar b{font-size:18px}
   .compareToolbar span{font-size:13px}
-  .toolbarActions a,.toolbarActions button{min-height:42px;padding:0 15px;font-size:13px}
-  .compareWinner{padding:18px 20px;margin-bottom:22px}
-  .compareWinnerKicker{font-size:9px}
-  .compareWinner strong{font-size:19px}
-  .compareWinner p{font-size:11px}
-  .compareWinner>b{padding:11px 15px;font-size:15px}
-
-  /* 조건별 결과는 4개를 억지로 한 줄에 넣지 않고 2열로 만들어 카드 내용을 읽기 쉽게 합니다. */
-  .decisionGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:24px}
-  .decisionSectionIntro{padding-bottom:6px}
-  .decisionSectionIntro>span{font-size:11px}
-  .decisionSectionIntro>strong{font-size:22px}
-  .decisionSectionIntro>p{font-size:12px}
-  .decisionCard{padding:18px;border-radius:17px;min-height:132px}
-  .decisionCard>span{font-size:11px}
-  .decisionCard>strong{font-size:18px;margin-top:8px}
-  .decisionCard>p{font-size:11px;line-height:1.6;min-height:38px}
-  .decisionCard>a{font-size:11px}
-
-  /* 스냅샷은 비교의 핵심 영역이므로 카드 안의 텍스트를 지나치게 작게 만들지 않습니다. */
-  .comparisonSnapshot{padding:20px;margin-bottom:24px}
-  .snapshotIntro{margin-bottom:16px}
-  .snapshotIntro>span{font-size:10px}
-  .snapshotIntro>strong{font-size:21px}
-  .snapshotIntro>p{font-size:11px}
-  .snapshotGrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-  .snapshotCard{padding:16px;border-radius:16px;min-height:156px}
-  .snapshotTop{gap:10px}
-  .snapshotTop img{width:38px;height:38px}
-  .snapshotTop strong{font-size:14px}
-  .snapshotTop small{font-size:9px}
-  .snapshotTop>b{font-size:13px}
-  .snapshotBadges,.snapshotFeatures{gap:5px;margin-top:11px}
-  .snapshotBadges span,.snapshotFeatures span{font-size:9px;padding:5px 7px}
-  .snapshotCard p{font-size:10px;line-height:1.55;min-height:32px;margin-top:11px}
-
-  /* 실제 비교표도 행 간격과 글자 크기를 키워 값의 위치를 쉽게 찾도록 합니다. */
-  .compareDesktop{border-radius:20px}
-  .compareMatrixHead,.compareMatrixRow{grid-template-columns:170px repeat(4,minmax(175px,1fr))}
-  .compareMatrixHead>div,.compareMatrixRow>div{padding:18px 17px;font-size:13px;line-height:1.65}
-  .matrixLabel{font-size:12px!important}
-  .matrixService{font-size:14px}
-  .matrixService img{width:34px;height:34px;flex-basis:34px}
-  .matrixService button{padding:6px 8px;font-size:10px}
-  .matrixScore strong{font-size:15px}
-  .matrixScore small{font-size:10px}
 }
 
-/* 1위 배너를 긴 가로 띠가 아닌 작고 균형 잡힌 카드로 바꿉니다. */
-.compareWinner{width:min(360px,100%);min-height:180px;aspect-ratio:1.25/1;box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;margin-left:0}
-.compareWinner>b{align-self:flex-end;font-size:15px;padding:10px 14px}
-.scoreNotice{margin:-10px 0 22px;color:#8a8492;font-size:11px;line-height:1.5}
-@media(max-width:760px){
-  .compareWinner{width:100%;min-height:150px;aspect-ratio:auto;margin-bottom:9px}
-  .scoreNotice{margin:-3px 0 14px;font-size:9px}
+/* 비교 화면의 1위 카드와 별점 UI를 넓은 화면에서도 읽기 쉽게 정렬합니다. */
+@media(min-width:761px){
+  .compareWinner{min-height:180px;}
+}
+
+/* 라이트모드에서는 비교 툴바 버튼도 카드와 같은 '무테' 규칙을 적용합니다.
+   첫 버튼은 보라색 CTA, 전체 해제는 연한 배경으로 역할만 구분합니다. */
+html:not([data-theme="dark"]) .compareToolbar .toolbarActions a,
+html:not([data-theme="dark"]) .compareToolbar .toolbarActions button{
+  border-color:transparent !important;
+  box-shadow:none;
+}
+html:not([data-theme="dark"]) .compareToolbar .toolbarActions a{
+  background:#6955d9 !important;
+  color:#fff !important;
+}
+html:not([data-theme="dark"]) .compareToolbar .toolbarActions button{
+  background:#f4f1ff !important;
+  color:#514b5b !important;
+}
+
+/* 다크모드에서는 두 버튼 모두 보라색 포인트 테두리를 유지합니다. */
+html[data-theme="dark"] .compareToolbar .toolbarActions a,
+html[data-theme="dark"] .compareToolbar .toolbarActions button{
+  border-color:#7659d6 !important;
 }

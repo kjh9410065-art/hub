@@ -1,20 +1,20 @@
 /* 추천 페이지 모바일 UI 미세 조정: 버튼 글자와 AI 추천 카드 태그의 정렬을 안정화합니다. */
 @media (max-width: 760px) {
-  /* 비교함 버튼의 글자를 위쪽으로 밀어 올리는 전역 line-height/padding 영향을 차단합니다. */
+  /* 비교함 버튼의 글자가 위로 붙어 보이지 않도록 실제 버튼 높이 안에서 수직 중앙을 고정합니다. */
   .recommendPage .compareGo {
     box-sizing: border-box !important;
     height: 56px !important;
     min-height: 56px !important;
-    padding: 0 18px !important;
+    padding: 1px 18px 0 !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    line-height: 1 !important;
+    line-height: 1.35 !important;
     vertical-align: middle !important;
     text-align: center !important;
   }
 
-  /* AI 추천 카드의 기능 태그는 한쪽으로 몰리지 않도록 일정한 간격과 높이를 사용합니다. */
+  /* AI 추천 카드의 태그 영역은 카드 내용과 같은 시작선에서 일정한 간격으로 배치합니다. */
   .recommendPage .chips {
     display: flex !important;
     align-items: center !important;
@@ -26,6 +26,7 @@
     margin-top: 13px !important;
   }
 
+  /* 태그 안의 텍스트도 위/아래 치우침 없이 중앙에 오도록 높이와 line-height를 함께 고정합니다. */
   .recommendPage .chips span {
     flex: 0 0 auto !important;
     min-height: 32px !important;
@@ -34,9 +35,10 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 0 11px !important;
-    line-height: 1 !important;
+    padding: 1px 11px 0 !important;
+    line-height: 1.25 !important;
     white-space: nowrap !important;
+    vertical-align: middle !important;
   }
 }
 
@@ -49,6 +51,6 @@
   .recommendPage .chips span {
     min-height: 30px !important;
     height: 30px !important;
-    padding: 0 10px !important;
+    padding: 1px 10px 0 !important;
   }
 }

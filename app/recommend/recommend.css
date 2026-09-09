@@ -3,15 +3,18 @@
 @media(max-width:760px){.recommendPage{padding:18px 14px 86px}.recommendPage>*{max-width:none}.back{margin-bottom:24px;font-size:14px}.recommendHero{text-align:left;margin-bottom:24px;padding:0 2px}.recommendHero h1{font-size:31px;line-height:1.18;margin:11px 0}.recommendHero p{font-size:14px;line-height:1.55}.conditionCard{padding:16px;border-radius:18px}.conditionBlock+.conditionBlock{margin-top:18px;padding-top:18px}.conditionBlock label{font-size:14px;margin-bottom:10px}.choiceGrid{grid-template-columns:1fr 1fr;gap:8px}.choiceGrid button{padding:12px 10px;border-radius:13px}.choiceGrid button strong{font-size:13px}.choiceGrid button small{font-size:11px}.pills{gap:7px}.pills button{padding:9px 11px;font-size:13px}.results{margin-top:32px}.resultHead{display:block;margin-bottom:13px}.resultHead h2{font-size:21px;margin-top:6px}.resultHead em{display:block;margin-top:7px;font-size:11px}.resultCard{display:block;border-radius:18px;padding:17px;margin:10px 0}.rank{margin-bottom:10px}.resultTitle{gap:10px}.resultTitle h3{font-size:18px}.resultTitle>strong{font-size:21px}.resultMain p{font-size:13px;margin:10px 0}.chips{gap:5px}.chips span{font-size:10px;padding:6px 8px}.resultActions{margin-top:14px}.resultActions button{padding:12px}.recommendHero>span,.results .resultHead>div>span{font-size:10px}}
 @media(max-width:390px){.recommendPage{padding-left:12px;padding-right:12px}.choiceGrid{grid-template-columns:1fr}.recommendHero h1{font-size:28px}.resultCard{padding:15px}.pills button{padding:8px 10px}}
 
-/* 모바일 비교함: 선택 상태가 더 잘 보이도록 높이와 글씨를 넉넉하게 구성합니다. */
+/* 모바일 비교함: 화면 안쪽에 정확히 고정하고 충분한 크기로 표시합니다. */
 @media(max-width:760px){
   .recommendPage .compareBar{
     position:fixed !important;
     left:12px !important;
     right:12px !important;
     bottom:10px !important;
+    transform:none !important;
     z-index:70 !important;
     min-height:104px !important;
+    width:auto !important;
+    max-width:none !important;
     box-sizing:border-box !important;
     padding:18px 20px !important;
     display:grid !important;
@@ -34,49 +37,3 @@
 html[data-theme="dark"] .recommendPage .compareBar{background:#211e29 !important;border:1px solid #7659d6 !important;color:#eeeaf3 !important;box-shadow:0 14px 38px rgba(0,0,0,.38) !important;}
 html[data-theme="dark"] .recommendPage .compareBar strong{color:#eeeaf3 !important;}
 html[data-theme="dark"] .recommendPage .compareNames{color:#aaa5b2 !important;}
-
-/* 새 비교함 구조: 선택 서비스 아이콘과 큰 버튼을 함께 보여줍니다. */
-@media(max-width:760px){
-  .recommendPage .compareBar{
-    min-height:132px !important;
-    padding:16px 18px !important;
-    grid-template-columns:minmax(0,1fr) auto !important;
-    grid-template-rows:auto 1fr !important;
-    column-gap:14px !important;
-    row-gap:8px !important;
-    border-radius:24px !important;
-  }
-  .recommendPage .compareBarInfo{min-width:0;display:flex;flex-direction:column;justify-content:center;}
-  .recommendPage .compareBarTitle{display:flex;align-items:baseline;gap:9px;white-space:nowrap;}
-  .recommendPage .compareBarTitle strong{font-size:21px !important;letter-spacing:-.03em;}
-  .recommendPage .compareBarTitle span{font-size:13px;font-weight:750;color:#777181;}
-  .recommendPage .compareBarHint{margin-top:4px;color:#817b8b;font-size:10px;line-height:1.4;}
-  .recommendPage .compareSelectedIcons{display:flex;align-items:center;gap:7px;margin-top:9px;min-width:0;overflow:hidden;}
-  .recommendPage .compareSelectedIcon{width:34px;height:34px;flex:0 0 34px;border:1px solid #e1ddec;border-radius:10px;background:#f6f3ff;display:grid;place-items:center;overflow:hidden;box-sizing:border-box;}
-  .recommendPage .compareSelectedIcon img{width:100%;height:100%;object-fit:contain;padding:5px;display:block;}
-  .recommendPage .compareSelectedIcon.compareAddIcon{border-style:dashed;background:#fff;color:#9a94a4;font-size:21px;font-weight:400;line-height:1;}
-  .recommendPage .compareBarActions{display:flex;align-items:center;gap:9px;grid-column:2;grid-row:1 / span 2;}
-  .recommendPage .compareReset{min-width:88px;height:48px;padding:0 13px;border:0;border-radius:14px;background:#f2f0f7;color:#6f6978;font:inherit;font-size:12px;font-weight:850;cursor:pointer;}
-  .recommendPage .compareGo{min-width:126px !important;height:56px !important;padding:0 16px !important;border-radius:16px !important;font-size:15px !important;}
-  .recommendPage{padding-bottom:218px !important;}
-}
-html[data-theme="dark"] .recommendPage .compareBarTitle span,
-html[data-theme="dark"] .recommendPage .compareBarHint{color:#aaa5b2;}
-html[data-theme="dark"] .recommendPage .compareSelectedIcon{border-color:#7659d6;background:#30285a;}
-html[data-theme="dark"] .recommendPage .compareSelectedIcon.compareAddIcon{background:#211e29;color:#aaa5b2;}
-html[data-theme="dark"] .recommendPage .compareReset{background:#302c38;color:#ddd7e6;border:1px solid #7659d6;}
-
-/* 아주 좁은 화면에서는 버튼과 아이콘이 겹치지 않도록 간격을 한 단계 줄입니다. */
-@media(max-width:430px){
-  .recommendPage .compareBar{left:9px !important;right:9px !important;padding:15px 14px !important;column-gap:9px !important;}
-  .recommendPage .compareBarTitle strong{font-size:19px !important;}
-  .recommendPage .compareBarTitle span{font-size:12px;}
-  .recommendPage .compareBarHint{font-size:9px;}
-  .recommendPage .compareSelectedIcons{gap:5px;margin-top:7px;}
-  .recommendPage .compareSelectedIcon{width:31px;height:31px;flex-basis:31px;border-radius:9px;}
-  .recommendPage .compareSelectedIcon img{padding:4px;}
-  .recommendPage .compareBarActions{gap:6px;}
-  .recommendPage .compareReset{min-width:72px;height:44px;padding:0 9px;font-size:11px;}
-  .recommendPage .compareGo{min-width:112px !important;height:50px !important;padding:0 10px !important;font-size:13px !important;}
-  .recommendPage{padding-bottom:208px !important;}
-}

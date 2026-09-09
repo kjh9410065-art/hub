@@ -1,11 +1,11 @@
 /* 추천 페이지 모바일 UI: 버튼 글자와 AI 추천 카드 태그의 위치를 안정화합니다. */
 @media (max-width: 760px) {
-  /* 비교 화면 열기 글자를 버튼의 정중앙보다 살짝 아래로 내려 시각적 중앙을 맞춥니다. */
+  /* 비교 화면 열기 글자를 버튼 중앙보다 살짝 아래로 내려 시각적 중앙을 맞춥니다. */
   .recommendPage .compareGo {
     box-sizing: border-box !important;
     height: 56px !important;
     min-height: 56px !important;
-    padding: 4px 18px 0 !important;
+    padding: 7px 14px 0 !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -14,42 +14,42 @@
     text-align: center !important;
   }
 
-  /* AI 추천 카드의 태그를 카드 폭 전체로 고르게 퍼뜨립니다. */
+  /* AI 추천 카드 태그는 불필요한 빈 공간을 없애고 한 덩어리처럼 붙여 배치합니다. */
   .recommendPage .chips {
     display: flex !important;
     align-items: center !important;
-    justify-content: space-between !important;
+    justify-content: flex-start !important;
     flex-wrap: wrap !important;
-    column-gap: 10px !important;
-    row-gap: 9px !important;
+    gap: 7px !important;
     width: 100% !important;
-    margin-top: 13px !important;
+    margin-top: 10px !important;
   }
 
-  /* 각 태그는 고정 폭을 없애 내용에 맞추되, 행 전체에서 좌우 간격이 확보되게 합니다. */
+  /* 태그 사이의 공백을 최소화하면서 글자는 태그 중앙에 정렬합니다. */
   .recommendPage .chips span {
     flex: 0 0 auto !important;
-    min-height: 32px !important;
-    height: 32px !important;
+    min-height: 30px !important;
+    height: 30px !important;
     box-sizing: border-box !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 0 11px !important;
+    padding: 0 9px !important;
     line-height: 1 !important;
     white-space: nowrap !important;
+    margin: 0 !important;
   }
 }
 
 @media (max-width: 390px) {
   .recommendPage .chips {
-    column-gap: 8px !important;
-    row-gap: 8px !important;
+    gap: 6px !important;
+    margin-top: 8px !important;
   }
 
   .recommendPage .chips span {
-    min-height: 30px !important;
-    height: 30px !important;
-    padding: 0 10px !important;
+    min-height: 28px !important;
+    height: 28px !important;
+    padding: 0 8px !important;
   }
 }

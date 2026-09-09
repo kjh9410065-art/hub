@@ -1,5 +1,39 @@
 /* HUB 1.1 추천 페이지 전용 스타일: PC와 모바일을 서로 다른 레이아웃으로 설계합니다. */
 .recommendPage{min-height:100vh;background:linear-gradient(180deg,#f8f7ff 0%,#fff 42%);color:#20202b;padding:30px 24px 110px;box-sizing:border-box}.recommendPage>*{max-width:1160px;margin-left:auto;margin-right:auto}.back{display:inline-flex;margin-bottom:34px;color:#5d55a8;text-decoration:none;font-weight:800}.recommendHero{text-align:center;margin-bottom:34px}.recommendHero>span,.results .resultHead>div>span{font-size:12px;font-weight:900;letter-spacing:.13em;color:#7569d8}.recommendHero h1{font-size:52px;line-height:1.12;letter-spacing:-.055em;margin:14px 0}.recommendHero h1 b{color:#6655d5}.recommendHero p{margin:0;color:#777487;font-size:16px}.conditionCard{background:#fff;border:1px solid #ebe8f6;border-radius:28px;padding:28px;box-shadow:0 18px 55px rgba(53,42,111,.08)}.conditionBlock+.conditionBlock{border-top:1px solid #eeeef4;margin-top:22px;padding-top:22px}.conditionBlock label{display:block;font-size:15px;font-weight:850;margin-bottom:12px}.choiceGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.choiceGrid button,.pills button{font:inherit;border:1px solid #e7e4f0;background:#faf9fd;border-radius:15px;padding:14px;text-align:left;cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}.choiceGrid button:hover,.pills button:hover{transform:translateY(-1px);border-color:#c9c1ed}.choiceGrid button strong,.choiceGrid button small{display:block}.choiceGrid button small{margin-top:5px;color:#85818f;font-size:12px;line-height:1.4}.choiceGrid button.active,.pills button.active{border-color:#7567df;background:#f1efff;box-shadow:0 5px 18px rgba(103,86,215,.12)}.pills{display:flex;flex-wrap:wrap;gap:8px}.pills button{padding:10px 16px;text-align:center}.results{margin-top:48px}.resultHead{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px}.resultHead h2{font-size:28px;margin:7px 0 0;letter-spacing:-.035em}.resultHead em{font-style:normal;color:#8b8793;font-size:13px}.resultCard{display:grid;grid-template-columns:64px minmax(0,1fr) 150px;gap:20px;align-items:center;background:#fff;border:1px solid #e9e7f0;border-radius:22px;padding:22px;margin:12px 0;box-shadow:0 8px 28px rgba(32,25,67,.045)}.resultCard.best{border-color:#bbb1f1;box-shadow:0 12px 36px rgba(96,79,190,.13)}.rank{font-size:12px;font-weight:900;color:#776bd1}.resultTitle{display:flex;justify-content:space-between;align-items:center;gap:20px}.resultTitle h3{margin:0;font-size:20px}.resultTitle small{display:block;color:#8a8693;font-size:12px;font-weight:500;margin-top:4px}.resultTitle>strong{font-size:25px;color:#6655d5;white-space:nowrap}.resultTitle>strong small{display:inline;margin-left:2px;color:#777}.resultMain p{margin:10px 0;color:#686471;font-size:14px;line-height:1.55}.chips{display:flex;flex-wrap:wrap;gap:6px}.chips span{font-size:11px;padding:6px 9px;background:#f5f3fb;border-radius:999px;color:#666174}.resultActions button{width:100%;border:0;border-radius:12px;background:#25232d;color:#fff;padding:12px 8px;font-weight:850;cursor:pointer}.resultActions button:hover{transform:translateY(-1px)}
+
+@media(min-width:761px){
+  /* PC에서는 하단 비교함을 화면의 주요 CTA로 충분히 크게 표시합니다. */
+  .recommendPage .compareBar{
+    position:fixed !important;
+    left:50% !important;
+    right:auto !important;
+    bottom:24px !important;
+    transform:translateX(-50%) !important;
+    z-index:70 !important;
+    width:min(1240px,calc(100% - 48px)) !important;
+    min-height:150px !important;
+    box-sizing:border-box !important;
+    padding:30px 36px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:40px !important;
+    border-radius:28px !important;
+  }
+  .recommendPage .compareBarInfo{flex:1 !important;min-width:0 !important;}
+  .recommendPage .compareBarTitle{display:flex !important;align-items:baseline !important;gap:14px !important;}
+  .recommendPage .compareBarTitle strong{font-size:30px !important;line-height:1.2 !important;}
+  .recommendPage .compareBarTitle span{font-size:18px !important;}
+  .recommendPage .compareBarHint{margin-top:8px !important;font-size:15px !important;}
+  .recommendPage .compareSelectedIcons{display:flex !important;gap:8px !important;margin-top:12px !important;}
+  .recommendPage .compareSelectedIcon{width:44px !important;height:44px !important;border-radius:12px !important;}
+  .recommendPage .compareSelectedIcon img{width:100% !important;height:100% !important;padding:7px !important;object-fit:contain !important;}
+  .recommendPage .compareBarActions{display:flex !important;align-items:center !important;gap:12px !important;flex:0 0 auto !important;}
+  .recommendPage .compareBarActions button,
+  .recommendPage .compareBarActions a{min-height:60px !important;padding:0 24px !important;border-radius:14px !important;font-size:16px !important;font-weight:900 !important;}
+  .recommendPage .compareBarActions a{display:flex !important;align-items:center !important;justify-content:center !important;min-width:190px !important;}
+}
+
 @media(max-width:760px){.recommendPage{padding:18px 14px 86px}.recommendPage>*{max-width:none}.back{margin-bottom:24px;font-size:14px}.recommendHero{text-align:left;margin-bottom:24px;padding:0 2px}.recommendHero h1{font-size:31px;line-height:1.18;margin:11px 0}.recommendHero p{font-size:14px;line-height:1.55}.conditionCard{padding:16px;border-radius:18px}.conditionBlock+.conditionBlock{margin-top:18px;padding-top:18px}.conditionBlock label{font-size:14px;margin-bottom:10px}.choiceGrid{grid-template-columns:1fr 1fr;gap:8px}.choiceGrid button{padding:12px 10px;border-radius:13px}.choiceGrid button strong{font-size:13px}.choiceGrid button small{font-size:11px}.pills{gap:7px}.pills button{padding:9px 11px;font-size:13px}.results{margin-top:32px}.resultHead{display:block;margin-bottom:13px}.resultHead h2{font-size:21px;margin-top:6px}.resultHead em{display:block;margin-top:7px;font-size:11px}.resultCard{display:block;border-radius:18px;padding:17px;margin:10px 0}.rank{margin-bottom:10px}.resultTitle{gap:10px}.resultTitle h3{font-size:18px}.resultTitle>strong{font-size:21px}.resultMain p{font-size:13px;margin:10px 0}.chips{gap:5px}.chips span{font-size:10px;padding:6px 8px}.resultActions{margin-top:14px}.resultActions button{padding:12px}.recommendHero>span,.results .resultHead>div>span{font-size:10px}}
 @media(max-width:390px){.recommendPage{padding-left:12px;padding-right:12px}.choiceGrid{grid-template-columns:1fr}.recommendHero h1{font-size:28px}.resultCard{padding:15px}.pills button{padding:8px 10px}}
 

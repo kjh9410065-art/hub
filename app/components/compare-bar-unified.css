@@ -1,0 +1,105 @@
+/* 홈·추천·카탈로그에서 나타나는 모든 하단 비교함의 크기와 위치를 하나의 규칙으로 통일합니다. */
+@media (min-width: 761px) {
+  .homePage .compareBar,
+  .recommendPage .compareBar,
+  .catalogPage .catalogCompareBar {
+    position: fixed !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: 24px !important;
+    transform: translateX(-50%) !important;
+    width: min(1240px, calc(100% - 48px)) !important;
+    max-width: 1240px !important;
+    min-width: 0 !important;
+    min-height: 128px !important;
+    padding: 24px 30px !important;
+    box-sizing: border-box !important;
+    z-index: 100 !important;
+    border-radius: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 28px !important;
+  }
+
+  .homePage .compareBar strong,
+  .recommendPage .compareBarTitle strong,
+  .catalogPage .catalogCompareBar strong {
+    font-size: 26px !important;
+    line-height: 1.2 !important;
+  }
+
+  .homePage .compareBar span,
+  .recommendPage .compareBarTitle span,
+  .catalogPage .catalogCompareBar span {
+    font-size: 16px !important;
+  }
+
+  .homePage .compareBarActions,
+  .recommendPage .compareBarActions {
+    gap: 12px !important;
+  }
+
+  .homePage .compareBarActions button,
+  .homePage .compareBarActions a,
+  .recommendPage .compareReset,
+  .recommendPage .compareGo,
+  .catalogPage .catalogCompareBar a {
+    min-height: 56px !important;
+    padding: 0 24px !important;
+    border-radius: 14px !important;
+    font-size: 15px !important;
+    font-weight: 900 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .recommendPage .compareGo { min-width: 190px !important; }
+}
+
+/* 모바일에서도 세 화면의 고정 비교함 외곽 크기를 동일하게 맞춥니다. */
+@media (max-width: 760px) {
+  .homePage .compareBar,
+  .recommendPage .compareBar,
+  .catalogPage .catalogCompareBar {
+    position: fixed !important;
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 10px !important;
+    transform: none !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    min-height: 72px !important;
+    padding: 12px 14px !important;
+    box-sizing: border-box !important;
+    z-index: 100 !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+  }
+
+  .homePage .compareBar strong,
+  .recommendPage .compareBarTitle strong,
+  .catalogPage .catalogCompareBar strong { font-size: 15px !important; }
+
+  .homePage .compareBar span,
+  .recommendPage .compareBarTitle span,
+  .catalogPage .catalogCompareBar span { font-size: 11px !important; }
+
+  .homePage .compareBarActions,
+  .recommendPage .compareBarActions { gap: 7px !important; }
+
+  .homePage .compareBarActions button,
+  .homePage .compareBarActions a,
+  .recommendPage .compareReset,
+  .recommendPage .compareGo,
+  .catalogPage .catalogCompareBar a {
+    min-height: 40px !important;
+    padding: 0 12px !important;
+    border-radius: 10px !important;
+    font-size: 10px !important;
+  }
+}

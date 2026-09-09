@@ -78,27 +78,45 @@ export default function RecommendPage() {
       feature: effectiveFeature
     });
 
-    // 자연어 검색어가 있으면 추천 점수에 검색 관련도를 추가해
-    // "무료 쇼츠"처럼 여러 조건을 한 문장으로 입력해도 관련 서비스가 위로 올라오게 합니다.
-    const searched = query.trim() ? rankSearchResults(ranked.map((item) => item.service), query) : ranked.map((item) => item.service);
-    const scoreMap = new Map(ranked.map((item) => [item.service.id, item.score]));
-    const rawScores = ranked.map((item) => item.score);
-    const highest = Math.max(...rawScores, 1);
-    const lowest = Math.min(...rawScores, 0);
-    const range = Math.max(highest - lowest, 1);
-
-    return searched.slice(0, 8).map((service, index) => {
-      const baseScore = scoreMap.get(service.id) || 0;
-      const search = query.trim() ? scoreSearch(service, query) : null;
-      const normalized = Math.max(0, Math.min(100, Math.round(((baseScore - lowest) / range) * 100)));
-      return {
-        ...service,
-        score: normalized,
+    if (!query.trim()) {
+      // 검색어가 없을 때는 추천 엔진의 점수와 순서를 그대로 사용합니다.
+      return ranked.slice(0, 8).map((item, index) => ({
+        ...item.service,
+        score: Math.max(0, Math.min(100, Math.round(item.score))),
         rank: index + 1,
-        reason: search?.reasons?.length ? search.reasons.join(" · ") : service.bestFor,
-        searchScore: search?.score || 0
-      };
-    });
+        reason: item.service.bestFor,
+        searchScore: 0
+      }));
+    }
+
+    // 검색 결과를 먼저 계산하되, 검색 점수 순서를 그대로 쓰지 않습니다.
+    // 검색 엔진이 명시 조건(예: 무료/API)을 필터링하므로 그 조건은 유지하고,
+    // 최종 순서는 추천 엔진 점수 + 검색 관련도 보정으로 다시 계산합니다.
+    const searched = rankSearchResults(ranked.map((item) => item.service), query);
+    const searchMap = new Map(searched.map((service) => {
+      const search = scoreSearch(service, query);
+      return [service.id, search];
+    }));
+
+    const final = ranked
+      .filter((item) => searchMap.has(item.service.id))
+      .map((item) => {
+        const search = searchMap.get(item.service.id);
+        // 검색 관련도는 최대 15점만 반영해 목적 추천 점수가 뒤집히지 않도록 합니다.
+        const searchBonus = Math.min(15, Math.round((search.score || 0) * 0.15));
+        const finalScore = Math.max(0, Math.min(100, Math.round(item.score + searchBonus)));
+        return {
+          ...item.service,
+          score: finalScore,
+          baseScore: item.score,
+          searchScore: search.score || 0,
+          rank: 0,
+          reason: search.reasons?.length ? search.reasons.join(" · ") : item.service.bestFor
+        };
+      })
+      .sort((a, b) => b.score - a.score || b.searchScore - a.searchScore || a.name.localeCompare(b.name));
+
+    return final.slice(0, 8).map((service, index) => ({ ...service, rank: index + 1 }));
   }, [effectiveGoal, effectiveBudget, effectiveSkill, effectiveFeature, query]);
 
   const toggleCompare = (id) => setCompare((current) => {

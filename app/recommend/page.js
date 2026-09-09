@@ -177,7 +177,7 @@ export default function RecommendPage() {
         </div>
         <div className="topMatchActions">
           <a className="primaryAction" href={`/services/${top.id}`}>상세 보기</a>
-          <a className="secondaryAction" href={getOutboundUrl(top)} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => openService(top, "recommend-top")}>{topHasAffiliate ? "서비스 시작하기" : "공식 사이트"}</a>
+          <a className="secondaryAction" href={getOutboundUrl(top)} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => openService(top, "recommend-top")}>서비스 시작하기</a>
         </div>
       </article>}
       <div className="resultHead resultHeadSub"><div><div className="eyebrow">ALTERNATIVES</div><h3>함께 비교해볼 후보</h3></div><span className="resultCount">{results.length}개 후보 분석</span></div>
@@ -187,7 +187,7 @@ export default function RecommendPage() {
           <div className="resultServiceTop"><img className="resultIcon" src={service.icon} alt=""/><div><div className="resultTitle">{service.name}</div><div className="resultCategory">{service.category}</div></div><div className="score"><StarRating score={service.score} /></div></div>
           <div className="reason"><b>추천 이유</b><br/>{service.reason}</div>
           <div className="chips"><span className="good">{service.free ? "무료 시작 가능" : "유료 중심"}</span><span>비용 {service.price}</span><span>난이도 {service.difficulty}</span>{service.tags.slice(0, 2).map((tag) => <span key={tag}>{tag}</span>)}</div>
-          <div className="resultActions"><button type="button" className="compareBtn" onClick={() => toggleCompare(service.id)}>{compare.includes(service.id) ? "비교 선택됨" : "비교하기"}</button><a className="officialBtn" href={`/services/${service.id}`}>상세 보기</a><a className={affiliate ? "affiliateMiniBtn" : "officialBtn"} href={getOutboundUrl(service)} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => openService(service, "recommend-candidate")}>{affiliate ? "서비스 시작하기" : "공식 사이트"}</a></div>
+          <div className="resultActions"><button type="button" className="compareBtn" onClick={() => toggleCompare(service.id)}>{compare.includes(service.id) ? "비교 선택됨" : "비교하기"}</button><a className="officialBtn" href={`/services/${service.id}`}>상세 보기</a><a className={affiliate ? "affiliateMiniBtn" : "officialBtn"} href={getOutboundUrl(service)} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => openService(service, "recommend-candidate")}>서비스 시작하기</a></div>
           {affiliate && <p className="affiliateDisclosure miniDisclosure">{getAffiliateDisclosure(service)}</p>}
         </article>;
       })}</div>

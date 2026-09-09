@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { catalog, categoryGroups, matchesCategory } from "../lib/catalog";
 import { getSearchSuggestions, rankSearchResults } from "../lib/search";
@@ -30,6 +31,7 @@ function getSupportedFeatures(service) {
 }
 
 export default function CatalogPage() {
+  const searchParams = useSearchParams();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
   const [feature, setFeature] = useState("전체");
@@ -38,6 +40,14 @@ export default function CatalogPage() {
   const [sort, setSort] = useState("recommended");
   const [favorites, setFavorites] = useState([]);
   const [compare, setCompare] = useState([]);
+
+  // 홈의 STEP 03 카테고리 카드에서 넘어온 ?category= 값을 실제 카탈로그 필터에 반영합니다.
+  useEffect(() => {
+    const requestedCategory = searchParams.get("category");
+    if (requestedCategory && categoryGroups.some((group) => group.id === requestedCategory)) {
+      setCategory(requestedCategory);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     setFavorites(readStoredList("hub-favorites"));
@@ -65,7 +75,6 @@ export default function CatalogPage() {
     });
   }, [query, category, feature, onlyFree, onlyApi, sort]);
 
-  // 검색 결과가 0개라면 현재 검색어와 가까운 서비스를 최대 3개 제안합니다.
   const suggestions = useMemo(() => {
     if (!query.trim() || list.length > 0) return [];
     return getSearchSuggestions(catalog, query, { onlyFree, onlyApi }).slice(0, 3);

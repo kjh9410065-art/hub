@@ -11,24 +11,24 @@
     right:12px !important;
     bottom:10px !important;
     z-index:70 !important;
-    min-height:94px !important;
+    min-height:104px !important;
     box-sizing:border-box !important;
-    padding:16px 18px !important;
+    padding:18px 20px !important;
     display:grid !important;
     grid-template-columns:minmax(0,1fr) auto !important;
     grid-template-rows:auto auto !important;
-    column-gap:14px !important;
-    row-gap:5px !important;
+    column-gap:16px !important;
+    row-gap:6px !important;
     align-items:center !important;
-    border-radius:22px !important;
+    border-radius:24px !important;
     background:#fff !important;
-    box-shadow:0 14px 38px rgba(40,30,80,.18) !important;
+    box-shadow:0 16px 42px rgba(40,30,80,.2) !important;
   }
-  .recommendPage .compareBar strong{font-size:18px !important;line-height:1.2 !important;color:#20202b !important;}
-  .recommendPage .compareNames{display:block !important;grid-column:1 !important;grid-row:2 !important;min-width:0 !important;overflow:hidden !important;white-space:nowrap !important;color:#777181 !important;font-size:12px !important;}
-  .recommendPage .compareName{font-size:12px !important;}
-  .recommendPage .compareGo{grid-column:2 !important;grid-row:1 / span 2 !important;display:flex !important;align-items:center !important;justify-content:center !important;min-width:124px !important;height:52px !important;padding:0 16px !important;border-radius:15px !important;background:#6049cf !important;color:#fff !important;font-size:15px !important;font-weight:900 !important;text-decoration:none !important;}
-  .recommendPage{padding-bottom:182px !important;}
+  .recommendPage .compareBar strong{font-size:19px !important;line-height:1.2 !important;color:#20202b !important;}
+  .recommendPage .compareNames{display:block !important;grid-column:1 !important;grid-row:2 !important;min-width:0 !important;overflow:hidden !important;white-space:nowrap !important;color:#777181 !important;font-size:13px !important;}
+  .recommendPage .compareName{font-size:13px !important;}
+  .recommendPage .compareGo{grid-column:2 !important;grid-row:1 / span 2 !important;display:flex !important;align-items:center !important;justify-content:center !important;min-width:132px !important;height:56px !important;padding:0 18px !important;border-radius:16px !important;background:#6049cf !important;color:#fff !important;font-size:16px !important;font-weight:900 !important;text-decoration:none !important;}
+  .recommendPage{padding-bottom:192px !important;}
 }
 
 html[data-theme="dark"] .recommendPage .compareBar{background:#211e29 !important;border:1px solid #7659d6 !important;color:#eeeaf3 !important;box-shadow:0 14px 38px rgba(0,0,0,.38) !important;}

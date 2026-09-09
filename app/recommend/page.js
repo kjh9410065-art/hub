@@ -174,6 +174,19 @@ export default function RecommendPage() {
         </article>;
       })}</div>
     </section>
-  </div>{compare.length > 0 && <div className="compareBar"><strong>{compare.length}/4 비교</strong><div className="compareNames">{compare.map((id) => <span className="compareName" key={id}>{catalogMap[id]?.name}</span>)}</div><a className="compareGo" href="/compare">비교하기</a></div>}
+  </div>{compare.length > 0 && <div className="compareBar">
+    <div className="compareBarInfo">
+      <div className="compareBarTitle"><strong>비교함</strong><span>{compare.length}/4개 선택</span></div>
+      <div className="compareBarHint">{compare.length < 4 ? "서비스를 더 추가해 비교해보세요!" : "선택한 서비스를 비교해보세요."}</div>
+      <div className="compareSelectedIcons" aria-label="선택한 서비스">
+        {compare.map((id) => <span className="compareSelectedIcon" key={id} title={catalogMap[id]?.name}><img src={catalogMap[id]?.icon} alt={catalogMap[id]?.name || ""}/></span>)}
+        {compare.length < 4 && <span className="compareSelectedIcon compareAddIcon" aria-hidden="true">+</span>}
+      </div>
+    </div>
+    <div className="compareBarActions">
+      <button type="button" className="compareReset" onClick={() => { setCompare([]); localStorage.setItem("hub-compare", "[]"); }}>전체 해제</button>
+      <a className="compareGo" href="/compare">비교 화면 열기</a>
+    </div>
+  </div>}
   </main>;
 }

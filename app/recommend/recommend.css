@@ -37,3 +37,31 @@
 html[data-theme="dark"] .recommendPage .compareBar{background:#211e29 !important;border:1px solid #7659d6 !important;color:#eeeaf3 !important;box-shadow:0 14px 38px rgba(0,0,0,.38) !important;}
 html[data-theme="dark"] .recommendPage .compareBar strong{color:#eeeaf3 !important;}
 html[data-theme="dark"] .recommendPage .compareNames{color:#aaa5b2 !important;}
+
+/* 라이트모드 카드 규칙: 카드 외곽선은 사용하지 않고 그림자와 여백으로 구분합니다.
+   선택 버튼 같은 조작 요소의 테두리는 유지하고, 다크모드에서는 기존 보라색 강조 규칙을 사용합니다. */
+.recommendPage .conditionCard,
+.recommendPage .recommendResult,
+.recommendPage .resultCard,
+.recommendPage .topMatch,
+.recommendPage .recommendSearch,
+.recommendPage .recommendIntentSearch,
+.recommendPage .recommendResultGrid > article {
+  border:0 !important;
+}
+
+/* 제휴 여부와 관계없이 추천 후보의 외부 서비스 CTA 위치와 높이를 동일하게 유지합니다. */
+.recommendPage .resultCard .resultActions .affiliateMiniBtn,
+.recommendPage .resultCard .resultActions .officialBtn {
+  min-height:36px;
+}
+
+html[data-theme="dark"] .recommendPage .conditionCard,
+html[data-theme="dark"] .recommendPage .recommendResult,
+html[data-theme="dark"] .recommendPage .resultCard,
+html[data-theme="dark"] .recommendPage .topMatch,
+html[data-theme="dark"] .recommendPage .recommendSearch,
+html[data-theme="dark"] .recommendPage .recommendIntentSearch,
+html[data-theme="dark"] .recommendPage .recommendResultGrid > article {
+  border:1px solid #7659d6 !important;
+}

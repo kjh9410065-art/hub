@@ -1,0 +1,55 @@
+/* 라이트모드 카드/패널의 불필요한 외곽선을 제거해 화면을 더 깔끔하게 만듭니다.
+   선택·활성·강조 상태의 보라색 테두리는 유지합니다. */
+html:not([data-theme="dark"]) .taskCard,
+html:not([data-theme="dark"]) .serviceCard,
+html:not([data-theme="dark"]) .miniCard,
+html:not([data-theme="dark"]) .resultCard,
+html:not([data-theme="dark"]) .recommendResult,
+html:not([data-theme="dark"]) .conditionCard,
+html:not([data-theme="dark"]) .recommendNote,
+html:not([data-theme="dark"]) .catalogCard,
+html:not([data-theme="dark"]) .relatedCard,
+html:not([data-theme="dark"]) .toolPanel,
+html:not([data-theme="dark"]) .calculatorCard,
+html:not([data-theme="dark"]) .callout,
+html:not([data-theme="dark"]) .sourceBox,
+html:not([data-theme="dark"]) .empty {
+  border-color: transparent !important;
+}
+
+/* 카드 자체의 기본 테두리는 없애되, 사용자가 선택했거나 추천 대상인 카드는 구분합니다. */
+html:not([data-theme="dark"]) .taskCard:hover,
+html:not([data-theme="dark"]) .taskCard.selected,
+html:not([data-theme="dark"]) .serviceCard.featured,
+html:not([data-theme="dark"]) .resultCard.best,
+html:not([data-theme="dark"]) .recommendResult.best,
+html:not([data-theme="dark"]) .catalogCard.catalogTopResult,
+html:not([data-theme="dark"]) .catalogCard.affiliateCard {
+  border-color: #b6a8ef !important;
+}
+
+/* 검색창·입력창·필터 같은 조작 요소는 경계를 남겨 가독성과 조작성을 유지합니다. */
+html:not([data-theme="dark"]) .searchBox,
+html:not([data-theme="dark"]) .catalogSearch,
+html:not([data-theme="dark"]) .choiceGrid button,
+html:not([data-theme="dark"]) .pills button,
+html:not([data-theme="dark"]) .sortButtons button,
+html:not([data-theme="dark"]) .categoryFilters button,
+html:not([data-theme="dark"]) .serviceActions button,
+html:not([data-theme="dark"]) .modalActions > button,
+html:not([data-theme="dark"]) .toolActions button,
+html:not([data-theme="dark"]) .calcField input,
+html:not([data-theme="dark"]) .calcField select,
+html:not([data-theme="dark"]) .toolTextarea,
+html:not([data-theme="dark"]) .sourceLinks a {
+  border-color: #e5e1ed;
+}
+
+/* 활성 필터는 기존 HUB 보라색을 그대로 사용합니다. */
+html:not([data-theme="dark"]) .choiceGrid button.active,
+html:not([data-theme="dark"]) .pills button.active,
+html:not([data-theme="dark"]) .sortButtons button.active,
+html:not([data-theme="dark"]) .categoryFilters button.active,
+html:not([data-theme="dark"]) .filterScroll button.active {
+  border-color: #6955d9 !important;
+}

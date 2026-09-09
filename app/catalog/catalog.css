@@ -27,3 +27,33 @@
 
 /* 모바일 고정 UI는 공통 플로팅 컨트롤의 간격과 동일하게 맞춥니다. */
 @media(max-width:760px){.catalogBody{padding-bottom:170px;}.catalogCompareBar{bottom:10px;}.hubTutorialHelp{bottom:82px !important;}.hubThemeToggle{bottom:132px !important;}}
+
+/* 모바일에서 상위 레이아웃이 폭을 축소시키더라도 카탈로그 콘텐츠가 화면 전체를 사용하도록 강제합니다. */
+@media(max-width:760px){
+  .catalogPage,
+  .catalogHeader,
+  .catalogHero,
+  .catalogBody,
+  .catalogGrid,
+  .catalogCard {
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+  }
+
+  .catalogHeader{padding-left:16px !important;padding-right:16px !important;}
+  .catalogHero{margin-top:15px !important;padding-left:21px !important;padding-right:21px !important;}
+  .catalogBody{padding-left:16px !important;padding-right:16px !important;}
+  .catalogGrid{display:grid !important;grid-template-columns:minmax(0,1fr) !important;gap:12px !important;}
+  .catalogCard{display:block !important;grid-column:1 !important;}
+}
+
+/* 밝은 모드에서는 카드 외곽선을 제거하고 그림자와 여백으로 구분합니다. */
+html:not([data-theme="dark"]) .catalogCard,
+html:not([data-theme="dark"]) .catalogHero,
+html:not([data-theme="dark"]) .catalogSearch,
+html:not([data-theme="dark"]) .catalogCompareBar {
+  border-color:transparent;
+}

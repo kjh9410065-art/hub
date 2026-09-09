@@ -1,4 +1,4 @@
-/* 카탈로그 라이트모드: 페이지 안의 외곽선/구분선은 제거합니다. */
+/* 카탈로그 라이트모드: 페이지 안의 모든 외곽선/구분선은 제거합니다. */
 html:not([data-theme="dark"]) .catalogPage * { border-width:0 !important; border-style:none !important; }
 html:not([data-theme="dark"]) .catalogPage .catalogHero,
 html:not([data-theme="dark"]) .catalogPage .catalogSearch,
@@ -57,3 +57,43 @@ html:not([data-theme="dark"]) .catalogPage button:focus-visible,
 html:not([data-theme="dark"]) .catalogPage a:focus-visible,
 html:not([data-theme="dark"]) .catalogPage select:focus-visible,
 html:not([data-theme="dark"]) .catalogPage input:focus-visible { outline:3px solid rgba(104,84,217,.28); outline-offset:2px; }
+
+/* 모바일 최종 보정: 필터를 한 줄에 억지로 넣지 않고 화면 안에서 균형 있게 배치합니다. */
+@media(max-width:760px){
+  .catalogPage .filterScroll{
+    display:grid !important;
+    grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+    gap:8px !important;
+    overflow:visible !important;
+    padding:0 !important;
+    width:100% !important;
+  }
+
+  .catalogPage .filterScroll button{
+    width:100% !important;
+    min-width:0 !important;
+    padding:11px 3px !important;
+    font-size:10px !important;
+    text-align:center !important;
+  }
+
+  .catalogPage .filterBlock > div + div{
+    margin-top:22px !important;
+  }
+
+  .catalogPage .catalogOptions{
+    grid-template-columns:1fr 1fr !important;
+    gap:8px !important;
+  }
+
+  .catalogPage .catalogOptions label{
+    min-width:0 !important;
+    padding:12px 9px !important;
+    white-space:nowrap !important;
+  }
+
+  /* 고정 비교함에 마지막 카드가 가려지지 않도록 스크롤 끝 여백을 확보합니다. */
+  .catalogPage .catalogBody{
+    padding-bottom:210px !important;
+  }
+}

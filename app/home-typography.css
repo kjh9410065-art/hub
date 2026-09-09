@@ -78,6 +78,41 @@
   .compareCta small{font-size:11px}
   .homeFooter strong{font-size:14px}
   .homeFooter span,.footerLinks a{font-size:10px}
+
+  /* STEP 03~04의 핵심 문구만 4px 키워 모바일에서도 충분히 읽히게 합니다. */
+  .categoryStep .categoryCard{
+    display:flex;
+    align-items:center;
+  }
+
+  .categoryStep .categoryCard span{
+    /* 카테고리 이름은 기존 14px에서 18px로 확대합니다. */
+    font-size:18px;
+    line-height:1.2;
+    font-weight:800;
+  }
+
+  .categoryStep .categoryCard b{
+    /* 수량은 제목 옆이 아니라 카드 오른쪽으로 보내 공간을 확보합니다. */
+    margin-left:auto;
+    margin-right:12px;
+    font-size:12px;
+    white-space:nowrap;
+  }
+
+  .categoryStep .categoryCard i{
+    flex:0 0 auto;
+  }
+
+  .compareStep .compareCta strong{
+    /* STEP 04의 비교 제목도 기존 15px에서 19px로 확대합니다. */
+    font-size:19px;
+    line-height:1.2;
+  }
+
+  .compareStep .compareCta small{
+    font-size:14px;
+  }
 }
 
 /* Flip/Fold 세로: 넓어진 카드에서도 텍스트가 지나치게 작아 보이지 않도록 한 단계 올립니다. */

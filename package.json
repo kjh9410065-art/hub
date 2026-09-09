@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "validate:catalog": "node scripts/validate-catalog.mjs",
+    "build": "npm run validate:catalog && next build",
     "start": "next start",
     "deploy": "npx wrangler deploy"
   },

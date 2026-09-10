@@ -34,7 +34,7 @@ html:not([data-theme="dark"]) .catalogPage .catalogOptions select { background:#
   .catalogPage .catalogActions button { min-height:46px !important; padding:12px 10px !important; font-size:11px !important; }
 }
 
-/* 모바일도 정보가 겹치지 않게 세로 간격을 확보합니다. */
+/* 모바일 카드의 정보 간격을 확보합니다. */
 @media (max-width:760px) {
   .catalogPage .catalogCard { padding:22px !important; }
   .catalogPage .catalogTop { gap:16px !important; }
@@ -58,30 +58,38 @@ html:not([data-theme="dark"]) .catalogPage a:focus-visible,
 html:not([data-theme="dark"]) .catalogPage select:focus-visible,
 html:not([data-theme="dark"]) .catalogPage input:focus-visible { outline:3px solid rgba(104,84,217,.28); outline-offset:2px; }
 
-/* 모바일 최종 보정: 필터를 한 줄에 억지로 넣지 않고 화면 안에서 균형 있게 배치합니다. */
+/* 모바일 최종 보정: 분류/기능 필터가 한 줄에 몰리지 않고 화면 폭을 고르게 사용하도록 4열로 고정합니다. */
 @media(max-width:760px){
   .catalogPage .filterScroll{
     display:grid !important;
     grid-template-columns:repeat(4,minmax(0,1fr)) !important;
     gap:8px !important;
     overflow:visible !important;
+    overflow-x:visible !important;
     padding:0 !important;
     width:100% !important;
+    box-sizing:border-box !important;
+    scrollbar-width:none !important;
   }
+
+  .catalogPage .filterScroll::-webkit-scrollbar{display:none !important;width:0 !important;height:0 !important;}
 
   .catalogPage .filterScroll button{
     width:100% !important;
     min-width:0 !important;
-    padding:11px 3px !important;
+    max-width:none !important;
+    box-sizing:border-box !important;
+    padding:11px 2px !important;
     font-size:10px !important;
+    line-height:1.2 !important;
     text-align:center !important;
+    white-space:nowrap !important;
   }
 
-  .catalogPage .filterBlock > div + div{
-    margin-top:22px !important;
-  }
+  .catalogPage .filterBlock > div + div{margin-top:22px !important;}
 
   .catalogPage .catalogOptions{
+    display:grid !important;
     grid-template-columns:1fr 1fr !important;
     gap:8px !important;
   }
@@ -93,7 +101,5 @@ html:not([data-theme="dark"]) .catalogPage input:focus-visible { outline:3px sol
   }
 
   /* 고정 비교함에 마지막 카드가 가려지지 않도록 스크롤 끝 여백을 확보합니다. */
-  .catalogPage .catalogBody{
-    padding-bottom:210px !important;
-  }
+  .catalogPage .catalogBody{padding-bottom:210px !important;}
 }

@@ -22,6 +22,16 @@ export const metadata = {
   metadataBase: new URL("https://hub.carpick.workers.dev"),
   icons: { icon: "/icon.svg", shortcut: "/icon.svg", apple: "/icon.svg" },
   robots: { index: true, follow: true },
+  openGraph: {
+    // 검색·공유 서비스가 HUB 페이지를 소개할 때 사용할 기본 제목입니다.
+    title: "HUB — 목적에 맞는 AI·개발 서비스 찾기",
+    // 페이지 미리보기에서 사용할 기본 설명입니다.
+    description: "만들고 싶은 목적을 선택하면 필요한 AI·개발 서비스를 빠르게 비교하고 추천받을 수 있습니다.",
+    url: "https://hub.carpick.workers.dev",
+    siteName: "HUB",
+    locale: "ko_KR",
+    type: "website"
+  },
   verification: {
     // 네이버 Search Advisor 소유확인용 메타 태그입니다.
     other: {

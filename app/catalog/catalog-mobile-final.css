@@ -1,30 +1,97 @@
-/* 모바일 카탈로그 최종 가독성 보정 */
+/* 모바일 카탈로그 최종 가독성 보정
+   카드 일부만 키우는 것이 아니라 이 페이지의 실제 정보 텍스트 전체를 같은 기준으로 키웁니다. */
 @media (max-width: 760px) {
+  /* 분류/기능 영역 */
+  .catalogPage .filterBlock > b,
+  .catalogPage .filterBlock > div > b {
+    font-size: 16px !important;
+  }
+
+  .catalogPage .filterScroll button {
+    min-height: 44px !important;
+    padding: 11px 17px !important;
+    font-size: 15px !important;
+  }
+
+  /* 무료 시작 / API 제공 / 정렬 */
+  .catalogPage .catalogOptions label {
+    min-height: 48px !important;
+    padding: 12px 14px !important;
+    font-size: 15px !important;
+  }
+
+  .catalogPage .catalogOptions select {
+    min-height: 48px !important;
+    padding: 12px 32px 12px 14px !important;
+    font-size: 15px !important;
+  }
+
+  /* 현재 선택된 필터와 결과 수 */
+  .catalogPage .catalogState {
+    gap: 8px !important;
+    min-height: 42px !important;
+  }
+
+  .catalogPage .catalogState span {
+    padding: 8px 11px !important;
+    font-size: 13px !important;
+  }
+
+  .catalogPage .catalogState b,
+  .catalogPage .catalogState button {
+    font-size: 14px !important;
+  }
+
+  /* 서비스 카드의 핵심 정보 */
+  .catalogPage .catalogRankLine {
+    margin-bottom: 13px !important;
+    font-size: 12px !important;
+  }
+
+  .catalogPage .catalogTop strong {
+    font-size: 22px !important;
+    line-height: 1.3 !important;
+  }
+
+  .catalogPage .catalogTop small {
+    margin-top: 6px !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+
+  .catalogPage .catalogFavorite {
+    padding: 10px 11px !important;
+    font-size: 12px !important;
+  }
+
+  /* 기능/가격/난이도/태그 */
+  .catalogPage .catalogFeatureRow,
+  .catalogPage .catalogMeta,
+  .catalogPage .catalogTags {
+    gap: 7px !important;
+  }
+
   .catalogPage .catalogFeatureRow span,
   .catalogPage .catalogMeta span,
   .catalogPage .catalogTags span {
-    padding: 7px 9px !important;
-    font-size: 10px !important;
-    line-height: 1.25 !important;
+    padding: 8px 10px !important;
+    font-size: 12px !important;
+    line-height: 1.3 !important;
     border-radius: 8px !important;
   }
 
-  .catalogPage .catalogTags {
-    margin-top: 8px !important;
-    gap: 6px !important;
-  }
-
+  /* 자세히 보기 / 공식 사이트 / 비교하기 */
   .catalogPage .catalogActions {
     grid-template-columns: 1fr 1fr !important;
     gap: 8px !important;
-    margin-top: 16px !important;
+    margin-top: 17px !important;
   }
 
   .catalogPage .catalogActions a,
   .catalogPage .catalogActions button {
-    min-height: 44px !important;
-    padding: 11px 8px !important;
-    font-size: 12px !important;
+    min-height: 48px !important;
+    padding: 12px 8px !important;
+    font-size: 14px !important;
     font-weight: 900 !important;
     border-radius: 10px !important;
   }
@@ -41,7 +108,7 @@
     justify-content: center !important;
     background: #eee9ff !important;
     color: #4d36b3 !important;
-    min-height: 44px !important;
+    min-height: 48px !important;
   }
 
   html:not([data-theme="dark"]) .catalogPage .catalogActions a.affiliateCatalogLink {
@@ -53,4 +120,16 @@
     background: #28242f !important;
     color: #eeeaf3 !important;
   }
+
+  .catalogPage .affiliateCatalogDisclosure {
+    font-size: 10px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* 검색 결과 없음/추천 서비스 */
+  .catalogPage .emptyCatalog b { font-size: 18px !important; }
+  .catalogPage .emptyCatalog p { font-size: 14px !important; }
+  .catalogPage .searchSuggestions > strong { font-size: 15px !important; }
+  .catalogPage .searchSuggestionCard b { font-size: 14px !important; }
+  .catalogPage .searchSuggestionCard small { font-size: 12px !important; }
 }

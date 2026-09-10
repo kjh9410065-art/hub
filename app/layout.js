@@ -8,6 +8,7 @@ import "./dark-mode-hardening.css";
 import "./light-mode-cleanup.css";
 import "./components/compare-bar-unified.css";
 import "./ui-visibility-polish.css";
+import "./button-clarity.css";
 import Script from "next/script";
 import HubTutorial from "./components/hub-tutorial";
 import HubTheme from "./components/hub-theme";

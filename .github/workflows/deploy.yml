@@ -39,3 +39,27 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      # 실제 인터넷에서 sitemap.xml을 받을 수 있는지 배포 직후 확인합니다.
+      # 배포 성공만으로 끝내지 않고 HTTP 응답과 XML 본문까지 검사합니다.
+      - name: Verify public sitemap
+        run: |
+          set -e
+          URL="https://hub.carpick.workers.dev/sitemap.xml"
+          echo "Checking $URL"
+          for i in 1 2 3 4 5; do
+            if curl -fsSL --retry 2 --connect-timeout 10 --max-time 30 -D /tmp/sitemap.headers "$URL" -o /tmp/sitemap.xml; then
+              echo "--- Response headers ---"
+              cat /tmp/sitemap.headers
+              echo "--- Sitemap first lines ---"
+              head -n 5 /tmp/sitemap.xml
+              grep -q '<urlset' /tmp/sitemap.xml
+              grep -q 'https://hub.carpick.workers.dev/' /tmp/sitemap.xml
+              echo "Public sitemap check passed."
+              exit 0
+            fi
+            echo "Attempt $i failed; waiting 10 seconds for Cloudflare propagation..."
+            sleep 10
+          done
+          echo "Public sitemap check failed."
+          exit 1

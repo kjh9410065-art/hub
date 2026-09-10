@@ -106,13 +106,29 @@
   }
 }
 
-/* 비교 버튼 글자는 패딩으로 보정하지 않고 flex 중앙 정렬을 사용합니다.
-   한글 글꼴의 베이스라인 때문에 위로 보이는 현상만 2px 아래로 보정합니다. */
+/* 하단 비교함의 '비교 화면 열기' 링크 자체를 고정 높이의 중앙 정렬 상자로 만듭니다.
+   기존 패딩·베이스라인 보정 때문에 글자가 위에 붙는 현상을 차단합니다. */
 .homePage .compareBarActions a,
 .recommendPage .compareBarActions .compareGo,
 .catalogPage .catalogCompareBar a {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  line-height: 1 !important;
-  transform: translateY(2px) !important;
+  display: grid !important;
+  place-items: center !important;
+  align-self: center !important;
+  height: 56px !important;
+  min-height: 56px !important;
+  padding: 0 24px !important;
+  line-height: 1.2 !important;
+  transform: none !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 760px) {
+  .homePage .compareBarActions a,
+  .recommendPage .compareBarActions .compareGo,
+  .catalogPage .catalogCompareBar a {
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 12px !important;
+    line-height: 1.2 !important;
+  }
 }

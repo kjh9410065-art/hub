@@ -1,139 +1,45 @@
-/* HUB 버튼 선명도 2차 보정
-   기존 레이아웃은 유지하고, 흐릿하게 보이는 보조 버튼/배지의 대비만 높입니다. */
+/* HUB 버튼 선명도 + 카드 여백 최종 보정 */
 
-/* 필터 버튼 */
-.catalogPage .filterScroll button {
-  border: 2px solid #cbc5d6 !important;
-  color: #403b49 !important;
-  box-shadow: 0 4px 12px rgba(39,31,82,.11) !important;
-}
-.catalogPage .filterScroll button.active {
-  border-color: #7055e8 !important;
-  background: #7055e8 !important;
-  color: #fff !important;
-}
+.catalogPage .filterScroll button { border:2px solid #cbc5d6 !important; color:#403b49 !important; box-shadow:0 4px 12px rgba(39,31,82,.11) !important; }
+.catalogPage .filterScroll button.active { border-color:#7055e8 !important; background:#7055e8 !important; color:#fff !important; }
+.catalogPage .catalogOptions label,.catalogPage .catalogOptions select { border:2px solid #d0cad9 !important; color:#45404d !important; background:#fff !important; box-shadow:0 4px 12px rgba(39,31,82,.09) !important; }
+.catalogPage .catalogFeatureRow span { border:1.5px solid #d0c6ed !important; background:#eeeaff !important; color:#513bb8 !important; box-shadow:0 2px 7px rgba(82,62,170,.06) !important; }
+.catalogPage .catalogFeatureRow .catalogApiBadge { border-color:#bcaeea !important; background:#e5deff !important; color:#4830ac !important; }
+.catalogPage .catalogMeta span { border:1.5px solid #d7d1df !important; background:#f4f2f7 !important; color:#504b58 !important; box-shadow:0 2px 7px rgba(39,31,82,.05) !important; }
+.catalogPage .catalogMeta .catalogFreeBadge { border-color:#aee0c9 !important; background:#e0f6eb !important; color:#14734f !important; }
+.catalogPage .catalogTags span { border:1.5px solid #d7d1df !important; background:#f9f8fb !important; color:#5c5663 !important; }
 
-/* 무료 시작 / API / 정렬 */
-.catalogPage .catalogOptions label,
-.catalogPage .catalogOptions select {
-  border: 2px solid #d0cad9 !important;
-  color: #45404d !important;
-  background: #fff !important;
-  box-shadow: 0 4px 12px rgba(39,31,82,.09) !important;
-}
+/* 즐겨찾기는 작고 가벼운 하트로 유지합니다. */
+.catalogPage .catalogFavorite { border:1.5px solid #ddd6e5 !important; background:#fff !important; color:#ef4444 !important; box-shadow:0 3px 9px rgba(39,31,82,.07) !important; }
+.catalogPage .catalogFavorite.active { background:#fff1f2 !important; border-color:#fecdd3 !important; color:#ef233c !important; }
 
-/* 기능 배지 */
-.catalogPage .catalogFeatureRow span {
-  border: 1.5px solid #d0c6ed !important;
-  background: #eeeaff !important;
-  color: #513bb8 !important;
-  box-shadow: 0 2px 7px rgba(82,62,170,.06) !important;
-}
-.catalogPage .catalogFeatureRow .catalogApiBadge {
-  border-color: #bcaeea !important;
-  background: #e5deff !important;
-  color: #4830ac !important;
-}
-
-/* 가격/난이도/무료 시작 */
-.catalogPage .catalogMeta span {
-  border: 1.5px solid #d7d1df !important;
-  background: #f4f2f7 !important;
-  color: #504b58 !important;
-  box-shadow: 0 2px 7px rgba(39,31,82,.05) !important;
-}
-.catalogPage .catalogMeta .catalogFreeBadge {
-  border-color: #aee0c9 !important;
-  background: #e0f6eb !important;
-  color: #14734f !important;
-}
-
-/* 카드 태그 */
-.catalogPage .catalogTags span {
-  border: 1.5px solid #d7d1df !important;
-  background: #f9f8fb !important;
-  color: #5c5663 !important;
-}
-
-/* 즐겨찾기 */
-.catalogPage .catalogFavorite {
-  border: 1.5px solid #c9c3d2 !important;
-  background: #fff !important;
-  color: #4d4855 !important;
-  box-shadow: 0 3px 9px rgba(39,31,82,.08) !important;
-}
-
-/* 카드의 공식 사이트 버튼은 흰색이어도 테두리 대비를 강하게 */
+/* 주요 액션 버튼은 기존보다 살짝 작게 만들어 카드에 숨 쉴 공간을 줍니다. */
+.catalogPage .catalogActions { gap:7px !important; margin-top:11px !important; }
+.catalogPage .catalogActions a,
+.catalogPage .catalogActions button { padding:8px 7px !important; min-height:40px !important; border-radius:9px !important; font-size:8px !important; }
+.catalogPage .catalogActions a:first-child { background:#242129 !important; color:#fff !important; }
 .catalogPage .catalogActions a:last-of-type,
-.catalogPage .catalogActions a.affiliateCatalogLink {
-  border: 2px solid #7055e8 !important;
-  background: #fff !important;
-  color: #553bc7 !important;
-  box-shadow: 0 4px 12px rgba(90,69,170,.10) !important;
-}
+.catalogPage .catalogActions a.affiliateCatalogLink { border:2px solid #7055e8 !important; background:#fff !important; color:#553bc7 !important; box-shadow:0 4px 12px rgba(90,69,170,.10) !important; }
+.catalogPage .catalogActions button { border:1.5px solid #c9c0e3 !important; background:#eeeaff !important; color:#513cae !important; box-shadow:0 3px 10px rgba(90,69,170,.08) !important; }
 
-/* 카드 비교 버튼 */
-.catalogPage .catalogActions button {
-  border: 1.5px solid #c9c0e3 !important;
-  background: #eeeaff !important;
-  color: #513cae !important;
-  box-shadow: 0 3px 10px rgba(90,69,170,.08) !important;
-}
-
-/* 검색 결과 상태 버튼 */
-.catalogPage .catalogState span {
-  border: 1.5px solid #d0cad9 !important;
-  background: #fff !important;
-  color: #514c58 !important;
-}
-.catalogPage .catalogState button {
-  color: #5b43cc !important;
-  font-weight: 900 !important;
-}
+/* 비교함은 불투명 패널을 유지합니다. */
+.compareBar { background:#fff !important; border:1px solid #e1ddea !important; box-shadow:0 16px 42px rgba(39,31,82,.16) !important; opacity:1 !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
+.compareBar > * { opacity:1 !important; }
 
 /* 다크모드 */
-html[data-theme="dark"] .catalogPage .filterScroll button,
-html[data-theme="dark"] .catalogPage .catalogOptions label,
-html[data-theme="dark"] .catalogPage .catalogOptions select,
-html[data-theme="dark"] .catalogPage .catalogState span,
-html[data-theme="dark"] .catalogPage .catalogFavorite {
-  border-color: #595264 !important;
-  background: #211e29 !important;
-  color: #ddd7e5 !important;
-}
-html[data-theme="dark"] .catalogPage .catalogFeatureRow span {
-  border-color: #66599a !important;
-  background: #30285a !important;
-  color: #d4cbff !important;
-}
-html[data-theme="dark"] .catalogPage .catalogMeta span {
-  border-color: #514b58 !important;
-  background: #292630 !important;
-  color: #d0c9d6 !important;
-}
-html[data-theme="dark"] .catalogPage .catalogTags span {
-  border-color: #514b58 !important;
-  background: #25222b !important;
-  color: #c8c1ce !important;
-}
-html[data-theme="dark"] .catalogPage .catalogActions a:last-of-type,
-html[data-theme="dark"] .catalogPage .catalogActions a.affiliateCatalogLink {
-  border-color: #9a8cff !important;
-  background: #211e29 !important;
-  color: #d5cbff !important;
-}
-html[data-theme="dark"] .catalogPage .catalogActions button {
-  border-color: #66599a !important;
-  background: #30285a !important;
-  color: #d4cbff !important;
-}
+html[data-theme="dark"] .catalogPage .filterScroll button,html[data-theme="dark"] .catalogPage .catalogOptions label,html[data-theme="dark"] .catalogPage .catalogOptions select,html[data-theme="dark"] .catalogPage .catalogState span { border-color:#595264 !important; background:#211e29 !important; color:#ddd7e5 !important; }
+html[data-theme="dark"] .catalogPage .filterScroll button.active { background:#7055e8 !important; border-color:#7055e8 !important; color:#fff !important; }
+html[data-theme="dark"] .catalogPage .catalogFeatureRow span { border-color:#66599a !important; background:#30285a !important; color:#d4cbff !important; }
+html[data-theme="dark"] .catalogPage .catalogMeta span { border-color:#514b58 !important; background:#292630 !important; color:#d0c9d6 !important; }
+html[data-theme="dark"] .catalogPage .catalogTags span { border-color:#514b58 !important; background:#25222b !important; color:#c8c1ce !important; }
+html[data-theme="dark"] .catalogPage .catalogFavorite { border-color:#514b58 !important; background:#211e29 !important; color:#ff6b7a !important; }
+html[data-theme="dark"] .catalogPage .catalogFavorite.active { background:#3a2026 !important; border-color:#7f3b46 !important; color:#ff7180 !important; }
+html[data-theme="dark"] .catalogPage .catalogActions a:last-of-type,html[data-theme="dark"] .catalogPage .catalogActions a.affiliateCatalogLink { border-color:#9a8cff !important; background:#211e29 !important; color:#d5cbff !important; }
+html[data-theme="dark"] .catalogPage .catalogActions button { border-color:#66599a !important; background:#30285a !important; color:#d4cbff !important; }
+html[data-theme="dark"] .compareBar { background:#18161d !important; border-color:#3a3545 !important; box-shadow:0 16px 42px rgba(0,0,0,.36) !important; }
 
 @media(max-width:600px){
-  .catalogPage .filterScroll button,
-  .catalogPage .catalogOptions label,
-  .catalogPage .catalogOptions select,
-  .catalogPage .catalogFavorite,
-  .catalogPage .catalogState span {
-    border-width: 1.5px !important;
-  }
+  .catalogPage .catalogActions { gap:6px !important; margin-top:10px !important; }
+  .catalogPage .catalogActions a,.catalogPage .catalogActions button { min-height:38px !important; padding:7px 6px !important; font-size:8px !important; border-radius:8px !important; }
+  .catalogPage .catalogFavorite { width:36px !important; height:36px !important; min-width:36px !important; font-size:21px !important; }
 }

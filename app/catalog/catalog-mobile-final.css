@@ -1,26 +1,20 @@
-/* 모바일 카탈로그: 아이콘 위 → 이름 아래 구조로 단순화합니다. */
+/* 모바일 카드 여백 최종 조정: 위·아래 공간을 줄여 한 화면에 더 자연스럽게 보이도록 합니다. */
 @media (max-width:760px){
-  .catalogPage .catalogRankLine{margin-bottom:16px!important}
-  .catalogPage .catalogIdentity{width:100%!important;display:grid!important;grid-template-columns:minmax(0,1fr) 40px!important;grid-template-rows:auto auto auto!important;column-gap:12px!important;row-gap:7px!important;align-items:start!important;box-sizing:border-box!important}
-  .catalogPage .catalogIdentity .catalogServiceIcon{grid-column:1!important;grid-row:1!important;width:64px!important;height:64px!important;min-width:64px!important;padding:9px!important;border-radius:17px!important;box-sizing:border-box!important}
-  .catalogPage .catalogIdentityText{grid-column:1!important;grid-row:2!important;width:100%!important;min-width:0!important;padding:0!important;overflow:visible!important}
-  .catalogPage .catalogIdentityText strong{display:block!important;width:100%!important;font-size:22px!important;line-height:1.2!important;white-space:normal!important;word-break:keep-all!important;overflow-wrap:normal!important;letter-spacing:-.4px!important}
-  .catalogPage .catalogIdentityText small{display:block!important;margin-top:5px!important;font-size:14px!important;line-height:1.45!important;white-space:normal!important;word-break:keep-all!important;overflow-wrap:break-word!important}
-  .catalogPage .catalogFavorite{grid-column:2!important;grid-row:2!important;position:static!important;justify-self:end!important;align-self:center!important;transform:none!important;width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;font-size:23px!important;color:#ef233c!important}
-  .catalogPage .catalogFavorite.active{color:#ef233c!important;background:#fff1f2!important;border-color:#fecdd3!important}
-  .catalogPage .catalogFeatureRow,.catalogPage .catalogMeta,.catalogPage .catalogTags{position:static!important;float:none!important;clear:both!important;width:100%!important;max-width:100%!important;display:flex!important;flex-wrap:wrap!important;gap:7px!important;box-sizing:border-box!important}
-  .catalogPage .catalogFeatureRow{margin-top:16px!important}.catalogPage .catalogMeta{margin-top:9px!important}.catalogPage .catalogTags{margin-top:9px!important}
-  .catalogPage .catalogFeatureRow span,.catalogPage .catalogMeta span,.catalogPage .catalogTags span{flex:0 0 auto!important;padding:7px 9px!important;font-size:12px!important;line-height:1.3!important;border-radius:8px!important}
-  .catalogPage .catalogActions{position:static!important;float:none!important;clear:both!important;width:100%!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:7px!important;margin-top:12px!important;box-sizing:border-box!important}
-  .catalogPage .catalogActions a,.catalogPage .catalogActions button{min-width:0!important;width:100%!important;height:38px!important;min-height:38px!important;padding:7px 5px!important;font-size:11px!important;font-weight:900!important;border-radius:8px!important;white-space:nowrap!important;box-sizing:border-box!important}
-  .catalogPage .catalogActions button{grid-column:1/-1!important;background:#f0edff!important;color:#4f3ab5!important}
-  html:not([data-theme="dark"]) .catalogPage .catalogActions a:last-of-type{background:#fff!important;color:#4d36b3!important}
-  .catalogPage .affiliateCatalogDisclosure{display:block!important;margin:8px 0 0!important;font-size:10px!important;line-height:1.5!important}
+  .catalogPage .catalogCard{padding:14px 16px!important}
+  .catalogPage .catalogRankLine{margin-bottom:8px!important}
+  .catalogPage .catalogTop{gap:10px!important}
+  .catalogPage .catalogFeatureRow{margin-top:10px!important;gap:6px!important}
+  .catalogPage .catalogMeta{margin-top:6px!important;gap:6px!important}
+  .catalogPage .catalogTags{margin-top:6px!important;gap:6px!important}
+  .catalogPage .catalogActions{margin-top:9px!important;gap:6px!important}
+  .catalogPage .affiliateCatalogDisclosure{margin-top:6px!important}
+  .catalogPage .catalogFeatureRow span,.catalogPage .catalogMeta span,.catalogPage .catalogTags span{padding:6px 8px!important}
 }
+
 @media (max-width:390px){
-  .catalogPage .catalogIdentity{grid-template-columns:minmax(0,1fr) 34px!important;column-gap:10px!important}
-  .catalogPage .catalogIdentity .catalogServiceIcon{width:60px!important;height:60px!important;min-width:60px!important}
-  .catalogPage .catalogFavorite{width:34px!important;height:34px!important;min-width:34px!important;font-size:20px!important}
-  .catalogPage .catalogIdentityText strong{font-size:20px!important}
-  .catalogPage .catalogIdentityText small{font-size:13px!important}
+  .catalogPage .catalogCard{padding:12px 14px!important}
+  .catalogPage .catalogRankLine{margin-bottom:7px!important}
+  .catalogPage .catalogFeatureRow{margin-top:9px!important}
+  .catalogPage .catalogMeta,.catalogPage .catalogTags{margin-top:5px!important}
+  .catalogPage .catalogActions{margin-top:8px!important}
 }

@@ -72,11 +72,15 @@
     padding:0!important;
   }
 
+  /* AI 서비스 이름은 한 줄로 표시해 카드가 더 깔끔하게 보이게 합니다. */
   .catalogPage .catalogIdentityText strong{
     display:block!important;
     margin:0!important;
     font-size:20px!important;
     line-height:1.18!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
   }
 
   .catalogPage .catalogIdentityText small{

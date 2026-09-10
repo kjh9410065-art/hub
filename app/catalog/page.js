@@ -99,9 +99,10 @@ export default function CatalogPage() {
         {list.map((s, index) => {
           const affiliate = hasAffiliateLink(s);
           const supportedFeatures = getSupportedFeatures(s);
+          const isFavorite = favorites.includes(s.id);
           return <article className={`catalogCard ${affiliate ? "affiliateCard" : ""} ${index < 3 ? "catalogTopResult" : ""}`} key={s.id}>
             <div className="catalogRankLine"><span>{index < 3 ? `추천 ${index + 1}` : "서비스"}</span><span>{s.category}</span></div>
-            <div className="catalogTop"><img src={s.icon} alt=""/><div><strong>{s.name}</strong><small>{s.bestFor}</small></div><button type="button" className={`catalogFavorite ${favorites.includes(s.id) ? "active" : ""}`} onClick={() => toggleFavorite(s.id)}>{favorites.includes(s.id) ? "즐겨찾기됨" : "즐겨찾기"}</button></div>
+            <div className="catalogTop"><img src={s.icon} alt=""/><div><strong>{s.name}</strong><small>{s.bestFor}</small></div><button type="button" aria-label={isFavorite ? `${s.name} 즐겨찾기 해제` : `${s.name} 즐겨찾기`} title={isFavorite ? "즐겨찾기 해제" : "즐겨찾기"} className={`catalogFavorite ${isFavorite ? "active" : ""}`} onClick={() => toggleFavorite(s.id)}>{isFavorite ? "♥" : "♡"}</button></div>
             <div className="catalogFeatureRow">{supportedFeatures.map((key) => <span key={key}>{featureLabels[key]}</span>)}{s.api && <span className="catalogApiBadge">API</span>}</div>
             <div className="catalogMeta"><span>{s.price}</span><span>{s.difficulty}</span><span className={s.free ? "catalogFreeBadge" : ""}>{s.free ? "무료 시작" : "유료 중심"}</span></div>
             <div className="catalogTags">{(s.tags || []).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>

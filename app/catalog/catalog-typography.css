@@ -1,8 +1,6 @@
-/* 모바일 카탈로그 가독성 보정
-   작은 화면에서도 필터·서비스 정보·버튼을 한눈에 읽을 수 있도록 글자 크기를 키웁니다. */
+/* 모바일 카탈로그 가독성 보정 */
 @media (max-width: 760px) {
-  .filterBlock > b,
-  .filterBlock > div > b { font-size: 14px !important; }
+  .filterBlock > b, .filterBlock > div > b { font-size: 14px !important; }
   .filterScroll { gap: 8px !important; margin-top: 10px !important; }
   .filterScroll button { padding: 11px 15px !important; font-size: 13px !important; min-height: 42px; }
   .catalogOptions label { gap: 8px !important; padding: 12px 13px !important; font-size: 13px !important; min-height: 44px; box-sizing: border-box; }

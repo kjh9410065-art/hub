@@ -1,0 +1,70 @@
+/* 모바일 카탈로그 최종 가독성 보정
+   기존 시각 정리 CSS보다 뒤에서 적용되어 작은 글씨와 버튼 대비 문제를 확실히 덮어씁니다. */
+@media (max-width: 760px) {
+  /* 기능/가격/태그 칩을 손가락으로 읽기 좋은 크기로 확대 */
+  .catalogPage .catalogFeatureRow span,
+  .catalogPage .catalogMeta span,
+  .catalogPage .catalogTags span {
+    padding: 7px 9px !important;
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+    border-radius: 8px !important;
+  }
+
+  /* 태그는 기능 칩보다 한 단계 작게, 그래도 충분히 읽히게 */
+  .catalogPage .catalogTags span {
+    font-size: 10px !important;
+    padding: 6px 9px !important;
+  }
+
+  /* 카드 하단 액션: 공식 사이트도 확실한 버튼처럼 보이게 */
+  .catalogPage .catalogActions {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    margin-top: 16px !important;
+  }
+
+  .catalogPage .catalogActions a,
+  .catalogPage .catalogActions button {
+    min-height: 44px !important;
+    padding: 11px 8px !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+    border-radius: 10px !important;
+  }
+
+  /* 비교하기는 두 버튼 아래 전체 폭으로 유지 */
+  .catalogPage .catalogActions button {
+    grid-column: 1 / -1 !important;
+    background: #f0edff !important;
+    color: #4f3ab5 !important;
+  }
+
+  /* 공식 사이트: 배경/글자 대비를 높여 눈에 띄게 */
+  html:not([data-theme="dark"]) .catalogPage .catalogActions a:last-child {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #eee9ff !important;
+    color: #4d36b3 !important;
+    min-height: 44px !important;
+  }
+
+  /* 태그와 버튼 사이 간격 확보 */
+  .catalogPage .catalogTags {
+    margin-top: 8px !important;
+    gap: 6px !important;
+  }
+
+  /* 제휴 버튼도 동일한 크기 체계를 사용 */
+  html:not([data-theme="dark"]) .catalogPage .catalogActions a.affiliateCatalogLink {
+    background: #6854d9 !important;
+    color: #fff !important;
+  }
+
+  /* 다크모드에서도 공식 사이트가 배경과 섞이지 않도록 명확한 대비 유지 */
+  html[data-theme="dark"] .catalogPage .catalogActions a:last-child {
+    background: #28242f !important;
+    color: #eeeaf3 !important;
+  }
+}

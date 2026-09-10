@@ -53,6 +53,7 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+    box-sizing: border-box !important;
   }
 
   .recommendPage .compareGo { min-width: 190px !important; }
@@ -101,5 +102,17 @@
     padding: 0 12px !important;
     border-radius: 10px !important;
     font-size: 10px !important;
+    box-sizing: border-box !important;
   }
+}
+
+/* 모든 하단 비교함의 보라색 '비교 화면 열기' 글자만 시각적 중앙으로 내립니다.
+   버튼 자체의 위치나 크기는 건드리지 않고 내부 텍스트 영역만 4px 위쪽 패딩으로 보정합니다. */
+.homePage .compareBarActions a,
+.recommendPage .compareBarActions .compareGo,
+.catalogPage .catalogCompareBar a {
+  padding-top: 4px !important;
+  padding-bottom: 0 !important;
+  box-sizing: border-box !important;
+  line-height: 1 !important;
 }

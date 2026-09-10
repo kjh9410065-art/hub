@@ -1,0 +1,124 @@
+/* HUB UI 가독성 최종 보정
+   흰색 필터 버튼은 배경과 분리되도록 테두리·그림자를 강화하고,
+   서비스 카드의 외부 사이트 버튼은 모든 카드에서 같은 형태로 통일합니다. */
+
+/* 공통 흰색 필터/옵션 버튼: 배경이 흰색이어도 버튼 영역이 확실히 보이게 합니다. */
+.catalogPage .filterScroll button,
+.homePage .recommendTabs button,
+.homePage .recommendTabs label,
+.homePage .recommendTabs a,
+.homePage .featureFilters button {
+  background:#fff !important;
+  border:1px solid #d8d5e0 !important;
+  box-shadow:0 3px 10px rgba(39,31,82,.06) !important;
+  color:#5f5c69 !important;
+  transition:border-color .18s,box-shadow .18s,transform .18s,background .18s !important;
+}
+
+.catalogPage .filterScroll button:hover,
+.homePage .recommendTabs button:hover,
+.homePage .recommendTabs label:hover,
+.homePage .recommendTabs a:hover,
+.homePage .featureFilters button:hover {
+  border-color:#b9afe5 !important;
+  box-shadow:0 5px 14px rgba(70,54,130,.10) !important;
+  transform:translateY(-1px) !important;
+}
+
+.catalogPage .filterScroll button.active,
+.homePage .recommendTabs button.active,
+.homePage .featureFilters button.active {
+  background:#7055e8 !important;
+  border-color:#7055e8 !important;
+  color:#fff !important;
+  box-shadow:0 7px 17px rgba(112,85,232,.22) !important;
+}
+
+.homePage .recommendTabs label:has(input:checked) {
+  background:#eeeaff !important;
+  border-color:#cfc5ff !important;
+  color:#6249db !important;
+}
+
+/* 카드의 '공식 사이트/서비스 시작하기' 외부 링크 버튼을 모든 카드에서 동일하게 통일합니다. */
+.catalogPage .catalogActions a {
+  height:42px !important;
+  min-height:42px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  box-sizing:border-box !important;
+  border:1.5px solid #7055e8 !important;
+  border-radius:10px !important;
+  background:#fff !important;
+  color:#6047d7 !important;
+  font-size:12px !important;
+  font-weight:900 !important;
+  text-decoration:none !important;
+  box-shadow:0 4px 12px rgba(90,69,170,.08) !important;
+  transition:background .18s,color .18s,border-color .18s,transform .18s,box-shadow .18s !important;
+}
+
+.catalogPage .catalogActions a:hover {
+  background:#f4f0ff !important;
+  border-color:#6047d7 !important;
+  color:#553bc9 !important;
+  transform:translateY(-1px) !important;
+  box-shadow:0 7px 16px rgba(90,69,170,.12) !important;
+}
+
+/* 제휴 카드도 버튼 위치·크기·모양은 동일하게 유지합니다. */
+.catalogPage .catalogActions a.affiliateCatalogLink {
+  border:1.5px solid #7055e8 !important;
+  background:#fff !important;
+  color:#6047d7 !important;
+}
+
+/* 다크모드에서도 동일한 계층 구조를 유지합니다. */
+html[data-theme="dark"] .catalogPage .filterScroll button,
+html[data-theme="dark"] .homePage .recommendTabs button,
+html[data-theme="dark"] .homePage .recommendTabs label,
+html[data-theme="dark"] .homePage .recommendTabs a,
+html[data-theme="dark"] .homePage .featureFilters button {
+  background:#211e29 !important;
+  border-color:#474252 !important;
+  color:#c5bfce !important;
+  box-shadow:0 3px 10px rgba(0,0,0,.18) !important;
+}
+
+html[data-theme="dark"] .catalogPage .filterScroll button.active,
+html[data-theme="dark"] .homePage .recommendTabs button.active,
+html[data-theme="dark"] .homePage .featureFilters button.active {
+  background:#7055e8 !important;
+  border-color:#7055e8 !important;
+  color:#fff !important;
+}
+
+html[data-theme="dark"] .homePage .recommendTabs label:has(input:checked) {
+  background:#30285a !important;
+  border-color:#5c4ab0 !important;
+  color:#c8bdff !important;
+}
+
+html[data-theme="dark"] .catalogPage .catalogActions a,
+html[data-theme="dark"] .catalogPage .catalogActions a.affiliateCatalogLink {
+  background:#211e29 !important;
+  border-color:#8573ef !important;
+  color:#c8bdff !important;
+}
+
+html[data-theme="dark"] .catalogPage .catalogActions a:hover {
+  background:#30285a !important;
+  border-color:#9b8bff !important;
+  color:#fff !important;
+}
+
+/* 좁은 화면에서도 외부 사이트 버튼의 터치 영역을 유지합니다. */
+@media(max-width:600px){
+  .catalogPage .catalogActions a {
+    min-height:40px !important;
+    height:40px !important;
+    font-size:11px !important;
+    border-radius:9px !important;
+  }
+}

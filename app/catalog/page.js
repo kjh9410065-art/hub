@@ -3,11 +3,10 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { catalog, categoryGroups, matchesCategory } from "../lib/catalog";
+import { catalog, catalogMap, categoryGroups, matchesCategory } from "../lib/catalog";
 import { getSearchSuggestions, rankSearchResults } from "../lib/search";
 import { getOutboundUrl, hasAffiliateLink, trackOutboundClick } from "../lib/affiliate-programs";
 import "./catalog.css";
-import "./compare-bar-size.css";
 import "./catalog-visual-cleanup.css";
 
 const filters = categoryGroups.map((group) => [group.id, group.label]);
@@ -117,6 +116,6 @@ export default function CatalogPage() {
       </div>}
       {list.length === 0 && <div className="emptyCatalog"><b>{query.trim() ? "검색 결과가 없습니다." : "조건에 맞는 서비스가 없습니다."}</b><p>{query.trim() ? "입력한 목적과 가까운 서비스를 대신 찾아봤어요." : "검색어 또는 필터를 바꿔보세요."}</p>{suggestions.length > 0 && <div className="searchSuggestions"><strong>이런 서비스를 찾아보세요</strong><div>{suggestions.map((service) => <Link key={service.id} href={`/services/${service.id}`} className="searchSuggestionCard"><img src={service.icon} alt=""/><span><b>{service.name}</b><small>{service.bestFor}</small></span><i aria-hidden="true">›</i></Link>)}</div></div>}<button type="button" onClick={resetFilters}>필터 초기화</button></div>}
     </section>
-    {compare.length > 0 && <div className="catalogCompareBar"><strong>비교함 {compare.length}/4</strong><span>{compare.map((id) => catalog.find((s) => s.id === id)?.name).filter(Boolean).join(" · ")}</span><Link href="/compare">비교 화면 열기</Link></div>}
+    {compare.length > 0 && <div className="compareBar"><div className="compareBarInfo"><div className="compareBarTitle"><strong>비교함</strong><span>{compare.length}/4개 선택</span></div><div className="compareBarHint">{compare.length < 4 ? "서비스를 더 추가해 비교해보세요!" : "선택한 서비스를 비교해보세요."}</div><div className="compareSelectedIcons" aria-label="선택한 서비스">{compare.map((id) => <span className="compareSelectedIcon" key={id} title={catalogMap[id]?.name}><img src={catalogMap[id]?.icon} alt={catalogMap[id]?.name || ""}/></span>)}{compare.length < 4 && <span className="compareSelectedIcon compareAddIcon" aria-hidden="true">+</span>}</div></div><div className="compareBarActions"><button type="button" className="compareReset" onClick={() => setCompare([])}>전체 해제</button><Link className="compareGo" href="/compare">비교 화면 열기</Link></div></div>}
   </main>;
 }

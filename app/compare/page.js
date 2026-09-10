@@ -13,7 +13,6 @@ const rows = [["category", "분류"], ["price", "비용 부담"], ["free", "무�
 const featureLabels = { image: "이미지", video: "영상", voice: "음성", search: "검색", api: "API" };
 
 function featureValue(service, key) {
-  // 기능은 features와 uses 중 한쪽에만 정의되어 있어도 지원으로 표시합니다.
   if (["image", "video", "voice", "search"].includes(key)) return service.features?.[key] || service.uses?.includes(key) ? "지원" : "미지원";
   if (key === "free") return service.free ? "가능" : "없음";
   if (key === "api") return service.api ? "제공" : "확인 필요";
@@ -22,19 +21,14 @@ function featureValue(service, key) {
 }
 
 function getSupportedFeatures(service) {
-  // 비교 카드에서 실제로 지원하는 기능을 짧은 배지로 보여줍니다.
   return Object.entries(featureLabels).filter(([key]) => key === "api" ? service.api : Boolean(service.features?.[key] || service.uses?.includes(key))).map(([, label]) => label);
 }
 
 function findWinner(services, predicate) {
-  // 조건을 만족하는 서비스가 실제로 있을 때만 1위로 표시합니다.
-  // 후보가 없으면 전체 1위를 억지로 승자로 표시하지 않아 잘못된 안내를 막습니다.
   return services.filter(predicate).sort((a, b) => b.score - a.score)[0] || null;
 }
 
 function getStarRating(score) {
-  // 5점은 매우 높은 추천 결과에서만 나오도록 기준을 보수적으로 잡습니다.
-  // 내부 추천 점수는 그대로 두고, 사용자에게 보여주는 별점만 0~5점/0.5점 단위로 변환합니다.
   const normalized = Math.max(0, Math.min(5, Number(score || 0) / 11));
   return Math.round(normalized * 2) / 2;
 }
@@ -43,11 +37,9 @@ function StarRating({ score, size = "normal" }) {
   const rating = getStarRating(score);
   const stars = Array.from({ length: 5 }, (_, index) => {
     const value = index + 1;
-    // 'empty' 클래스는 전역 다크모드 규칙과 충돌할 수 있어 별 전용 이름을 사용합니다.
     const type = rating >= value ? "filled" : rating >= value - 0.5 ? "half" : "emptyStar";
     return <span className={`ratingStar ${type}`} key={value} aria-hidden="true">★</span>;
   });
-
   return <div className={`starRating ${size}`} role="img" aria-label={`HUB 추천 별점 ${rating.toFixed(1)}점 / 5점`}>{stars}</div>;
 }
 
@@ -71,10 +63,7 @@ export default function Compare() {
   const ranked = useMemo(() => {
     if (!selected.length) return [];
     const services = selected.map((id) => catalogMap[id]).filter(Boolean);
-    const scored = rankServices(services, { goal, budget: "any", skill: "any", feature: "all" });
-
-    // 내부 추천 엔진의 원점수는 계산에만 사용하고 화면에는 별점으로 변환해 보여줍니다.
-    return scored.map((item) => ({
+    return rankServices(services, { goal, budget: "any", skill: "any", feature: "all" }).map((item) => ({
       ...item.service,
       score: item.score,
       reasons: item.reasons || [],
@@ -86,9 +75,9 @@ export default function Compare() {
     const top = ranked[0];
     return [
       { key: "goal", label: "목적 적합도", description: "현재 선택한 제작 목적을 기준으로 주요 기능, 추천 용도, API 지원 여부 등을 종합해 가장 높은 HUB 기준 추천 결과를 받은 서비스입니다.", service: top },
-      { key: "free", label: "무료 시작", description: "무료로 시작할 수 있는 후보만 놓고 비교했을 때 현재 목적에 가장 잘 맞는 서비스입니다. 무료 범위와 실제 사용 조건은 서비스 정책에 따라 달라질 수 있습니다.", service: findWinner(ranked, (item) => item.free) },
-      { key: "api", label: "API 활용", description: "API를 제공하는 후보 중 현재 목적에 대한 적합도가 가장 높은 서비스입니다. 자동화나 직접 연동이 필요한 경우 특히 확인할 가치가 있습니다.", service: findWinner(ranked, (item) => item.api) },
-      { key: "easy", label: "쉬운 시작", description: "사용 난이도가 '쉬움'으로 분류된 후보 중 현재 목적 점수가 가장 높은 서비스입니다. 처음 사용하는 경우 설정 부담을 줄이는 데 초점을 둔 결과입니다.", service: findWinner(ranked, (item) => item.difficulty === "쉬움") }
+      { key: "free", label: "무료 시작", description: "무료로 시작할 수 있는 후보만 놓고 비교했을 때 현재 목적에 가장 잘 맞는 서비스입니다.", service: findWinner(ranked, (item) => item.free) },
+      { key: "api", label: "API 활용", description: "API를 제공하는 후보 중 현재 목적에 대한 적합도가 가장 높은 서비스입니다.", service: findWinner(ranked, (item) => item.api) },
+      { key: "easy", label: "쉬운 시작", description: "사용 난이도가 '쉬움'으로 분류된 후보 중 현재 목적 점수가 가장 높은 서비스입니다.", service: findWinner(ranked, (item) => item.difficulty === "쉬움") }
     ];
   }, [ranked]);
 
@@ -132,19 +121,25 @@ export default function Compare() {
         <div className="compareGoalTabs" role="tablist" aria-label="비교 목적">{goals.map(([id, label]) => <button type="button" key={id} className={goal === id ? "active" : ""} onClick={() => setGoal(id)} aria-selected={goal === id}>{label}</button>)}</div>
       </div>
 
-      {!selected.length ? <section className="compareStartState" aria-label="비교할 서비스 선택">
-        <div className="compareStartHeading"><span>현재 목적에 맞는 후보</span><strong>비교하고 싶은 서비스를 골라주세요</strong><p>최대 4개까지 선택할 수 있습니다. 아직 선택하지 않았다면 임의의 서비스를 비교하지 않습니다.</p></div>
+      {/* 선택 후에도 후보 목록을 유지해 다른 서비스를 계속 비교에 추가할 수 있게 합니다. */}
+      <section className="compareStartState" aria-label="비교할 서비스 선택">
+        <div className="compareStartHeading"><span>현재 목적에 맞는 후보</span><strong>{selected.length ? "서비스를 더 추가해 비교하세요" : "비교하고 싶은 서비스를 골라주세요"}</strong><p>최대 4개까지 선택할 수 있습니다. 선택한 서비스는 아래 비교 결과에 함께 표시됩니다.</p></div>
         <div className="compareCandidateGrid">
-          {candidates.map((service, index) => <article className={`compareCandidate ${index === 0 ? "recommended" : ""}`} key={service.id}>
-            <div className="compareCandidateTop"><div className="compareCandidateIcon"><img src={service.icon} alt="" /></div><div><strong>{service.name}</strong><small>{service.category}</small></div>{index === 0 && <span>목적 추천 1위</span>}</div>
-            <b>{service.bestFor}</b>
-            <p>{service.reasons?.slice(0, 3).join(" · ") || "현재 선택한 목적과 주요 기능을 기준으로 추천된 후보입니다."}</p>
-            <div className="compareCandidateMeta"><span>비용 {service.price}</span><span>{service.free ? "무료 시작 가능" : "무료 시작 없음"}</span>{service.api && <span>API 제공</span>}</div>
-            <button type="button" onClick={() => addCompare(service.id)}>비교에 추가</button>
-          </article>)}
+          {candidates.map((service, index) => {
+            const isSelected = selected.includes(service.id);
+            return <article className={`compareCandidate ${index === 0 ? "recommended" : ""} ${isSelected ? "selected" : ""}`} key={service.id}>
+              <div className="compareCandidateTop"><div className="compareCandidateIcon"><img src={service.icon} alt="" /></div><div><strong>{service.name}</strong><small>{service.category}</small></div>{index === 0 && <span>목적 추천 1위</span>}</div>
+              <b>{service.bestFor}</b>
+              <p>{service.reasons?.slice(0, 3).join(" · ") || "현재 선택한 목적과 주요 기능을 기준으로 추천된 후보입니다."}</p>
+              <div className="compareCandidateMeta"><span>비용 {service.price}</span><span>{service.free ? "무료 시작 가능" : "무료 시작 없음"}</span>{service.api && <span>API 제공</span>}</div>
+              <button type="button" onClick={() => addCompare(service.id)} disabled={isSelected || selected.length >= 4}>{isSelected ? "비교 선택됨" : selected.length >= 4 ? "최대 4개 선택" : "비교에 추가"}</button>
+            </article>;
+          })}
         </div>
         <div className="compareStartActions"><Link href={`/recommend?goal=${goal}`}>조건까지 반영해서 추천받기</Link><Link href="/catalog">전체 서비스에서 찾기</Link></div>
-      </section> : <>
+      </section>
+
+      {selected.length > 0 && <>
         <div className="compareToolbar">
           <div><b>{ranked.length}개 서비스 비교</b><span>{ranked.map((service) => service.name).join(" · ")}</span></div>
           <div className="toolbarActions"><Link href={`/recommend?goal=${goal}`}>서비스 더 고르기</Link><button type="button" onClick={clear}>전체 해제</button></div>
@@ -165,9 +160,7 @@ export default function Compare() {
             <span>추천 이유</span>
             <strong>{ranked[0] ? `왜 ${ranked[0].name}이(가) 1위인가요?` : "추천 이유"}</strong>
             <p>{ranked[0]?.reasons?.slice(0, 3).join(" ") || "서비스를 선택하면 목적별 비교 이유가 표시됩니다."}</p>
-            <ul>
-              {(ranked[0]?.reasons?.slice(0, 3) || ["선택한 목적에 맞는 기능과 활용도를 종합했습니다.", "비교 대상의 주요 조건을 함께 반영했습니다."]).map((reason, index) => <li key={`${reason}-${index}`}>{reason}</li>)}
-            </ul>
+            <ul>{(ranked[0]?.reasons?.slice(0, 3) || ["선택한 목적에 맞는 기능과 활용도를 종합했습니다.", "비교 대상의 주요 조건을 함께 반영했습니다."]).map((reason, index) => <li key={`${reason}-${index}`}>{reason}</li>)}</ul>
           </div>
           <div className="compareWinnerActions">
             {ranked[0] && <Link href={`/services/${ranked[0].id}`}>상세 정보 보기 <span>→</span></Link>}
@@ -188,15 +181,13 @@ export default function Compare() {
         </section>
 
         <section className="comparisonSnapshot" aria-label="비교 핵심 요약">
-          <div className="snapshotIntro"><span>QUICK SNAPSHOT</span><strong>4개 서비스를 한눈에 비교</strong><p>점수보다 실제 조건과 기능 차이를 먼저 확인하세요.</p></div>
-          <div className="snapshotGrid">
-            {ranked.map((service, index) => <article className={index === 0 ? "snapshotCard winner" : "snapshotCard"} key={service.id}>
-              <div className="snapshotTop"><img src={service.icon} alt="" /><div><strong>{service.name}</strong><small>{service.category}</small></div><StarRating score={service.score} /></div>
-              <div className="snapshotBadges"><span>{service.price}</span><span>{service.free ? "무료 시작" : "유료 시작"}</span><span>{service.api ? "API" : "API 없음"}</span></div>
-              <div className="snapshotFeatures">{service.supportedFeatures.length ? service.supportedFeatures.map((feature) => <span key={feature}>{feature}</span>) : <span>주요 기능 정보 확인 필요</span>}</div>
-              <p>{service.reasons?.slice(0, 3).join(" · ") || service.bestFor}</p>
-            </article>)}
-          </div>
+          <div className="snapshotIntro"><span>QUICK SNAPSHOT</span><strong>선택한 서비스를 한눈에 비교</strong><p>점수보다 실제 조건과 기능 차이를 먼저 확인하세요.</p></div>
+          <div className="snapshotGrid">{ranked.map((service, index) => <article className={index === 0 ? "snapshotCard winner" : "snapshotCard"} key={service.id}>
+            <div className="snapshotTop"><img src={service.icon} alt="" /><div><strong>{service.name}</strong><small>{service.category}</small></div><StarRating score={service.score} /></div>
+            <div className="snapshotBadges"><span>{service.price}</span><span>{service.free ? "무료 시작" : "유료 시작"}</span><span>{service.api ? "API" : "API 없음"}</span></div>
+            <div className="snapshotFeatures">{service.supportedFeatures.length ? service.supportedFeatures.map((feature) => <span key={feature}>{feature}</span>) : <span>주요 기능 정보 확인 필요</span>}</div>
+            <p>{service.reasons?.slice(0, 3).join(" · ") || service.bestFor}</p>
+          </article>)}</div>
         </section>
 
         <div className="compareDesktop">
@@ -205,16 +196,14 @@ export default function Compare() {
           {rows.map(([key, label]) => <div className="compareMatrixRow" key={key}><div className="matrixLabel">{label}</div>{ranked.map((service) => <div key={service.id} className={key === "bestFor" ? "matrixStrong" : ""}>{featureValue(service, key)}</div>)}</div>)}
         </div>
 
-        <div className="compareMobile">
-          {ranked.map((service, index) => <article className={`mobileCompareCard ${index === 0 ? "featured" : ""}`} key={service.id}>
-            <header><div className="mobileServiceIcon"><img src={service.icon} alt="" /></div><div><strong>{service.name}</strong><small>{service.category}</small></div><button type="button" onClick={() => remove(service.id)} aria-label={`${service.name} 제거`}>제거</button></header>
-            <div className="mobileScore"><span>{index === 0 ? "현재 목적 추천 1위" : "HUB 추천 별점"}</span><StarRating score={service.score} size="large" /></div>
-            <div className="mobileSnapshotBadges">{service.supportedFeatures.map((feature) => <span key={feature}>{feature}</span>)}<span>{service.api ? "API 제공" : "API 없음"}</span><span>{service.free ? "무료 시작" : "유료 시작"}</span></div>
-            <p className="mobileCompareReason">{service.reasons?.slice(0, 3).join(" · ") || "현재 목적과 주요 기능을 기준으로 비교했습니다."}</p>
-            <dl>{rows.slice(0, 9).map(([key, label]) => <div key={key}><dt>{label}</dt><dd>{featureValue(service, key)}</dd></div>)}</dl>
-            <Link href={`/services/${service.id}`}>상세 정보 보기</Link>
-          </article>)}
-        </div>
+        <div className="compareMobile">{ranked.map((service, index) => <article className={`mobileCompareCard ${index === 0 ? "featured" : ""}`} key={service.id}>
+          <header><div className="mobileServiceIcon"><img src={service.icon} alt="" /></div><div><strong>{service.name}</strong><small>{service.category}</small></div><button type="button" onClick={() => remove(service.id)} aria-label={`${service.name} 제거`}>제거</button></header>
+          <div className="mobileScore"><span>{index === 0 ? "현재 목적 추천 1위" : "HUB 추천 별점"}</span><StarRating score={service.score} size="large" /></div>
+          <div className="mobileSnapshotBadges">{service.supportedFeatures.map((feature) => <span key={feature}>{feature}</span>)}<span>{service.api ? "API 제공" : "API 없음"}</span><span>{service.free ? "무료 시작" : "유료 시작"}</span></div>
+          <p className="mobileCompareReason">{service.reasons?.slice(0, 3).join(" · ") || "현재 목적과 주요 기능을 기준으로 비교했습니다."}</p>
+          <dl>{rows.slice(0, 9).map(([key, label]) => <div key={key}><dt>{label}</dt><dd>{featureValue(service, key)}</dd></div>)}</dl>
+          <Link href={`/services/${service.id}`}>상세 정보 보기</Link>
+        </article>)}</div>
 
         <Link className="primaryLink compareBottomLink" href={`/recommend?goal=${goal}`}>내 조건으로 다시 추천받기</Link>
       </>}

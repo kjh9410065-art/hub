@@ -1,70 +1,123 @@
-/* 홈·추천·카탈로그에서 나타나는 모든 하단 비교함의 크기와 위치를 하나의 규칙으로 통일합니다. */
-@media (min-width: 761px) {
-  .homePage .compareBar,
-  .recommendPage .compareBar,
-  .catalogPage .catalogCompareBar {
-    position: fixed !important;
-    left: 50% !important;
-    right: auto !important;
-    bottom: 24px !important;
-    transform: translateX(-50%) !important;
-    width: min(1240px, calc(100% - 48px)) !important;
-    max-width: 1240px !important;
-    min-width: 0 !important;
-    min-height: 128px !important;
-    padding: 24px 30px !important;
-    box-sizing: border-box !important;
-    z-index: 100 !important;
-    border-radius: 24px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 28px !important;
-  }
-
-  .homePage .compareBar strong,
-  .recommendPage .compareBarTitle strong,
-  .catalogPage .catalogCompareBar strong {
-    font-size: 26px !important;
-    line-height: 1.2 !important;
-  }
-
-  .homePage .compareBar span,
-  .recommendPage .compareBarTitle span,
-  .catalogPage .catalogCompareBar span {
-    font-size: 16px !important;
-  }
-
-  .homePage .compareBarActions,
-  .recommendPage .compareBarActions {
-    gap: 12px !important;
-  }
-
-  .homePage .compareBarActions button,
-  .homePage .compareBarActions a,
-  .recommendPage .compareReset,
-  .recommendPage .compareGo,
-  .catalogPage .catalogCompareBar a {
-    min-height: 56px !important;
-    padding: 0 24px !important;
-    border-radius: 14px !important;
-    font-size: 15px !important;
-    font-weight: 900 !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-sizing: border-box !important;
-  }
-
-  .recommendPage .compareGo { min-width: 190px !important; }
+/* 모든 페이지의 하단 비교함은 이 파일의 한 가지 구조와 크기만 사용합니다. */
+.compareBar {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: 24px !important;
+  transform: translateX(-50%) !important;
+  width: min(1240px, calc(100% - 48px)) !important;
+  max-width: 1240px !important;
+  min-width: 0 !important;
+  min-height: 128px !important;
+  padding: 24px 30px !important;
+  box-sizing: border-box !important;
+  z-index: 100 !important;
+  border-radius: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 28px !important;
 }
 
-/* 모바일에서도 세 화면의 고정 비교함 외곽 크기를 동일하게 맞춥니다. */
+/* 왼쪽 정보 영역은 모든 페이지에서 동일한 폭과 정렬 체계를 사용합니다. */
+.compareBarInfo {
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+.compareBarTitle {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 12px !important;
+}
+
+.compareBarTitle strong,
+.compareBar > div:first-child > strong {
+  font-size: 26px !important;
+  line-height: 1.2 !important;
+  font-weight: 900 !important;
+}
+
+.compareBarTitle span,
+.compareBar > div:first-child > span {
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+}
+
+.compareBarHint {
+  font-size: 14px !important;
+  line-height: 1.35 !important;
+}
+
+/* 선택된 서비스 아이콘은 같은 크기와 간격으로 표시합니다. */
+.compareSelectedIcons {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  min-height: 28px !important;
+}
+
+.compareSelectedIcon {
+  width: 28px !important;
+  height: 28px !important;
+  flex: 0 0 28px !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+.compareSelectedIcon img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+}
+
+.compareAddIcon {
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+
+/* 오른쪽 버튼 영역도 모든 페이지에서 동일하게 유지합니다. */
+.compareBarActions {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 12px !important;
+}
+
+.compareBarActions button,
+.compareBarActions a {
+  height: 56px !important;
+  min-height: 56px !important;
+  padding: 0 24px !important;
+  border-radius: 14px !important;
+  font-size: 15px !important;
+  line-height: 1.2 !important;
+  font-weight: 900 !important;
+  display: grid !important;
+  place-items: center !important;
+  align-self: center !important;
+  box-sizing: border-box !important;
+  transform: none !important;
+}
+
+.compareReset {
+  min-width: 120px !important;
+}
+
+.compareGo {
+  min-width: 190px !important;
+}
+
+/* 모바일에서는 세 페이지 모두 같은 외곽 크기와 버튼 배치를 사용합니다. */
 @media (max-width: 760px) {
-  .homePage .compareBar,
-  .recommendPage .compareBar,
-  .catalogPage .catalogCompareBar {
-    position: fixed !important;
+  .compareBar {
     left: 12px !important;
     right: 12px !important;
     bottom: 10px !important;
@@ -72,63 +125,87 @@
     width: auto !important;
     max-width: none !important;
     min-width: 0 !important;
-    min-height: 72px !important;
+    min-height: 92px !important;
     padding: 12px 14px !important;
-    box-sizing: border-box !important;
-    z-index: 100 !important;
-    border-radius: 16px !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 10px !important;
+    border-radius: 18px !important;
+    gap: 12px !important;
   }
 
-  .homePage .compareBar strong,
-  .recommendPage .compareBarTitle strong,
-  .catalogPage .catalogCompareBar strong { font-size: 15px !important; }
+  .compareBarInfo {
+    gap: 4px !important;
+  }
 
-  .homePage .compareBar span,
-  .recommendPage .compareBarTitle span,
-  .catalogPage .catalogCompareBar span { font-size: 11px !important; }
+  .compareBarTitle {
+    gap: 8px !important;
+  }
 
-  .homePage .compareBarActions,
-  .recommendPage .compareBarActions { gap: 7px !important; }
+  .compareBarTitle strong,
+  .compareBar > div:first-child > strong {
+    font-size: 18px !important;
+  }
 
-  .homePage .compareBarActions button,
-  .homePage .compareBarActions a,
-  .recommendPage .compareReset,
-  .recommendPage .compareGo,
-  .catalogPage .catalogCompareBar a {
-    min-height: 40px !important;
-    padding: 0 12px !important;
-    border-radius: 10px !important;
-    font-size: 10px !important;
-    box-sizing: border-box !important;
+  .compareBarTitle span,
+  .compareBar > div:first-child > span {
+    font-size: 13px !important;
+  }
+
+  .compareBarHint {
+    font-size: 11px !important;
+  }
+
+  .compareSelectedIcons {
+    gap: 4px !important;
+    min-height: 22px !important;
+  }
+
+  .compareSelectedIcon {
+    width: 22px !important;
+    height: 22px !important;
+    flex-basis: 22px !important;
+    border-radius: 6px !important;
+  }
+
+  .compareBarActions {
+    gap: 7px !important;
+  }
+
+  .compareBarActions button,
+  .compareBarActions a {
+    height: 48px !important;
+    min-height: 48px !important;
+    padding: 0 14px !important;
+    border-radius: 12px !important;
+    font-size: 12px !important;
+  }
+
+  .compareReset {
+    min-width: 88px !important;
+  }
+
+  .compareGo {
+    min-width: 132px !important;
   }
 }
 
-/* 하단 비교함의 '비교 화면 열기' 링크 자체를 고정 높이의 중앙 정렬 상자로 만듭니다.
-   기존 패딩·베이스라인 보정 때문에 글자가 위에 붙는 현상을 차단합니다. */
-.homePage .compareBarActions a,
-.recommendPage .compareBarActions .compareGo,
-.catalogPage .catalogCompareBar a {
-  display: grid !important;
-  place-items: center !important;
-  align-self: center !important;
-  height: 56px !important;
-  min-height: 56px !important;
-  padding: 0 24px !important;
-  line-height: 1.2 !important;
-  transform: none !important;
-  box-sizing: border-box !important;
-}
-
-@media (max-width: 760px) {
-  .homePage .compareBarActions a,
-  .recommendPage .compareBarActions .compareGo,
-  .catalogPage .catalogCompareBar a {
-    height: 40px !important;
-    min-height: 40px !important;
-    padding: 0 12px !important;
-    line-height: 1.2 !important;
+/* 380px 이하에서도 버튼이 밀리지 않도록 최소 폭을 조금 줄입니다. */
+@media (max-width: 380px) {
+  .compareBar {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    gap: 8px !important;
   }
+
+  .compareBarActions {
+    gap: 5px !important;
+  }
+
+  .compareBarActions button,
+  .compareBarActions a {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    font-size: 11px !important;
+  }
+
+  .compareReset { min-width: 76px !important; }
+  .compareGo { min-width: 118px !important; }
 }

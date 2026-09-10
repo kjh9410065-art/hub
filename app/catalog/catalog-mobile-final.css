@@ -1,4 +1,4 @@
-/* 모바일 카탈로그: 아이콘 52px + 태그 3px 이동 + 액션은 왼쪽 정렬, 하트는 비교하기 오른쪽 빈칸 */
+/* 모바일 카탈로그: 아이콘 52px + 태그 3px 이동 + 액션 버튼을 왼쪽 한 줄로 정렬 */
 @media (max-width:760px){
   .catalogPage .catalogCard{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr)!important;grid-template-areas:"rank rank" "identity features" "identity meta" "identity tags" "actions actions"!important;column-gap:8px!important;row-gap:0!important;padding:16px!important;box-sizing:border-box!important}
   .catalogPage .catalogRankLine{grid-area:rank!important;margin-bottom:8px!important}
@@ -11,15 +11,21 @@
   .catalogPage .catalogMeta{grid-area:meta!important;align-content:start!important;margin:4px 0 0!important;gap:5px!important;min-width:0!important}
   .catalogPage .catalogTags{grid-area:tags!important;align-content:start!important;margin:4px 0 0 3px!important;gap:5px!important;min-width:0!important}
   .catalogPage .catalogFeatureRow span,.catalogPage .catalogMeta span,.catalogPage .catalogTags span{padding:5px 7px!important;font-size:8px!important;line-height:1.15!important;white-space:nowrap!important}
-  /* 세 버튼은 왼쪽에 붙이고, 하트는 비교하기 바로 오른쪽의 남는 칸에 둡니다. */
-  .catalogPage .catalogActions{grid-area:actions!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr)) 40px!important;width:100%!important;margin:9px 0 0!important;gap:7px!important;align-items:stretch!important;justify-content:start!important}
-  .catalogPage .catalogActions a,.catalogPage .catalogActions button:not(.catalogFavorite){height:40px!important;min-height:40px!important;padding:0 8px!important;font-size:10px!important;line-height:1!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important}
+
+  /* 액션 영역: 자세히 보기 → 공식 사이트 → 비교하기 → 하트를 한 줄로 배치합니다. */
+  .catalogPage .catalogActions{grid-area:actions!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 40px!important;width:100%!important;margin:9px 0 0!important;gap:7px!important;align-items:stretch!important}
+  .catalogPage .catalogActions a,.catalogPage .catalogActions button{min-height:40px!important;height:40px!important;padding:0 8px!important;font-size:10px!important;line-height:1!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important}
+
+  /* 기본 CSS의 grid-column:1/-1을 덮어써서 '비교하기'도 왼쪽 3번째 칸에 놓습니다. */
+  .catalogPage .catalogActions button:not(.catalogFavorite){grid-column:auto!important;grid-row:1!important}
+
+  /* 네가 표시한 오른쪽 빈 칸: 비교하기 바로 오른쪽에 하트를 둡니다. */
   .catalogPage .catalogActions .catalogFavorite{position:static!important;grid-column:4!important;grid-row:1!important;width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;margin:0!important;padding:0!important;transform:none!important;border:1.5px solid #ddd6e5!important;border-radius:10px!important;background:#fff!important;color:#ef233c!important;font-size:23px!important;line-height:1!important;display:flex!important;align-items:center!important;justify-content:center!important;justify-self:stretch!important;align-self:stretch!important}
   .catalogPage .catalogActions .catalogFavorite.active{background:#fff1f2!important;border-color:#fecdd3!important;color:#ef233c!important}
 }
 @media (max-width:390px){
   .catalogPage .catalogCard{grid-template-columns:minmax(0,1fr) minmax(0,1.06fr)!important;column-gap:7px!important;padding:15px!important}
-  .catalogPage .catalogActions{grid-template-columns:repeat(3,minmax(0,1fr)) 36px!important;gap:6px!important;justify-content:start!important}
+  .catalogPage .catalogActions{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 36px!important;gap:6px!important}
   .catalogPage .catalogActions .catalogFavorite{width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;font-size:22px!important}
   .catalogPage .catalogActions a,.catalogPage .catalogActions button:not(.catalogFavorite){height:36px!important;min-height:36px!important}
 }

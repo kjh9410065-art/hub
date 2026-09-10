@@ -12,18 +12,23 @@
   .catalogPage .catalogTags{grid-area:tags!important;align-content:start!important;margin:4px 0 0 3px!important;gap:5px!important;min-width:0!important}
   .catalogPage .catalogFeatureRow span,.catalogPage .catalogMeta span,.catalogPage .catalogTags span{padding:5px 7px!important;font-size:8px!important;line-height:1.15!important;white-space:nowrap!important}
 
-  /* 액션 영역은 정확히: 자세히 보기 → 공식 사이트 → 비교하기 → 하트 순서로 고정합니다. */
+  /* 액션 영역은 JSX 순서 그대로: 자세히 보기 → 공식 사이트 → 비교하기 → 하트 */
   .catalogPage .catalogActions{grid-area:actions!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 40px!important;width:100%!important;margin:9px 0 0!important;gap:7px!important;align-items:stretch!important}
   .catalogPage .catalogActions a,.catalogPage .catalogActions button{min-height:40px!important;height:40px!important;padding:0 8px!important;font-size:10px!important;line-height:1!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important}
-  .catalogPage .catalogActions a:first-child{grid-column:1!important;grid-row:1!important}
-  .catalogPage .catalogActions a:nth-of-type(2){grid-column:2!important;grid-row:1!important}
-  .catalogPage .catalogActions button:not(.catalogFavorite){grid-column:3!important;grid-row:1!important}
-  .catalogPage .catalogActions .catalogFavorite{position:static!important;grid-column:4!important;grid-row:1!important;width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;margin:0!important;padding:0!important;transform:none!important;border:1.5px solid #ddd6e5!important;border-radius:10px!important;background:#fff!important;color:#ef233c!important;font-size:23px!important;line-height:1!important;display:flex!important;align-items:center!important;justify-content:center!important;justify-self:stretch!important;align-self:stretch!important}
+
+  /* 기존 CSS의 grid-column 규칙을 완전히 덮어써서 각 요소의 위치를 고정합니다. */
+  .catalogPage .catalogActions > a:first-child{grid-column:1!important;grid-row:1!important}
+  .catalogPage .catalogActions > a:nth-child(2){grid-column:2!important;grid-row:1!important}
+  .catalogPage .catalogActions > button:not(.catalogFavorite){grid-column:3!important;grid-row:1!important}
+  .catalogPage .catalogActions > .catalogFavorite{grid-column:4!important;grid-row:1!important}
+
+  /* 비교하기 바로 오른쪽의 네 번째 칸에 빨간 하트를 배치합니다. */
+  .catalogPage .catalogActions .catalogFavorite{position:static!important;width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;margin:0!important;padding:0!important;transform:none!important;border:1.5px solid #ddd6e5!important;border-radius:10px!important;background:#fff!important;color:#ef233c!important;font-size:23px!important;line-height:1!important;display:flex!important;align-items:center!important;justify-content:center!important;justify-self:stretch!important;align-self:stretch!important}
   .catalogPage .catalogActions .catalogFavorite.active{background:#fff1f2!important;border-color:#fecdd3!important;color:#ef233c!important}
 }
 @media (max-width:390px){
   .catalogPage .catalogCard{grid-template-columns:minmax(0,1fr) minmax(0,1.06fr)!important;column-gap:7px!important;padding:15px!important}
   .catalogPage .catalogActions{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 36px!important;gap:6px!important}
-  .catalogPage .catalogActions .catalogFavorite{width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;font-size:22px!important}
-  .catalogPage .catalogActions a,.catalogPage .catalogActions button:not(.catalogFavorite){height:36px!important;min-height:36px!important}
+  .catalogPage .catalogActions > .catalogFavorite{width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;font-size:22px!important}
+  .catalogPage .catalogActions > a,.catalogPage .catalogActions > button:not(.catalogFavorite){height:36px!important;min-height:36px!important}
 }

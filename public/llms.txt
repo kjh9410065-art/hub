@@ -1,0 +1,31 @@
+# HUB
+
+HUB is an AI service discovery and comparison site.
+
+## Main pages
+
+- Home: https://hub.carpick.workers.dev/
+- Recommendation: https://hub.carpick.workers.dev/recommend
+- Catalog: https://hub.carpick.workers.dev/catalog
+- Compare: https://hub.carpick.workers.dev/compare
+- Guides: https://hub.carpick.workers.dev/guides
+- Tools: https://hub.carpick.workers.dev/tools
+
+## Service directory
+
+Service detail pages are available under:
+https://hub.carpick.workers.dev/services/
+
+## Guides
+
+- AI image generation: https://hub.carpick.workers.dev/guides/ai-image-generator
+- AI video generation: https://hub.carpick.workers.dev/guides/ai-video-generator
+- AI voice generation: https://hub.carpick.workers.dev/guides/ai-voice-generator
+- AI chatbot API: https://hub.carpick.workers.dev/guides/ai-chatbot-api
+- AI tools for Shorts: https://hub.carpick.workers.dev/guides/ai-tools-for-shorts
+- Free AI tools: https://hub.carpick.workers.dev/guides/free-ai-tools
+
+## Machine-readable discovery
+
+- Sitemap: https://hub.carpick.workers.dev/sitemap.xml
+- Robots: https://hub.carpick.workers.dev/robots.txt

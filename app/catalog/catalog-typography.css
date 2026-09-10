@@ -1,120 +1,27 @@
 /* 모바일 카탈로그 가독성 보정
    작은 화면에서도 필터·서비스 정보·버튼을 한눈에 읽을 수 있도록 글자 크기를 키웁니다. */
 @media (max-width: 760px) {
-  /* 상단 분류/기능 필터 */
   .filterBlock > b,
-  .filterBlock > div > b {
-    font-size: 14px !important;
-  }
-
-  .filterScroll {
-    gap: 8px !important;
-    margin-top: 10px !important;
-  }
-
-  .filterScroll button {
-    padding: 11px 15px !important;
-    font-size: 13px !important;
-    min-height: 42px;
-  }
-
-  /* 무료 시작 / API 제공 / 정렬 */
-  .catalogOptions label {
-    gap: 8px !important;
-    padding: 12px 13px !important;
-    font-size: 13px !important;
-    min-height: 44px;
-    box-sizing: border-box;
-  }
-
-  .catalogOptions select {
-    padding: 12px 30px 12px 12px !important;
-    font-size: 13px !important;
-    min-height: 44px;
-  }
-
-  /* 현재 필터와 결과 수 */
-  .catalogState {
-    gap: 7px !important;
-    min-height: 40px !important;
-  }
-
-  .catalogState span {
-    padding: 7px 10px !important;
-    font-size: 11px !important;
-  }
-
-  .catalogState b,
-  .catalogState button {
-    font-size: 12px !important;
-  }
-
-  /* 서비스 카드 */
-  .catalogRankLine {
-    font-size: 10px !important;
-    margin-bottom: 12px !important;
-  }
-
-  .catalogTop strong {
-    font-size: 20px !important;
-    line-height: 1.3 !important;
-  }
-
-  .catalogTop small {
-    font-size: 12px !important;
-    line-height: 1.5 !important;
-  }
-
-  .catalogFavorite {
-    padding: 9px 10px !important;
-    font-size: 10px !important;
-  }
-
-  .catalogFeatureRow span {
-    padding: 7px 9px !important;
-    font-size: 10px !important;
-  }
-
-  .catalogMeta span {
-    padding: 7px 9px !important;
-    font-size: 10px !important;
-  }
-
-  .catalogTags span {
-    padding: 6px 8px !important;
-    font-size: 10px !important;
-  }
-
-  /* 자세히 보기 / 공식 사이트 / 비교하기 */
-  .catalogActions a,
-  .catalogActions button {
-    padding: 11px 9px !important;
-    min-height: 44px !important;
-    font-size: 12px !important;
-  }
-
-  .affiliateCatalogDisclosure {
-    font-size: 9px !important;
-  }
-
-  /* 검색 결과가 없을 때도 본문 글자를 작게 만들지 않습니다. */
-  .emptyCatalog b {
-    font-size: 16px !important;
-  }
-
-  .emptyCatalog p {
-    font-size: 12px !important;
-  }
-
-  .searchSuggestions > strong {
-    font-size: 13px !important;
-  }
-
-  .searchSuggestionCard b {
-    font-size: 12px !important;
-  }
-
-  .searchSuggestionCard small {
-    font-size: 10px !important;
-  }
+  .filterBlock > div > b { font-size: 14px !important; }
+  .filterScroll { gap: 8px !important; margin-top: 10px !important; }
+  .filterScroll button { padding: 11px 15px !important; font-size: 13px !important; min-height: 42px; }
+  .catalogOptions label { gap: 8px !important; padding: 12px 13px !important; font-size: 13px !important; min-height: 44px; box-sizing: border-box; }
+  .catalogOptions select { padding: 12px 30px 12px 12px !important; font-size: 13px !important; min-height: 44px; }
+  .catalogState { gap: 7px !important; min-height: 40px !important; }
+  .catalogState span { padding: 7px 10px !important; font-size: 11px !important; }
+  .catalogState b, .catalogState button { font-size: 12px !important; }
+  .catalogRankLine { font-size: 10px !important; margin-bottom: 12px !important; }
+  .catalogTop strong { font-size: 20px !important; line-height: 1.3 !important; }
+  .catalogTop small { font-size: 12px !important; line-height: 1.5 !important; }
+  .catalogFavorite { padding: 9px 10px !important; font-size: 10px !important; }
+  .catalogFeatureRow span { padding: 7px 9px !important; font-size: 10px !important; }
+  .catalogMeta span { padding: 7px 9px !important; font-size: 10px !important; }
+  .catalogTags span { padding: 6px 8px !important; font-size: 10px !important; }
+  .catalogActions a, .catalogActions button { padding: 11px 9px !important; min-height: 44px !important; font-size: 12px !important; }
+  .affiliateCatalogDisclosure { font-size: 9px !important; }
+  .emptyCatalog b { font-size: 16px !important; }
+  .emptyCatalog p { font-size: 12px !important; }
+  .searchSuggestions > strong { font-size: 13px !important; }
+  .searchSuggestionCard b { font-size: 12px !important; }
+  .searchSuggestionCard small { font-size: 10px !important; }
 }

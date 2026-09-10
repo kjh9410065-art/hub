@@ -36,8 +36,9 @@ export default function CatalogPage() {
     const requestedCategory = new URLSearchParams(window.location.search).get("category");
     if (requestedCategory && categoryGroups.some((group) => group.id === requestedCategory)) setCategory(requestedCategory);
   }, []);
-  useEffect(() => { setFavorites(readStoredList("hub-favorites")); setCompare(readStoredList("hub-compare").slice(0, 4)); }, []);
-  useEffect(() => { localStorage.setItem("hub-favorites", JSON.stringify(favorites)); }, [favorites]);
+  // 기존 테스트로 저장된 즐겨찾기는 초기화하고, 새 버전 키로 빈 상태에서 시작합니다.
+  useEffect(() => { setFavorites(readStoredList("hub-favorites-v2")); setCompare(readStoredList("hub-compare").slice(0, 4)); }, []);
+  useEffect(() => { localStorage.setItem("hub-favorites-v2", JSON.stringify(favorites)); }, [favorites]);
   useEffect(() => { localStorage.setItem("hub-compare", JSON.stringify(compare)); }, [compare]);
 
   const list = useMemo(() => {

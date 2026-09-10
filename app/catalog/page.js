@@ -30,6 +30,7 @@ export default function CatalogPage() {
   const [onlyApi, setOnlyApi] = useState(false);
   const [sort, setSort] = useState("recommended");
   const [favorites, setFavorites] = useState([]);
+  const [showFavorites, setShowFavorites] = useState(false);
   const [compare, setCompare] = useState([]);
 
   useEffect(() => {
@@ -44,6 +45,7 @@ export default function CatalogPage() {
   const list = useMemo(() => {
     const searched = rankSearchResults(catalog, query);
     const filtered = searched.filter((service) => {
+      if (showFavorites && !favorites.includes(service.id)) return false;
       if (!matchesCategory(service, category)) return false;
       if (feature !== "전체" && !serviceSupportsFeature(service, feature)) return false;
       if (onlyFree && !service.free) return false;
@@ -58,16 +60,16 @@ export default function CatalogPage() {
       if (sort === "api") return Number(b.api) - Number(a.api) || Number(b.free) - Number(a.free);
       return 0;
     });
-  }, [query, category, feature, onlyFree, onlyApi, sort]);
+  }, [query, category, feature, onlyFree, onlyApi, sort, showFavorites, favorites]);
 
   const suggestions = useMemo(() => {
-    if (!query.trim() || list.length > 0) return [];
+    if (!query.trim() || list.length > 0 || showFavorites) return [];
     return getSearchSuggestions(catalog, query, { onlyFree, onlyApi }).slice(0, 3);
-  }, [query, list.length, onlyFree, onlyApi]);
+  }, [query, list.length, onlyFree, onlyApi, showFavorites]);
 
   const toggleFavorite = (id) => setFavorites((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]);
   const toggleCompare = (id) => setCompare((current) => current.includes(id) ? current.filter((item) => item !== id) : current.length >= 4 ? current : [...current, id]);
-  const resetFilters = () => { setQuery(""); setCategory("all"); setFeature("전체"); setOnlyFree(false); setOnlyApi(false); setSort("recommended"); };
+  const resetFilters = () => { setQuery(""); setCategory("all"); setFeature("전체"); setOnlyFree(false); setOnlyApi(false); setSort("recommended"); setShowFavorites(false); };
   const activeCategory = filters.find(([id]) => id === category)?.[1] || "전체";
   const openService = (service, source) => trackOutboundClick(service, source);
 
@@ -76,7 +78,7 @@ export default function CatalogPage() {
     <section className="catalogHero"><div className="eyebrow">HUB SERVICE CATALOG</div><h1>필요한 서비스를<br/><span>직접 찾아보세요.</span></h1><p>AI 모델부터 영상·이미지·음성·검색·인프라까지 한 곳에서 탐색할 수 있습니다.</p><div className="catalogSearch"><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="서비스 이름, 기능, 용도로 검색" aria-label="서비스 검색"/><strong>{list.length}개</strong></div></section>
     <section className="catalogBody">
       <div className="filterBlock"><div><b>분류</b><div className="filterScroll">{filters.map(([id, label]) => <button key={id} className={category === id ? "active" : ""} onClick={() => setCategory(id)}>{label}</button>)}</div></div><div><b>기능</b><div className="filterScroll">{featureFilters.map(([id, label]) => <button key={id} className={feature === id ? "active" : ""} onClick={() => setFeature(id)}>{label}</button>)}</div></div><div className="catalogOptions"><label><input type="checkbox" checked={onlyFree} onChange={(e) => setOnlyFree(e.target.checked)}/> 무료 시작</label><label><input type="checkbox" checked={onlyApi} onChange={(e) => setOnlyApi(e.target.checked)}/> API 제공</label><select value={sort} onChange={(e) => setSort(e.target.value)} aria-label="정렬 방식"><option value="recommended">추천순</option><option value="free">무료 우선</option><option value="api">API 우선</option><option value="easy">쉬운 서비스 우선</option><option value="name">이름순</option></select></div></div>
-      <div className="catalogState"><span>{activeCategory}</span><span>{feature}</span>{onlyFree && <span>무료</span>}{onlyApi && <span>API</span>}<b>{list.length}개 결과</b>{(query || category !== "all" || feature !== "전체" || onlyFree || onlyApi) && <button type="button" onClick={resetFilters}>필터 초기화</button>}</div>
+      <div className="catalogState"><span>{activeCategory}</span><span>{feature}</span>{onlyFree && <span>무료</span>}{onlyApi && <span>API</span>}<button type="button" className={`catalogFavoritesToggle ${showFavorites ? "active" : ""}`} onClick={() => setShowFavorites((current) => !current)} aria-pressed={showFavorites}>♥ 즐겨찾기 {favorites.length}</button><b>{list.length}개 결과</b>{(query || category !== "all" || feature !== "전체" || onlyFree || onlyApi || showFavorites) && <button type="button" onClick={resetFilters}>필터 초기화</button>}</div>
       {list.length > 0 && <div className="catalogGrid">{list.map((s, index) => {
         const affiliate = hasAffiliateLink(s); const supportedFeatures = getSupportedFeatures(s); const isFavorite = favorites.includes(s.id);
         return <article className={`catalogCard ${affiliate ? "affiliateCard" : ""} ${index < 3 ? "catalogTopResult" : ""}`} key={s.id}>
@@ -89,7 +91,7 @@ export default function CatalogPage() {
           {affiliate && <p className="affiliateCatalogDisclosure">제휴 링크를 통해 가입하면 HUB가 제휴 수수료를 받을 수 있습니다.</p>}
         </article>;
       })}</div>}
-      {list.length === 0 && <div className="emptyCatalog"><b>{query.trim() ? "검색 결과가 없습니다." : "조건에 맞는 서비스가 없습니다."}</b><p>{query.trim() ? "입력한 목적과 가까운 서비스를 대신 찾아봤어요." : "검색어 또는 필터를 바꿔보세요."}</p>{suggestions.length > 0 && <div className="searchSuggestions"><strong>이런 서비스를 찾아보세요</strong><div>{suggestions.map((service) => <Link key={service.id} href={`/services/${service.id}`} className="searchSuggestionCard"><img src={service.icon} alt=""/><span><b>{service.name}</b><small>{service.bestFor}</small></span><i aria-hidden="true">›</i></Link>)}</div></div>}<button type="button" onClick={resetFilters}>필터 초기화</button></div>}
+      {list.length === 0 && <div className="emptyCatalog"><b>{showFavorites ? "즐겨찾기한 서비스가 없습니다." : query.trim() ? "검색 결과가 없습니다." : "조건에 맞는 서비스가 없습니다."}</b><p>{showFavorites ? "서비스 카드의 하트를 눌러 즐겨찾기에 추가해보세요." : query.trim() ? "입력한 목적과 가까운 서비스를 대신 찾아봤어요." : "검색어 또는 필터를 바꿔보세요."}</p>{suggestions.length > 0 && <div className="searchSuggestions"><strong>이런 서비스를 찾아보세요</strong><div>{suggestions.map((service) => <Link key={service.id} href={`/services/${service.id}`} className="searchSuggestionCard"><img src={service.icon} alt=""/><span><b>{service.name}</b><small>{service.bestFor}</small></span><i aria-hidden="true">›</i></Link>)}</div></div>}<button type="button" onClick={resetFilters}>필터 초기화</button></div>}
     </section>
     {compare.length > 0 && <div className="compareBar"><div className="compareBarInfo"><div className="compareBarTitle"><strong>비교함</strong><span>{compare.length}/4개 선택</span></div><div className="compareBarHint">{compare.length < 4 ? "서비스를 더 추가해 비교해보세요!" : "선택한 서비스를 비교해보세요."}</div><div className="compareSelectedIcons" aria-label="선택한 서비스">{compare.map((id) => <span className="compareSelectedIcon" key={id} title={catalogMap[id]?.name}><img src={catalogMap[id]?.icon} alt={catalogMap[id]?.name || ""}/></span>)}{compare.length < 4 && <span className="compareSelectedIcon compareAddIcon" aria-hidden="true">+</span>}</div></div><div className="compareBarActions"><button type="button" className="compareReset" onClick={() => setCompare([])}>전체 해제</button><Link className="compareGo" href="/compare">비교 화면 열기</Link></div></div>}
   </main>;

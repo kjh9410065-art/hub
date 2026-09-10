@@ -1,0 +1,56 @@
+/* 모바일 카탈로그 최종 가독성 보정 */
+@media (max-width: 760px) {
+  .catalogPage .catalogFeatureRow span,
+  .catalogPage .catalogMeta span,
+  .catalogPage .catalogTags span {
+    padding: 7px 9px !important;
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+    border-radius: 8px !important;
+  }
+
+  .catalogPage .catalogTags {
+    margin-top: 8px !important;
+    gap: 6px !important;
+  }
+
+  .catalogPage .catalogActions {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    margin-top: 16px !important;
+  }
+
+  .catalogPage .catalogActions a,
+  .catalogPage .catalogActions button {
+    min-height: 44px !important;
+    padding: 11px 8px !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+    border-radius: 10px !important;
+  }
+
+  .catalogPage .catalogActions button {
+    grid-column: 1 / -1 !important;
+    background: #f0edff !important;
+    color: #4f3ab5 !important;
+  }
+
+  html:not([data-theme="dark"]) .catalogPage .catalogActions a:last-child {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #eee9ff !important;
+    color: #4d36b3 !important;
+    min-height: 44px !important;
+  }
+
+  html:not([data-theme="dark"]) .catalogPage .catalogActions a.affiliateCatalogLink {
+    background: #6854d9 !important;
+    color: #fff !important;
+  }
+
+  html[data-theme="dark"] .catalogPage .catalogActions a:last-child {
+    background: #28242f !important;
+    color: #eeeaf3 !important;
+  }
+}

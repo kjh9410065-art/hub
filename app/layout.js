@@ -33,7 +33,8 @@ export const metadata = {
     type: "website"
   },
   verification: {
-    // 네이버 Search Advisor 소유확인용 메타 태그입니다.
+    // 네이버와 Google Search Console 소유확인용 메타 태그를 공통으로 제공합니다.
+    google: "CjJyOINZWHQ-9KzyjIGyjBW1NOMoMbt0KNXQppgT1O0",
     other: {
       "naver-site-verification": "4ad3c9f5acc394846e3abd9efd832308390fcc46"
     }

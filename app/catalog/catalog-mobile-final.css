@@ -1,23 +1,9 @@
-/* 모바일 카드 여백 최종 조정: 아이콘 크기는 유지하고 위·아래 여백만 줄입니다. */
+/* 모바일 카드 아이콘 크기만 줄입니다. 다른 디자인/간격은 유지합니다. */
 @media (max-width:760px){
-  .catalogPage .catalogCard{padding:12px 16px!important}
-  .catalogPage .catalogRankLine{margin-bottom:7px!important}
-  .catalogPage .catalogTop{gap:10px!important}
-  /* 아이콘은 키우지 않고 기존 56px 크기를 유지합니다. */
-  .catalogPage .catalogIdentity .catalogServiceIcon{width:56px!important;height:56px!important;min-width:56px!important}
-  .catalogPage .catalogFeatureRow{margin-top:8px!important;gap:6px!important}
-  .catalogPage .catalogMeta{margin-top:5px!important;gap:6px!important}
-  .catalogPage .catalogTags{margin-top:5px!important;gap:6px!important}
-  .catalogPage .catalogActions{margin-top:8px!important;gap:6px!important}
-  .catalogPage .affiliateCatalogDisclosure{margin-top:5px!important}
-  .catalogPage .catalogFeatureRow span,.catalogPage .catalogMeta span,.catalogPage .catalogTags span{padding:6px 8px!important}
+  .catalogPage .catalogIdentity .catalogServiceIcon,
+  .catalogPage .catalogTop img{width:50px!important;height:50px!important;min-width:50px!important}
 }
-
 @media (max-width:390px){
-  .catalogPage .catalogCard{padding:10px 14px!important}
-  .catalogPage .catalogRankLine{margin-bottom:6px!important}
-  .catalogPage .catalogIdentity .catalogServiceIcon{width:56px!important;height:56px!important;min-width:56px!important}
-  .catalogPage .catalogFeatureRow{margin-top:7px!important}
-  .catalogPage .catalogMeta,.catalogPage .catalogTags{margin-top:4px!important}
-  .catalogPage .catalogActions{margin-top:7px!important}
+  .catalogPage .catalogIdentity .catalogServiceIcon,
+  .catalogPage .catalogTop img{width:48px!important;height:48px!important;min-width:48px!important}
 }

@@ -9,6 +9,7 @@ import { getOutboundUrl, hasAffiliateLink, trackOutboundClick } from "../lib/aff
 import "./catalog.css";
 import "./catalog-visual-cleanup.css";
 import "./catalog-typography.css";
+import "./catalog-mobile-final.css";
 
 const filters = categoryGroups.map((group) => [group.id, group.label]);
 const featureFilters = [["전체", "전체"], ["image", "이미지"], ["video", "영상"], ["voice", "음성"], ["chat", "챗봇"], ["search", "검색"], ["text", "텍스트"]];
@@ -22,12 +23,10 @@ function readStoredList(key) {
 }
 
 function serviceSupportsFeature(service, feature) {
-  // features 또는 uses 중 한쪽에만 기능이 정의돼 있어도 필터에 포함합니다.
   return Boolean(service.features?.[feature] || service.uses?.includes(feature));
 }
 
 function getSupportedFeatures(service) {
-  // 카탈로그 카드에는 실제 지원 기능 중 핵심 3개만 표시해 정보량을 제한합니다.
   return Object.keys(featureLabels).filter((key) => Boolean(service.features?.[key] || service.uses?.includes(key))).slice(0, 3);
 }
 
@@ -41,13 +40,9 @@ export default function CatalogPage() {
   const [favorites, setFavorites] = useState([]);
   const [compare, setCompare] = useState([]);
 
-  // 정적 export에서는 useSearchParams()가 빌드 시 Suspense 경계를 요구합니다.
-  // 대신 브라우저에서 마운트된 뒤 현재 URL을 읽어 카테고리 딥링크를 적용합니다.
   useEffect(() => {
     const requestedCategory = new URLSearchParams(window.location.search).get("category");
-    if (requestedCategory && categoryGroups.some((group) => group.id === requestedCategory)) {
-      setCategory(requestedCategory);
-    }
+    if (requestedCategory && categoryGroups.some((group) => group.id === requestedCategory)) setCategory(requestedCategory);
   }, []);
 
   useEffect(() => {

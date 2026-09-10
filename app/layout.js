@@ -21,7 +21,13 @@ export const metadata = {
   description: "만들고 싶은 목적을 선택하면 필요한 AI·개발 서비스를 빠르게 비교하고 추천받을 수 있습니다.",
   metadataBase: new URL("https://hub.carpick.workers.dev"),
   icons: { icon: "/icon.svg", shortcut: "/icon.svg", apple: "/icon.svg" },
-  robots: { index: true, follow: true }
+  robots: { index: true, follow: true },
+  verification: {
+    // 네이버 Search Advisor 소유확인용 메타 태그입니다.
+    other: {
+      "naver-site-verification": "4ad3c9f5acc394846e3abd9efd832308390fcc46"
+    }
+  }
 };
 
 export const viewport = {

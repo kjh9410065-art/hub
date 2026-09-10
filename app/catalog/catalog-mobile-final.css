@@ -21,13 +21,21 @@
   .catalogPage .catalogActions > button:not(.catalogFavorite){grid-column:3!important;grid-row:1!important}
   .catalogPage .catalogActions > .catalogFavorite{grid-column:4!important;grid-row:1!important}
 
+  /* 비교를 선택한 상태는 보라색으로 통일합니다. */
+  .catalogPage .catalogActions > button.compareSelected{background:#6854d9!important;border:1px solid #6854d9!important;color:#fff!important}
+
   /* 평소에는 빈 하트, 사용자가 터치해서 즐겨찾기하면 하트 자체가 빨간색으로 채워집니다. */
   .catalogPage .catalogActions .catalogFavorite{position:static!important;width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;margin:0!important;padding:0!important;transform:none!important;border:0!important;border-radius:10px!important;background:transparent!important;color:#9b96a5!important;font-size:23px!important;line-height:1!important;display:flex!important;align-items:center!important;justify-content:center!important;justify-self:stretch!important;align-self:stretch!important;box-shadow:none!important}
   .catalogPage .catalogActions .catalogFavorite.active{background:transparent!important;border:0!important;color:#ef233c!important}
+
+  /* 상단의 즐겨찾기도 텍스트가 아닌 버튼 형태로 표시합니다. */
+  .catalogPage .catalogState .catalogFavoritesToggle{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:32px!important;padding:6px 11px!important;border:1px solid #ded8ec!important;border-radius:999px!important;background:#fff!important;color:#6854d9!important;font-size:10px!important;font-weight:850!important;line-height:1!important;cursor:pointer!important;box-sizing:border-box!important}
+  .catalogPage .catalogState .catalogFavoritesToggle.active{background:#6854d9!important;border-color:#6854d9!important;color:#fff!important}
 }
 @media (max-width:390px){
   .catalogPage .catalogCard{grid-template-columns:minmax(0,1fr) minmax(0,1.06fr)!important;column-gap:7px!important;padding:15px!important}
   .catalogPage .catalogActions{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 36px!important;gap:6px!important}
   .catalogPage .catalogActions > .catalogFavorite{width:36px!important;height:36px!important;min-width:36px!important;min-height:36px!important;font-size:22px!important}
   .catalogPage .catalogActions > a,.catalogPage .catalogActions > button:not(.catalogFavorite){height:36px!important;min-height:36px!important}
+  .catalogPage .catalogState .catalogFavoritesToggle{min-height:30px!important;padding:5px 10px!important;font-size:9px!important}
 }

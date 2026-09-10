@@ -19,32 +19,33 @@
   gap: 28px !important;
 }
 
-/* 왼쪽 정보 영역은 모든 페이지에서 동일한 폭과 정렬 체계를 사용합니다. */
+/* 왼쪽 정보 영역은 제목·선택 수·안내 문구를 명확한 계층으로 정리합니다. */
 .compareBarInfo {
   min-width: 0 !important;
   flex: 1 1 auto !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
-  gap: 8px !important;
+  gap: 6px !important;
 }
 
 .compareBarTitle {
   display: flex !important;
   align-items: baseline !important;
-  gap: 12px !important;
+  gap: 10px !important;
+  white-space: nowrap !important;
 }
 
 .compareBarTitle strong,
 .compareBar > div:first-child > strong {
   font-size: 26px !important;
-  line-height: 1.2 !important;
+  line-height: 1.15 !important;
   font-weight: 900 !important;
 }
 
 .compareBarTitle span,
 .compareBar > div:first-child > span {
-  font-size: 16px !important;
+  font-size: 15px !important;
   line-height: 1.2 !important;
 }
 
@@ -132,30 +133,36 @@
   }
 
   .compareBarInfo {
-    gap: 4px !important;
+    gap: 3px !important;
   }
 
   .compareBarTitle {
-    gap: 8px !important;
+    gap: 7px !important;
+    align-items: baseline !important;
   }
 
   .compareBarTitle strong,
   .compareBar > div:first-child > strong {
-    font-size: 18px !important;
+    font-size: 17px !important;
+    line-height: 1.15 !important;
   }
 
   .compareBarTitle span,
   .compareBar > div:first-child > span {
-    font-size: 13px !important;
+    font-size: 12px !important;
+    line-height: 1.2 !important;
   }
 
   .compareBarHint {
-    font-size: 11px !important;
+    font-size: 10px !important;
+    line-height: 1.25 !important;
+    white-space: nowrap !important;
   }
 
   .compareSelectedIcons {
     gap: 4px !important;
     min-height: 22px !important;
+    margin-top: 1px !important;
   }
 
   .compareSelectedIcon {

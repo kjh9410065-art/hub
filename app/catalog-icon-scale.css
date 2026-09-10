@@ -1,0 +1,35 @@
+/* 서비스 아이콘을 한 단계 크게 보여주고 즐겨찾기 하트는 빨간색으로 강조합니다. */
+.catalogPage .catalogTop img {
+  width:68px !important;
+  height:68px !important;
+  min-width:68px !important;
+  padding:10px !important;
+  border-radius:18px !important;
+}
+
+.catalogPage .catalogFavorite,
+.catalogPage .catalogFavorite.active {
+  color:#e53935 !important;
+}
+
+.catalogPage .catalogFavorite:hover {
+  border-color:#f0a5a2 !important;
+  background:#fff5f5 !important;
+  color:#d92824 !important;
+}
+
+.catalogPage .catalogFavorite.active {
+  background:#fff0f0 !important;
+  border-color:#efb0ad !important;
+  color:#e53935 !important;
+}
+
+@media(max-width:600px){
+  .catalogPage .catalogTop img {
+    width:64px !important;
+    height:64px !important;
+    min-width:64px !important;
+    padding:9px !important;
+    border-radius:17px !important;
+  }
+}

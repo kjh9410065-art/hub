@@ -1,0 +1,10 @@
+# Allow external tools and the future blog writer to read HUB's public static content.
+/*
+  Access-Control-Allow-Origin: *
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Keep machine-readable data easy to fetch across origins.
+/data/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=300, must-revalidate

@@ -80,11 +80,11 @@ export default function CatalogPage() {
         const affiliate = hasAffiliateLink(s); const supportedFeatures = getSupportedFeatures(s); const isFavorite = favorites.includes(s.id);
         return <article className={`catalogCard ${affiliate ? "affiliateCard" : ""} ${index < 3 ? "catalogTopResult" : ""}`} key={s.id}>
           <div className="catalogRankLine"><span>{index < 3 ? `추천 ${index + 1}` : "서비스"}</span><span>{s.category}</span></div>
-          <div className="catalogIdentity"><img className="catalogServiceIcon" src={s.icon} alt=""/><div className="catalogIdentityText"><strong>{s.name}</strong><small>{s.bestFor}</small></div><button type="button" aria-label={isFavorite ? `${s.name} 즐겨찾기 해제` : `${s.name} 즐겨찾기`} title={isFavorite ? "즐겨찾기 해제" : "즐겨찾기"} className={`catalogFavorite ${isFavorite ? "active" : ""}`} onClick={() => toggleFavorite(s.id)}>{isFavorite ? "♥" : "♡"}</button></div>
+          <div className="catalogIdentity"><img className="catalogServiceIcon" src={s.icon} alt=""/><div className="catalogIdentityText"><strong>{s.name}</strong><small>{s.bestFor}</small></div></div>
           <div className="catalogFeatureRow">{supportedFeatures.map((key) => <span key={key}>{featureLabels[key]}</span>)}{s.api && <span className="catalogApiBadge">API</span>}</div>
           <div className="catalogMeta"><span>{s.price}</span><span>{s.difficulty}</span><span className={s.free ? "catalogFreeBadge" : ""}>{s.free ? "무료 시작" : "유료 중심"}</span></div>
           <div className="catalogTags">{(s.tags || []).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
-          <div className="catalogActions"><Link href={`/services/${s.id}`}>자세히 보기</Link><a href={getOutboundUrl(s)} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => openService(s, "catalog")}>공식 사이트</a><button type="button" onClick={() => toggleCompare(s.id)}>{compare.includes(s.id) ? "비교 선택됨" : "비교하기"}</button></div>
+          <div className="catalogActions"><Link href={`/services/${s.id}`}>자세히 보기</Link><a href={getOutboundUrl(s)} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => openService(s, "catalog")}>공식 사이트</a><button type="button" onClick={() => toggleCompare(s.id)}>{compare.includes(s.id) ? "비교 선택됨" : "비교하기"}</button><button type="button" aria-label={isFavorite ? `${s.name} 즐겨찾기 해제` : `${s.name} 즐겨찾기`} title={isFavorite ? "즐겨찾기 해제" : "즐겨찾기"} className={`catalogFavorite ${isFavorite ? "active" : ""}`} onClick={() => toggleFavorite(s.id)}>{isFavorite ? "♥" : "♡"}</button></div>
           {affiliate && <p className="affiliateCatalogDisclosure">제휴 링크를 통해 가입하면 HUB가 제휴 수수료를 받을 수 있습니다.</p>}
         </article>;
       })}</div>}

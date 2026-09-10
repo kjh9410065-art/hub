@@ -1,4 +1,4 @@
-/* 카탈로그 라이트모드: 페이지 안의 모든 외곽선/구분선은 제거합니다. */
+/* 카탈로그 라이트모드: 페이지 안의 외곽선은 제거하고 배경/그림자로 계층을 표현합니다. */
 html:not([data-theme="dark"]) .catalogPage * { border-width:0 !important; border-style:none !important; }
 html:not([data-theme="dark"]) .catalogPage .catalogHero,
 html:not([data-theme="dark"]) .catalogPage .catalogSearch,
@@ -6,14 +6,11 @@ html:not([data-theme="dark"]) .catalogPage .catalogCard,
 html:not([data-theme="dark"]) .catalogPage .searchSuggestionCard,
 html:not([data-theme="dark"]) .catalogPage .catalogCompareBar { box-shadow:0 14px 38px rgba(42,31,80,.07); }
 html:not([data-theme="dark"]) .catalogPage .catalogTopResult:before { display:none; }
-
-/* 선택 상태는 테두리 대신 배경색으로 표현합니다. */
 html:not([data-theme="dark"]) .catalogPage .filterScroll button.active { background:#6854d9 !important; color:#fff !important; }
 html:not([data-theme="dark"]) .catalogPage .filterScroll button,
 html:not([data-theme="dark"]) .catalogPage .catalogOptions label,
 html:not([data-theme="dark"]) .catalogPage .catalogOptions select { background:#fff; color:#39343f; box-shadow:0 4px 14px rgba(42,31,80,.045); }
 
-/* PC 카드: 아이콘·제목·설명·메타정보가 붙지 않도록 정보 계층을 넓힙니다. */
 @media (min-width:761px) {
   .catalogPage .catalogGrid { gap:24px !important; }
   .catalogPage .catalogCard { padding:30px !important; min-height:390px; }
@@ -34,17 +31,6 @@ html:not([data-theme="dark"]) .catalogPage .catalogOptions select { background:#
   .catalogPage .catalogActions button { min-height:46px !important; padding:12px 10px !important; font-size:11px !important; }
 }
 
-/* 모바일 카드의 정보 간격을 확보합니다. */
-@media (max-width:760px) {
-  .catalogPage .catalogCard { padding:22px !important; }
-  .catalogPage .catalogTop { gap:16px !important; }
-  .catalogPage .catalogFeatureRow { margin-top:18px !important; }
-  .catalogPage .catalogMeta { margin-top:12px !important; }
-  .catalogPage .catalogTags { margin-top:12px !important; }
-  .catalogPage .catalogActions { margin-top:18px !important; }
-}
-
-/* 주요 행동 버튼은 명확한 대비를 사용합니다. */
 html:not([data-theme="dark"]) .catalogPage .catalogActions a:first-child { background:#242129 !important; color:#fff !important; }
 html:not([data-theme="dark"]) .catalogPage .catalogActions a:last-child,
 html:not([data-theme="dark"]) .catalogPage .catalogActions button { background:#f0edff !important; color:#4f3ab5 !important; font-weight:900; }
@@ -58,48 +44,41 @@ html:not([data-theme="dark"]) .catalogPage a:focus-visible,
 html:not([data-theme="dark"]) .catalogPage select:focus-visible,
 html:not([data-theme="dark"]) .catalogPage input:focus-visible { outline:3px solid rgba(104,84,217,.28); outline-offset:2px; }
 
-/* 모바일 최종 보정: 분류/기능 필터가 한 줄에 몰리지 않고 화면 폭을 고르게 사용하도록 4열로 고정합니다. */
+/* 모바일 필터: 한 줄에 몰아넣지 않고 화면 폭을 고르게 사용합니다. */
 @media(max-width:760px){
-  .catalogPage .filterScroll{
-    display:grid !important;
-    grid-template-columns:repeat(4,minmax(0,1fr)) !important;
-    gap:8px !important;
-    overflow:visible !important;
-    overflow-x:visible !important;
-    padding:0 !important;
-    width:100% !important;
-    box-sizing:border-box !important;
-    scrollbar-width:none !important;
-  }
-
+  .catalogPage .filterScroll{display:grid !important;grid-template-columns:repeat(4,minmax(0,1fr)) !important;gap:8px !important;overflow:visible !important;padding:0 !important;width:100% !important;box-sizing:border-box !important;scrollbar-width:none !important;}
   .catalogPage .filterScroll::-webkit-scrollbar{display:none !important;width:0 !important;height:0 !important;}
-
-  .catalogPage .filterScroll button{
-    width:100% !important;
-    min-width:0 !important;
-    max-width:none !important;
-    box-sizing:border-box !important;
-    padding:11px 2px !important;
-    font-size:10px !important;
-    line-height:1.2 !important;
-    text-align:center !important;
-    white-space:nowrap !important;
-  }
-
-  .catalogPage .filterBlock > div + div{margin-top:22px !important;}
-
-  .catalogPage .catalogOptions{
-    display:grid !important;
-    grid-template-columns:1fr 1fr !important;
-    gap:8px !important;
-  }
-
-  .catalogPage .catalogOptions label{
-    min-width:0 !important;
-    padding:12px 9px !important;
-    white-space:nowrap !important;
-  }
-
-  /* 고정 비교함에 마지막 카드가 가려지지 않도록 스크롤 끝 여백을 확보합니다. */
+  .catalogPage .filterScroll button{width:100% !important;min-width:0 !important;max-width:none !important;box-sizing:border-box !important;padding:11px 2px !important;font-size:10px !important;line-height:1.2 !important;text-align:center !important;white-space:nowrap !important;}
+  .catalogPage .filterBlock > div + div{margin-top:20px !important;}
+  .catalogPage .catalogOptions{display:grid !important;grid-template-columns:1fr 1fr !important;gap:8px !important;}
+  .catalogPage .catalogOptions label{min-width:0 !important;padding:12px 9px !important;white-space:nowrap !important;}
   .catalogPage .catalogBody{padding-bottom:210px !important;}
+
+  /* 모바일 카드: 아이콘/서비스 정보는 왼쪽, 기능·가격·태그는 오른쪽에 배치합니다. */
+  .catalogPage .catalogCard{display:grid !important;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) !important;grid-template-areas:"rank rank" "top features" "top meta" "top tags" "actions actions" !important;column-gap:14px !important;row-gap:0 !important;padding:18px !important;min-height:0 !important;box-sizing:border-box !important;}
+  .catalogPage .catalogRankLine{grid-area:rank !important;margin-bottom:12px !important;}
+  .catalogPage .catalogTop{grid-area:top !important;display:flex !important;flex-wrap:wrap !important;align-content:flex-start !important;gap:9px !important;min-width:0 !important;}
+  .catalogPage .catalogTop img{width:56px !important;height:56px !important;min-width:56px !important;padding:8px !important;border-radius:15px !important;}
+  .catalogPage .catalogTop>div{min-width:0 !important;flex:1 1 60px !important;}
+  .catalogPage .catalogTop strong{font-size:18px !important;line-height:1.25 !important;}
+  .catalogPage .catalogTop small{margin-top:4px !important;font-size:10px !important;line-height:1.35 !important;}
+  .catalogPage .catalogFavorite{flex:0 0 auto !important;margin-left:auto !important;padding:7px 8px !important;font-size:8px !important;}
+  .catalogPage .catalogFeatureRow{grid-area:features !important;align-content:flex-start !important;margin:0 !important;gap:5px !important;}
+  .catalogPage .catalogMeta{grid-area:meta !important;align-content:flex-start !important;margin:6px 0 0 !important;gap:5px !important;}
+  .catalogPage .catalogTags{grid-area:tags !important;align-content:flex-start !important;margin:6px 0 0 !important;gap:5px !important;}
+  .catalogPage .catalogFeatureRow span,.catalogPage .catalogMeta span,.catalogPage .catalogTags span{padding:5px 7px !important;font-size:8px !important;line-height:1.2 !important;white-space:nowrap !important;}
+  .catalogPage .catalogActions{grid-area:actions !important;width:100% !important;margin:14px 0 0 !important;gap:7px !important;}
+  .catalogPage .catalogActions a,.catalogPage .catalogActions button{min-height:40px !important;padding:10px 8px !important;font-size:10px !important;box-sizing:border-box !important;}
+
+  /* 모바일 비교함: 큰 고정 바를 유지하면서 글자를 수직 중앙보다 약간 아래로 보정합니다. */
+  .catalogPage .catalogCompareBar{left:12px !important;right:12px !important;bottom:10px !important;width:auto !important;min-height:76px !important;padding:10px 12px !important;display:flex !important;align-items:center !important;justify-content:space-between !important;box-sizing:border-box !important;}
+  .catalogPage .catalogCompareBar strong{font-size:15px !important;line-height:1 !important;transform:translateY(4px) !important;}
+  .catalogPage .catalogCompareBar a{min-height:48px !important;padding:0 16px !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;font-size:13px !important;}
+}
+
+@media(max-width:380px){
+  .catalogPage .catalogCard{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr) !important;column-gap:10px !important;padding:15px !important;}
+  .catalogPage .catalogTop img{width:52px !important;height:52px !important;min-width:52px !important;}
+  .catalogPage .catalogTop strong{font-size:17px !important;}
+  .catalogPage .catalogFeatureRow span,.catalogPage .catalogMeta span,.catalogPage .catalogTags span{font-size:7.5px !important;padding:5px 6px !important;}
 }

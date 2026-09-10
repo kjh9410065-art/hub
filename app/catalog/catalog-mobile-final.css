@@ -10,7 +10,8 @@
   .catalogPage .catalogFeatureRow{grid-area:features!important;align-content:start!important;margin:0!important;gap:5px!important;min-width:0!important}
   .catalogPage .catalogMeta{grid-area:meta!important;align-content:start!important;margin:4px 0 0!important;gap:5px!important;min-width:0!important}
   .catalogPage .catalogTags{grid-area:tags!important;align-content:start!important;margin:4px 0 0 3px!important;gap:5px!important;min-width:0!important}
-  .catalogPage .catalogFeatureRow span,.catalogPage .catalogMeta span,.catalogPage .catalogTags span{padding:5px 7px!important;font-size:8px!important;line-height:1.15!important;white-space:nowrap!important}
+  /* 세 줄의 배지를 같은 크기로 통일하고 기존보다 2px 키웁니다. */
+  .catalogPage .catalogFeatureRow span,.catalogPage .catalogMeta span,.catalogPage .catalogTags span{padding:6px 8px!important;font-size:10px!important;line-height:1.15!important;white-space:nowrap!important;box-sizing:border-box!important}
 
   /* 액션 영역은 JSX 순서 그대로: 자세히 보기 → 공식 사이트 → 비교하기 → 하트 */
   .catalogPage .catalogActions{grid-area:actions!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 40px!important;width:100%!important;margin:9px 0 0!important;gap:7px!important;align-items:stretch!important}

@@ -15,6 +15,7 @@ import HubTutorial from "./components/hub-tutorial";
 import HubTheme from "./components/hub-theme";
 import Adsense from "./components/adsense";
 import SiteFooter from "./components/site-footer";
+import MovaBrand from "./components/mova-brand";
 
 const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim();
 
@@ -57,6 +58,7 @@ export default function RootLayout({ children }) {
         <SiteFooter />
         <HubTheme />
         <HubTutorial />
+        <MovaBrand />
       </body>
     </html>
   );

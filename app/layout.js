@@ -36,10 +36,7 @@ export const metadata = {
     type: "website"
   },
   verification: {
-    google: "hAHkcvWFhoATFOdphua3yECySUCnJXT2IC9gfm0cYew",
-    other: {
-      "naver-site-verification": "470f41c9c7c695bedafdedaa15bf205009b0b1"
-    }
+    google: "hAHkcvWFhoATFOdphua3yECySUCnJXT2IC9gfm0cYew"
   }
 };
 
@@ -52,7 +49,11 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
-      <head><link rel="stylesheet" href="/illustrations.css" /></head>
+      <head>
+        <link rel="stylesheet" href="/illustrations.css" />
+        {/* 네이버 소유확인용 메타 태그를 head에 직접 넣어 정적 배포에서도 확실하게 노출합니다. */}
+        <meta name="naver-site-verification" content="470f41c9c7c695bedafdedaa15bf205009b0b1e1" />
+      </head>
       <body>
         {adsenseClient && <Script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`} crossOrigin="anonymous" strategy="afterInteractive" />}
         {/* 상단 광고 자리: AdSense 설정 전에는 자리만 표시됩니다. */}

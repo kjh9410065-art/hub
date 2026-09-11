@@ -38,7 +38,7 @@ export const metadata = {
   },
   verification: {
     // 네이버와 Google Search Console 소유확인용 메타 태그를 공통으로 제공합니다.
-    google: "CjJyOINZWHQ-9KzyjIGyjBW1NOMoMbt0KNXQppgT1O0",
+    google: "hAHkcvWFhoATFOdphua3yECySUCnJXT2IC9gfm0cYew",
     other: {
       "naver-site-verification": "4ad3c9f5acc394846e3abd9efd832308390fcc46"
     }

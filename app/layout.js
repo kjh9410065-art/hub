@@ -34,7 +34,7 @@ export const metadata = {
     siteName: "MOVA",
     locale: "ko_KR",
     type: "website",
-    images: [{ url: "/og-image.jpg", width: 1199, height: 675, alt: "MOVA AI 서비스 찾기" }]
+    images: [{ url: "/MOVA-og-image.jpg", width: 1199, height: 675, alt: "MOVA AI 서비스 찾기" }]
   },
   verification: {
     google: "hAHkcvWFhoATFOdphua3yECySUCnJXT2IC9gfm0cYew"

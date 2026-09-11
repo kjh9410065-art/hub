@@ -33,7 +33,8 @@ export const metadata = {
     url: "https://mova.tcflick.com",
     siteName: "MOVA",
     locale: "ko_KR",
-    type: "website"
+    type: "website",
+    images: [{ url: "/og-image.jpg", width: 1199, height: 675, alt: "MOVA AI 서비스 찾기" }]
   },
   verification: {
     google: "hAHkcvWFhoATFOdphua3yECySUCnJXT2IC9gfm0cYew"

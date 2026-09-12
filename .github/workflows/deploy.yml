@@ -45,6 +45,7 @@ jobs:
         run: |
           set -e
           BASE="https://mova.carpick.workers.dev"
+          CANONICAL="https://mova.tcflick.com"
 
           check_text() {
             URL="$1"
@@ -68,5 +69,6 @@ jobs:
           check_text "$BASE/robots.txt" "Sitemap:" /tmp/robots.txt
           check_text "$BASE/llms.txt" "MOVA" /tmp/llms.txt
           check_text "$BASE/sitemap.xml" "<urlset" /tmp/sitemap.xml
-          grep -q "https://mova.carpick.workers.dev/" /tmp/sitemap.xml
+          # sitemap은 실제 공개 canonical 도메인을 사용해야 하므로 tcflick.com 주소를 검증합니다.
+          grep -q "$CANONICAL/" /tmp/sitemap.xml
           echo "All public endpoint checks passed."

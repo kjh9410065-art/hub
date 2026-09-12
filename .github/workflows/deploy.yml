@@ -1,4 +1,4 @@
-name: HUB deploy
+name: MOVA deploy
 
 on:
   push:
@@ -33,19 +33,18 @@ jobs:
       - name: Build Next.js export
         run: npm run build
 
-      # 생성된 ./out을 wrangler 설정에 따라 Cloudflare Workers에 배포합니다.
+      # wrangler.jsonc의 MOVA Worker 설정에 따라 Cloudflare Workers에 배포합니다.
       - name: Deploy to Cloudflare Workers
         run: npx wrangler deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      # 실제 인터넷에서 핵심 공개 경로가 정상 응답하는지 배포 직후 확인합니다.
-      # sitemap만 확인하지 않고 홈/robots/llms까지 검사해 외부 도구의 접근 실패를 조기에 잡습니다.
+      # 실제 인터넷에서 MOVA의 핵심 공개 경로가 정상 응답하는지 배포 직후 확인합니다.
       - name: Verify public endpoints
         run: |
           set -e
-          BASE="https://hub.carpick.workers.dev"
+          BASE="https://mova.carpick.workers.dev"
 
           check_text() {
             URL="$1"
@@ -65,9 +64,9 @@ jobs:
             exit 1
           }
 
-          check_text "$BASE/" "HUB" /tmp/hub.html
+          check_text "$BASE/" "MOVA" /tmp/mova.html
           check_text "$BASE/robots.txt" "Sitemap:" /tmp/robots.txt
-          check_text "$BASE/llms.txt" "HUB" /tmp/llms.txt
+          check_text "$BASE/llms.txt" "MOVA" /tmp/llms.txt
           check_text "$BASE/sitemap.xml" "<urlset" /tmp/sitemap.xml
-          grep -q "https://hub.carpick.workers.dev/" /tmp/sitemap.xml
+          grep -q "https://mova.carpick.workers.dev/" /tmp/sitemap.xml
           echo "All public endpoint checks passed."

@@ -1,104 +1,32 @@
-/* 모바일 홈 서비스 카드 가독성 보정: 정보 태그가 붙어 보이지 않도록 간격을 명확히 분리합니다. */
-@media (max-width: 760px) {
-  .homePage .serviceMetaRow {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    gap: 7px !important;
-    row-gap: 7px !important;
-    margin-top: 10px !important;
-  }
+/* 폴드 펼침/회전에서도 동일한 카드 가독성을 유지합니다. */
+.homePage .serviceMetaRow,
+.homePage .tagList{display:flex !important;flex-wrap:wrap !important;align-items:center !important;gap:8px !important;row-gap:8px !important}
+.homePage .serviceMetaRow span,
+.homePage .tagList span{display:inline-flex !important;align-items:center !important;justify-content:center !important;margin:0 !important;padding:6px 10px !important;min-height:27px !important;border-radius:7px !important;line-height:1.2 !important;white-space:nowrap !important;box-sizing:border-box !important}
+.homePage .serviceMetaRow{margin-top:10px !important}
+.homePage .tagList{margin-top:9px !important}
+.homePage .serviceBest{margin-top:9px !important;line-height:1.7 !important}
+.homePage .recommendReason{margin-top:11px !important;padding:10px 11px !important;line-height:1.7 !important}
+.homePage .serviceActions{margin-top:14px !important;gap:8px !important}
+.homePage .detailButton,.homePage .compareButton{min-height:38px !important;height:38px !important}
 
-  .homePage .serviceMetaRow span {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    min-height: 26px !important;
-    padding: 5px 9px !important;
-    margin: 0 !important;
-    border-radius: 7px !important;
-    line-height: 1.2 !important;
-    white-space: nowrap !important;
-    box-sizing: border-box !important;
-  }
-
-  .homePage .tagList {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    gap: 7px !important;
-    row-gap: 7px !important;
-    margin-top: 9px !important;
-  }
-
-  .homePage .tagList span {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    min-height: 26px !important;
-    padding: 5px 9px !important;
-    margin: 0 !important;
-    border-radius: 7px !important;
-    line-height: 1.2 !important;
-    white-space: nowrap !important;
-    box-sizing: border-box !important;
-  }
-
-  .homePage .serviceBest {
-    margin-top: 9px !important;
-    line-height: 1.7 !important;
-  }
-
-  .homePage .recommendReason {
-    margin-top: 11px !important;
-    padding: 10px 11px !important;
-    line-height: 1.7 !important;
-  }
-
-  .homePage .serviceActions {
-    margin-top: 14px !important;
-    gap: 8px !important;
-  }
-
-  .homePage .detailButton,
-  .homePage .compareButton {
-    min-height: 38px !important;
-    height: 38px !important;
-    font-size: 10px !important;
-  }
+/* 펼친 폴드·태블릿 폭에서는 태그가 한 줄에 억지로 압축되지 않게 합니다. */
+@media (min-width:431px) and (max-width:900px){
+  .homePage .serviceMetaRow{gap:9px !important;row-gap:8px !important}
+  .homePage .serviceMetaRow span,.homePage .tagList span{min-height:28px !important;padding:6px 10px !important;font-size:9px !important}
+  .homePage .tagList{gap:8px !important;row-gap:8px !important}
 }
 
-@media (max-width: 430px) {
-  .homePage .serviceMetaRow {
-    gap: 6px !important;
-    row-gap: 6px !important;
-  }
-
-  .homePage .serviceMetaRow span {
-    min-height: 25px !important;
-    padding: 5px 8px !important;
-    font-size: 8px !important;
-  }
-
-  .homePage .tagList {
-    gap: 6px !important;
-    row-gap: 6px !important;
-  }
-
-  .homePage .tagList span {
-    min-height: 25px !important;
-    padding: 5px 8px !important;
-    font-size: 7px !important;
-  }
+@media (max-width:430px){
+  .homePage .serviceMetaRow,.homePage .tagList{gap:6px !important;row-gap:6px !important}
+  .homePage .serviceMetaRow span,.homePage .tagList span{min-height:25px !important;padding:5px 8px !important;font-size:8px !important}
 }
 
-@media (max-width: 360px) {
-  .homePage .serviceInfo {
-    padding-right: 38px !important;
-  }
-
-  .homePage .serviceMetaRow span,
-  .homePage .tagList span {
-    padding-inline: 7px !important;
-  }
+@media (max-width:360px){
+  .homePage .serviceInfo{padding-right:38px !important}
+  .homePage .serviceMetaRow span,.homePage .tagList span{padding-inline:7px !important}
 }
+
+/* 다크모드에서도 같은 간격/크기를 유지합니다. */
+html[data-theme="dark"] .homePage .serviceMetaRow span,
+html[data-theme="dark"] .homePage .tagList span{box-shadow:none !important}

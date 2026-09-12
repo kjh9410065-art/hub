@@ -1,4 +1,4 @@
-/* HUB 서비스 카탈로그: 전체 서비스를 검색·분류·기능·비용 기준으로 탐색합니다. */
+/* MOVA 서비스 카탈로그: 전체 서비스를 검색·분류·기능·비용 기준으로 탐색합니다. */
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
@@ -73,8 +73,8 @@ export default function CatalogPage() {
   const openService = (service, source) => trackOutboundClick(service, source);
 
   return <main className="catalogPage">
-    <header className="header catalogHeader"><Link className="logo" href="/">HUB</Link><nav><Link href="/recommend">추천받기</Link><Link href="/tools">무료 도구</Link><Link href="/compare">비교하기</Link></nav></header>
-    <section className="catalogHero"><div className="eyebrow">HUB SERVICE CATALOG</div><h1>필요한 서비스를<br/><span>직접 찾아보세요.</span></h1><p>AI 모델부터 영상·이미지·음성·검색·인프라까지 한 곳에서 탐색할 수 있습니다.</p><div className="catalogSearch"><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="서비스 이름, 기능, 용도로 검색" aria-label="서비스 검색"/><strong>{list.length}개</strong></div></section>
+    <header className="header catalogHeader"><Link className="logo" href="/">MOVA</Link><nav><Link href="/recommend">추천받기</Link><Link href="/tools">무료 도구</Link><Link href="/compare">비교하기</Link></nav></header>
+    <section className="catalogHero"><div className="eyebrow">MOVA SERVICE CATALOG</div><h1>필요한 서비스를<br/><span>직접 찾아보세요.</span></h1><p>AI 모델부터 영상·이미지·음성·검색·인프라까지 한 곳에서 탐색할 수 있습니다.</p><div className="catalogSearch"><input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="서비스 이름, 기능, 용도로 검색" aria-label="서비스 검색"/><strong>{list.length}개</strong></div></section>
     <section className="catalogBody">
       <div className="filterBlock"><div><b>분류</b><div className="filterScroll">{filters.map(([id, label]) => <button key={id} className={category === id ? "active" : ""} onClick={() => setCategory(id)}>{label}</button>)}</div></div><div><b>기능</b><div className="filterScroll">{featureFilters.map(([id, label]) => <button key={id} className={feature === id ? "active" : ""} onClick={() => setFeature(id)}>{label}</button>)}</div></div><div className="catalogOptions"><label><input type="checkbox" checked={onlyFree} onChange={(e) => setOnlyFree(e.target.checked)}/> 무료 시작</label><label><input type="checkbox" checked={onlyApi} onChange={(e) => setOnlyApi(e.target.checked)}/> API 제공</label><select value={sort} onChange={(e) => setSort(e.target.value)} aria-label="정렬 방식"><option value="recommended">추천순</option><option value="free">무료 우선</option><option value="api">API 우선</option><option value="easy">쉬운 서비스 우선</option><option value="name">이름순</option></select></div></div>
       <div className="catalogState"><span>{activeCategory}</span><span>{feature}</span>{onlyFree && <span>무료</span>}{onlyApi && <span>API</span>}<button type="button" className={`catalogFavoritesToggle ${showFavorites ? "active" : ""}`} onClick={() => setShowFavorites((current) => !current)} aria-pressed={showFavorites}>♥ 즐겨찾기 {favorites.length}</button><b>{list.length}개 결과</b>{(query || category !== "all" || feature !== "전체" || onlyFree || onlyApi || showFavorites) && <button type="button" onClick={resetFilters}>필터 초기화</button>}</div>
@@ -87,7 +87,7 @@ export default function CatalogPage() {
           <div className="catalogMeta"><span>{s.price}</span><span>{s.difficulty}</span><span className={s.free ? "catalogFreeBadge" : ""}>{s.free ? "무료 시작" : "유료 중심"}</span></div>
           <div className="catalogTags">{(s.tags || []).slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}</div>
           <div className="catalogActions"><Link href={`/services/${s.id}`}>자세히 보기</Link><a href={getOutboundUrl(s)} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => openService(s, "catalog")}>공식 사이트</a><button type="button" className={isCompared ? "compareSelected" : ""} onClick={() => toggleCompare(s.id)}>{isCompared ? "비교 선택됨" : "비교하기"}</button><button type="button" aria-label={isFavorite ? `${s.name} 즐겨찾기 해제` : `${s.name} 즐겨찾기`} title={isFavorite ? "즐겨찾기 해제" : "즐겨찾기"} className={`catalogFavorite ${isFavorite ? "active" : ""}`} onClick={() => toggleFavorite(s.id)}>{isFavorite ? "♥" : "♡"}</button></div>
-          {affiliate && <p className="affiliateCatalogDisclosure">제휴 링크를 통해 가입하면 HUB가 제휴 수수료를 받을 수 있습니다.</p>}
+          {affiliate && <p className="affiliateCatalogDisclosure">제휴 링크를 통해 가입하면 MOVA가 제휴 수수료를 받을 수 있습니다.</p>}
         </article>;
       })}</div>}
       {list.length === 0 && <div className="emptyCatalog"><b>{showFavorites ? "즐겨찾기한 서비스가 없습니다." : query.trim() ? "검색 결과가 없습니다." : "조건에 맞는 서비스가 없습니다."}</b><p>{showFavorites ? "서비스 카드의 하트를 눌러 즐겨찾기에 추가해보세요." : query.trim() ? "입력한 목적과 가까운 서비스를 대신 찾아봤어요." : "검색어 또는 필터를 바꿔보세요."}</p>{suggestions.length > 0 && <div className="searchSuggestions"><strong>이런 서비스를 찾아보세요</strong><div>{suggestions.map((service) => <Link key={service.id} href={`/services/${service.id}`} className="searchSuggestionCard"><img src={service.icon} alt=""/><span><b>{service.name}</b><small>{service.bestFor}</small></span><i aria-hidden="true">›</i></Link>)}</div></div>}<button type="button" onClick={resetFilters}>필터 초기화</button></div>}

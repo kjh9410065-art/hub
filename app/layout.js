@@ -16,7 +16,6 @@ import HubTutorial from "./components/hub-tutorial";
 import HubTheme from "./components/hub-theme";
 import AdSlot from "./components/ad-slot";
 import SiteFooter from "./components/site-footer";
-import MovaBrand from "./components/mova-brand";
 
 const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim();
 
@@ -56,14 +55,13 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {adsenseClient && <Script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`} crossOrigin="anonymous" strategy="afterInteractive" />}
-        {/* 상단/하단 슬롯은 각각 자기 자신만 한 번 초기화합니다. */}
+        {/* 광고 ID가 있을 때만 실제 광고 슬롯을 렌더링합니다. */}
         <AdSlot label="광고" />
         {children}
         <AdSlot label="광고" />
         <SiteFooter />
         <HubTheme />
         <HubTutorial />
-        <MovaBrand />
       </body>
     </html>
   );

@@ -1,13 +1,22 @@
 .movaAdSlot{
+  /* 광고 ID가 없거나 광고가 아직 채워지지 않은 상태에서는 공간을 차지하지 않습니다. */
   width:100%;
+  min-height:0;
+  height:0;
+  margin:0;
+  padding:0;
+  display:block;
+  overflow:hidden;
+}
+
+/* Publisher ID가 실제로 설정된 경우에만 광고 슬롯 영역을 활성화합니다. */
+.movaAdSlotEnabled{
+  height:auto;
   min-height:90px;
   margin:18px auto;
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
-  border-radius:14px;
-  box-sizing:border-box;
 }
 
 .movaAdSlotInner{
@@ -15,28 +24,13 @@
   min-height:90px;
 }
 
-.movaAdPlaceholder{
-  display:flex;
-  width:100%;
-  min-height:90px;
-  align-items:center;
-  justify-content:center;
-  border:1px dashed rgba(120,120,140,.28);
-  border-radius:14px;
-  color:rgba(100,100,120,.55);
-  font-size:11px;
-  letter-spacing:.02em;
-  box-sizing:border-box;
-}
-
-@media (max-width:640px){
-  .movaAdSlot{
+@media(max-width:640px){
+  .movaAdSlotEnabled{
     min-height:72px;
     margin:14px auto;
   }
 
-  .movaAdSlotInner,
-  .movaAdPlaceholder{
+  .movaAdSlotInner{
     min-height:72px;
   }
 }

@@ -14,7 +14,6 @@ import "./catalog-icon-scale.css";
 import Script from "next/script";
 import HubTutorial from "./components/hub-tutorial";
 import HubTheme from "./components/hub-theme";
-import Adsense from "./components/adsense";
 import AdSlot from "./components/ad-slot";
 import SiteFooter from "./components/site-footer";
 import MovaBrand from "./components/mova-brand";
@@ -57,12 +56,10 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {adsenseClient && <Script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`} crossOrigin="anonymous" strategy="afterInteractive" />}
-        {/* 상단 광고 자리: AdSense 설정 전에는 자리만 표시됩니다. */}
+        {/* 상단/하단 슬롯은 각각 자기 자신만 한 번 초기화합니다. */}
         <AdSlot label="광고" />
         {children}
-        {/* 하단 광고 자리: 모든 페이지에서 공통으로 사용할 수 있습니다. */}
         <AdSlot label="광고" />
-        <Adsense />
         <SiteFooter />
         <HubTheme />
         <HubTutorial />

@@ -1,7 +1,7 @@
 {
   // Next.js 정적 빌드 결과를 Cloudflare Workers Static Assets로 서비스합니다.
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "hub",
+  "name": "mova",
   "compatibility_date": "2026-09-08",
   "assets": {
     // `npm run build`가 생성하는 정적 사이트 폴더입니다.

@@ -11,6 +11,7 @@ import "./components/compare-bar-unified.css";
 import "./ui-visibility-polish.css";
 import "./button-clarity.css";
 import "./catalog-icon-scale.css";
+import "./mobile-card-readability.css";
 import Script from "next/script";
 import HubTutorial from "./components/hub-tutorial";
 import HubTheme from "./components/hub-theme";

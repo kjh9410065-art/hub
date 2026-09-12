@@ -1,14 +1,19 @@
-/* 페이지마다 공통으로 사용할 광고 영역입니다. AdSense 승인/ID 설정 전에도 자리만 유지합니다. */
+/* 공통 AdSense 광고 슬롯입니다. 각 슬롯을 한 번만 초기화해 중복 광고 요청 충돌을 막습니다. */
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const CLIENT_ID = process.env.NEXT_PUBLIC_ADSENSE_CLIENT?.trim() || "";
 
 export default function AdSlot({ slot = "", label = "광고" }) {
+  // 같은 React 컴포넌트가 다시 렌더링되어도 동일 슬롯을 중복 초기화하지 않습니다.
+  const adRef = useRef(null);
+
   useEffect(() => {
-    // Publisher ID가 있을 때만 해당 광고 슬롯을 AdSense에 요청합니다.
-    if (!CLIENT_ID || typeof window === "undefined") return;
+    if (!CLIENT_ID || typeof window === "undefined" || !adRef.current) return;
+
+    // 이미 AdSense가 처리한 슬롯에는 다시 push하지 않습니다.
+    if (adRef.current.getAttribute("data-adsbygoogle-status")) return;
 
     try {
       window.adsbygoogle = window.adsbygoogle || [];
@@ -19,9 +24,10 @@ export default function AdSlot({ slot = "", label = "광고" }) {
   }, []);
 
   return (
-    <div className="movaAdSlot" aria-label={`${label} 영역`}>
+    <div className={`movaAdSlot${CLIENT_ID ? " movaAdSlotEnabled" : ""}`} aria-label={`${label} 영역`}>
       {CLIENT_ID ? (
         <ins
+          ref={adRef}
           className="adsbygoogle movaAdSlotInner"
           style={{ display: "block" }}
           data-ad-client={CLIENT_ID}
@@ -29,9 +35,7 @@ export default function AdSlot({ slot = "", label = "광고" }) {
           data-ad-format="auto"
           data-full-width-responsive="true"
         />
-      ) : (
-        <span className="movaAdPlaceholder">{label}</span>
-      )}
+      ) : null}
     </div>
   );
 }
